@@ -1,0 +1,188 @@
+/* Ensure full-page background applies only to login */
+.login-page {
+    /* Your background color */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* margin-top: 100px; */
+}
+
+/* Set a fixed minimum height for the form container */
+.container-login {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    min-height: 450px;
+    /* Set a minimum height to balance both Login & Signup */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-signup {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    min-height: 450px;
+    /* Set a minimum height to balance both Login & Signup */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+.verify-email {
+    cursor: pointer;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.header1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    margin-top: -508px;
+}
+
+.text {
+    color: #FFA54F;
+    font-size: 48px;
+    font-weight: 700;
+
+    margin-top: 500px;
+}
+
+.inputs {
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    /* Ensure it fits within the container */
+    box-sizing: border-box;
+    /* Prevents extra width issues */
+}
+
+.input img {
+    margin: 0px 30px;
+}
+
+.input input {
+    flex: 1;
+    /* Makes input take up available space */
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    /* Ensure it does not exceed parent */
+    box-sizing: border-box;
+    margin-right: 0px;
+}
+
+.forget-password {
+    margin: auto 5px;
+    margin-bottom: 10px;
+    color: #797979;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.forget-password:hover {
+    color: #000000;
+}
+
+.forget-password span {
+    color: #4c00b4;
+    cursor: pointer;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+
+.submit {
+    border: none;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 59px;
+    color: #fff;
+    background-color: #ff8b1c;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: #FFA54F;
+}
+
+.submit i{
+    margin-right: 10px;
+}
+
+.submit-clicked {
+    background-color: #FFA54F;
+}
+
+.gray {
+    background: #EAEAEA;
+    color: #676767;
+}
+
+.icon {
+    background-color: lightgray;
+
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.input input {
+    padding: 10px;
+}
+
+/* @media (max-width: 480px) {
+    .forget-password {
+        margin-left: 190px;
+        margin-bottom: 10px;
+        color: #797979;
+        font-size: 15px;
+        cursor: pointer;
+    }
+} */
