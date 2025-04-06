@@ -12,7 +12,7 @@ import { Subscription } from './Pages/Subscription/Subscription';
 import { AddTiffinPlan } from './Pages/TiffinPlan/AddTiffinPlan';
 import { AddMenuItem } from './Pages/MenuItem/AddMenuItem';
 import { AllOrders } from './Pages/Order/AllOrders';
-import { TodayOrder } from './Pages/Order/todayOrder';
+import { TodayOrder } from './Pages/Order/TodayOrder';
 import { ViewMenuItem } from './Pages/MenuItem/ViewMenuItem';
 import { ViewTiffinPlan } from './Pages/TiffinPlan/ViewTiffinPlan';
 import { ViewUserSubscription } from './Pages/Subscription/ViewUserSubscription';
@@ -34,7 +34,6 @@ import { UserProfile } from './Pages/Profile/UserProfile';
 function App() {
   const location = useLocation();
 
-  // Define routes that should NOT be wrapped with Base
   const authRoutes = ["/", "/register", "/verify-otp", "/forget-password", "/reset-password", "/business-details"];
   const isAuthPage = authRoutes.includes(location.pathname);
 
