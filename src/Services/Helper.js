@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getAuthToken } from "../Components/Auth/Index";
 
-export const BASE_URL = 'http://localhost:8080'; 
+export const BASE_URL = 'https://homeybites.onrender.com'; 
  
 export const myAxios = axios.create({
     baseURL: BASE_URL,
