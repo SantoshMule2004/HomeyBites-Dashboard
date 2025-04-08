@@ -86,11 +86,11 @@ export const AddMenuItem = () => {
             <form className="row g-3">
                 <div className="col-md-6">
                     <label htmlFor="inputMenuName" className="form-label fw-bold">Menu item name</label>
-                    <input type="text" className="form-control" id="inputMenuName" onChange={(e) => changeHandler(e, 'menuName')} value={menuData.menuName} />
+                    <input type="text" className="form-control no-focus-outline" id="inputMenuName" onChange={(e) => changeHandler(e, 'menuName')} value={menuData.menuName} />
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputMenuType" className="form-label fw-bold">Menu Type</label>
-                    <select id="inputMenuType" className="form-select" onChange={(e) => changeHandler(e, 'menuType')}>
+                    <select id="inputMenuType" className="form-select no-focus-outline" onChange={(e) => changeHandler(e, 'menuType')}>
                         <option value='Thali'>Thali</option>
                         <option value='Breakfast'>Breakfast</option>
                     </select>
@@ -99,14 +99,14 @@ export const AddMenuItem = () => {
                     <label htmlFor="inputMenuPrice" className="form-label fw-bold">Price</label>
                     <div className="input-group mb-3">
                         <span className="input-group-text">₹</span>
-                        <input type="text" className="form-control" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" onChange={(e) => changeHandler(e, 'price')} value={menuData.price} />
+                        <input type="text" className="form-control no-focus-outline" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" onChange={(e) => changeHandler(e, 'price')} value={menuData.price} />
                         <span className="input-group-text">.00</span>
                     </div>
                 </div>
 
                 <div className="col-md-8">
                     <label htmlFor="inputCategory" className="form-label fw-bold">Category: </label>
-                    <select id="inputCategory" className="form-select" onClick={categoryHandler}>
+                    <select id="inputCategory" className="form-select no-focus-outline" onClick={categoryHandler}>
                         <option value='1'>Veg</option>
                         <option value='2'>Non-Veg</option>
                         <option>...</option>
@@ -117,7 +117,7 @@ export const AddMenuItem = () => {
                     <label htmlFor="inputMenuImage" className="form-label fw-bold">Menu item image</label>
                     <input
                         type="file"
-                        className="form-control"
+                        className="form-control no-focus-outline"
                         id="inputMenuImage"
                         onChange={imageHandler}
                         accept="image/*"
@@ -127,7 +127,7 @@ export const AddMenuItem = () => {
                 <div className="col-md-12">
                     <label htmlFor="inputDesc" className="form-label fw-bold">Description</label>
                     {/* <input type="text" className="form-control" id="inputDesc" /> */}
-                    <textarea className="form-control" rows="3" id='inputDesc' onChange={(e) => changeHandler(e, 'description')} value={menuData.description}></textarea>
+                    <textarea className="form-control no-focus-outline" rows="3" id='inputDesc' onChange={(e) => changeHandler(e, 'description')} value={menuData.description}></textarea>
                 </div>
 
                 <div className="col-12 mt-5 d-flex justify-content-center">

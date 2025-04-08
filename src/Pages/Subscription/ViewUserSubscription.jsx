@@ -51,43 +51,43 @@ export const ViewUserSubscription = () => {
                     <div className="row g-3">
                         <div className="col-md-6">
                             <label htmlFor="inputUserName" className="form-label fw-bold">User name</label>
-                            <input type="text" className="form-control" id="inputUserName" value={userData.firstName + " " + userData.lastName} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputUserName" value={userData.firstName + " " + userData.lastName} readOnly />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputUserEmail" className="form-label fw-bold">Email Id</label>
-                            <input type="text" className="form-control" id="inputUserEmail" value={userData.emailId} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputUserEmail" value={userData.emailId} readOnly />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="inputSDate" className="form-label fw-bold">Start Date</label>
-                            <input type="text" className="form-control" id="inputSDate" value={subscriptionData.startDate} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputSDate" value={subscriptionData.startDate} readOnly />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="inputEDate" className="form-label fw-bold">End Date</label>
-                            <input type="text" className="form-control" id="inputEDate" value={subscriptionData.endDate} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputEDate" value={subscriptionData.endDate} readOnly />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="inputPlanDuration" className="form-label fw-bold">Plan validity</label>
-                            <input type="text" className="form-control" id="inputPlanDuration" value={subscriptionData.planDuration} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputPlanDuration" value={subscriptionData.planDuration} readOnly />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputPlanName" className="form-label fw-bold">Plan Name</label>
-                            <input type="text" className="form-control" id="inputPlanName" value={tiffinData.planName} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputPlanName" value={tiffinData.planName} readOnly />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputPlanType" className="form-label fw-bold">Plan Type</label>
-                            <input type="text" className="form-control" id="inputPlanType" value={tiffinData.planType} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputPlanType" value={tiffinData.planType} readOnly />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="inputMenuPrice" className="form-label fw-bold">Price</label>
                             <div className="input-group mb-3">
                                 <span className="input-group-text">₹</span>
-                                <input type="text" className="form-control" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" value={tiffinData.price} readOnly />
+                                <input type="text" className="form-control no-focus-outline" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" value={tiffinData.price} readOnly />
                                 <span className="input-group-text">.00</span>
                             </div>
                         </div>
                         <div className="col-md-8">
                             <label htmlFor="inputAddons" className="form-label fw-bold">Add Ons</label>
-                            <input type="text" className="form-control" id="inputAddons" value={tiffinData.addOns} readOnly />
+                            <input type="text" className="form-control no-focus-outline" id="inputAddons" value={tiffinData.addOns} readOnly />
                         </div>
 
                         <div className="col-md-12">

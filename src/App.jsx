@@ -30,6 +30,8 @@ import { UpdateTiffinPlan } from './Pages/TiffinPlan/UpdateTiffinPlan';
 import { Base } from './Pages/Base/Base';
 import BusinessDetails from './Pages/login-signup/BusinessDetails';
 import { UserProfile } from './Pages/Profile/UserProfile';
+import { UpdateBusinessDetails } from './Pages/Profile/UpdateBusinessDetails';
+import { UpdateProfile } from './Pages/Profile/UpdateProfile';
 
 function App() {
   const location = useLocation();
@@ -68,6 +70,8 @@ function App() {
               <Route path='/all-orders' element={<AllOrders />} />
               <Route path='/today-orders' element={<TodayOrder />} />
               <Route path='/profile' element={<UserProfile />} />
+              <Route path='/update-business-details' element={<UpdateBusinessDetails />} />
+              <Route path='/update-profile' element={<UpdateProfile />} />
             </Routes>
           </Base>
         )

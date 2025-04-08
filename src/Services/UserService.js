@@ -11,6 +11,16 @@ export const signIn = async (user) => {
     .then((response) => response.data)
 }
 
+export const updateUserInfo = async (userId, userData) => {
+    return await myAxios.put('/api/v1/users/'+userId, userData)
+    .then((response) => response.data)
+}
+
+export const updateBusinessDetails = async (userId, userData, addressId) => {
+    return await myAxios.put('/api/v1/users/business-details/'+userId+'/'+addressId, userData)
+    .then((response) => response.data)
+}
+
 export const addBusinessDetails = async (userId, user) => {
     return await myAxios.put('/api/v1/auth/tiffin-provider/'+userId+'/business-details', user)
     .then((response) => response.data)

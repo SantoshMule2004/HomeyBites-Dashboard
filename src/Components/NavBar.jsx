@@ -2,7 +2,7 @@
 import './Style.css';
 import logo from '../assets/homeybites-logo.png'
 import { Link } from 'react-router-dom';
-import { doLogout, isLoggedIn } from '../Components/Auth/Index'
+import { doLogout, getUserInfo, isLoggedIn } from '../Components/Auth/Index'
 
 export const NavBar = ({ onToggleSidebar }) => {
 
@@ -12,6 +12,8 @@ export const NavBar = ({ onToggleSidebar }) => {
             navigate('/');
         });
     };
+
+    const user = getUserInfo();
 
     return (
         <nav className="navbar navbar-white fixed-top navbar-expand-lg bg-white px-5">
@@ -37,12 +39,12 @@ export const NavBar = ({ onToggleSidebar }) => {
                             <>
                                 <div className="dropdown">
                                     <button className="nav-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i className="fa-solid fa-user"></i> Profile
+                                    <i className="fa-solid fa-circle-user"></i> {user.firstName + " " + user.lastName}
                                     </button>
                                     <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton1">
-                                        <li><a className="dropdown-item" href="#"></a></li>
-                                        <li><a className="dropdown-item" href="#">profile</a></li>
-                                        <li><Link to='/' className='dropdown-item' onClick={logOut}>Logout</Link></li>
+                                        <li><Link to='/profile' className='dropdown-item custom-item' >Profile</Link></li>
+                                        {/* <li><Link to='/' className='dropdown-item' onClick={logOut}>Logout</Link></li> */}
+                                        <li><Link to='/' className='dropdown-item custom-item' onClick={logOut}>Logout</Link></li>
                                     </ul>
                                 </div>
                             </>

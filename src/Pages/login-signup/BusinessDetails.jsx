@@ -146,10 +146,10 @@ const BusinessDetails = () => {
                             <img src={password_icon} alt="" />
                             <input type="text" placeholder='Landmark' value={data.address[0].landmark} onChange={(e) => handleChange(e, 0, 'landmark')} />
                         </div>
-
+                        
                         <div className="input">
                             <img src={password_icon} alt="" />
-                            <input type="text" placeholder='city' value={data.address[0].city} onChange={(e) => handleChange(e, 0, 'city')} />
+                            <input type="text" placeholder='country' value={data.address[0].country} onChange={(e) => handleChange(e, 0, 'country')} />
                         </div>
 
                         <div className="input">
@@ -159,7 +159,7 @@ const BusinessDetails = () => {
 
                         <div className="input">
                             <img src={password_icon} alt="" />
-                            <input type="text" placeholder='country' value={data.address[0].country} onChange={(e) => handleChange(e, 0, 'country')} />
+                            <input type="text" placeholder='city' value={data.address[0].city} onChange={(e) => handleChange(e, 0, 'city')} />
                         </div>
 
                         <div className="input">

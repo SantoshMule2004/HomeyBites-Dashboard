@@ -69,20 +69,20 @@ export const UpdateMenuItem = () => {
                     <div className="card-body">
                         <div className="col-md-12">
                             <label htmlFor="inputMenuName" className="form-label fw-bold">Menu item name</label>
-                            <input type="text" className="form-control" id="inputMenuName" onChange={(e) => changeHandler(e, 'menuName')} value={updatedMenuData.menuName} />
+                            <input type="text" className="form-control no-focus-outline" id="inputMenuName" onChange={(e) => changeHandler(e, 'menuName')} value={updatedMenuData.menuName} />
                         </div>
 
                         <div className="col-md-12">
                             <label htmlFor="inputDesc" className="form-label fw-bold">Description</label>
                             {/* <input type="text" className="form-control" id="inputDesc" /> */}
-                            <textarea className="form-control" rows="3" id='inputDesc' onChange={(e) => changeHandler(e, 'description')} value={updatedMenuData.description}></textarea>
+                            <textarea className="form-control no-focus-outline" rows="3" id='inputDesc' onChange={(e) => changeHandler(e, 'description')} value={updatedMenuData.description}></textarea>
                         </div>
 
                         <div className="col-md-12">
                             <label htmlFor="inputMenuPrice" className="form-label fw-bold">Price</label>
                             <div className="input-group mb-3">
                                 <span className="input-group-text">₹</span>
-                                <input type="text" className="form-control" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" onChange={(e) => changeHandler(e, 'price')} value={updatedMenuData.price} />
+                                <input type="text" className="form-control no-focus-outline" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" onChange={(e) => changeHandler(e, 'price')} value={updatedMenuData.price} />
                                 <span className="input-group-text">.00</span>
                             </div>
                         </div>

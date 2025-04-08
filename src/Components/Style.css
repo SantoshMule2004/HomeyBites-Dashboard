@@ -131,6 +131,30 @@
     /* just below the sidebar */
 }
 
+/* for the profile dropdown */
+.custom-item:focus,
+.custom-item:active {
+  background-color: #e2e6ea !important;
+  color: #000 !important;
+}
+
+.profile-div{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-div:hover{
+    background-color: #e2e6ea;
+}
+
+/* input box */
+.no-focus-outline:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #e2e6ea;
+  }
+
 @media (max-width: 1000px) {
     .Base {
         width: calc(100% - 200px);

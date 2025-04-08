@@ -117,11 +117,11 @@ export const AddTiffinPlan = () => {
             <form className="row g-3">
                 <div className="col-md-6">
                     <label htmlFor="inputPlanName" className="form-label fw-bold">Plan Name</label>
-                    <input type="text" className="form-control" id="inputPlanName" value={tiffinData.planName} onChange={(e) => handleInputChange(e, 'planName')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputPlanName" value={tiffinData.planName} onChange={(e) => handleInputChange(e, 'planName')} />
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputPlanType" className="form-label fw-bold">Plan Type</label>
-                    <select id="inputPlanType" className="form-select" value={tiffinData.planType} onChange={(e) => handleInputChange(e, 'planType')}>
+                    <select id="inputPlanType" className="form-select no-focus-outline" value={tiffinData.planType} onChange={(e) => handleInputChange(e, 'planType')}>
                         <option value="">Select plan type</option>
                         <option value='Veg'>Veg</option>
                         <option value='Non-veg'>Non-Veg</option>
@@ -133,13 +133,13 @@ export const AddTiffinPlan = () => {
                     <label htmlFor="inputMenuPrice" className="form-label fw-bold">Price</label>
                     <div className="input-group mb-3">
                         <span className="input-group-text">₹</span>
-                        <input type="text" className="form-control" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" value={tiffinData.price} onChange={(e) => handleInputChange(e, 'price')} />
+                        <input type="text" className="form-control no-focus-outline" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" value={tiffinData.price} onChange={(e) => handleInputChange(e, 'price')} />
                         <span className="input-group-text">.00</span>
                     </div>
                 </div>
                 <div className="col-md-8">
                     <label htmlFor="inputAddons" className="form-label fw-bold">Add Ons</label>
-                    <input type="text" className="form-control" id="inputAddons" value={tiffinData.addOns} onChange={(e) => handleInputChange(e, 'addOns')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputAddons" value={tiffinData.addOns} onChange={(e) => handleInputChange(e, 'addOns')} />
                 </div>
 
                 <h3>Select Menu for Each Day</h3>

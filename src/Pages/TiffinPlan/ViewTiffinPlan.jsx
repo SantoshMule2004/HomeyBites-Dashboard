@@ -165,23 +165,23 @@ export const ViewTiffinPlan = () => {
                         <div className="row g-3">
                             <div className="col-md-6">
                                 <label htmlFor="inputPlanName" className="form-label fw-bold">Plan Name</label>
-                                <input type="text" className="form-control" id="inputPlanName" value={tiffinData.planName || ""} readOnly />
+                                <input type="text" className="form-control no-focus-outline" id="inputPlanName" value={tiffinData.planName || ""} readOnly />
                             </div>
                             <div className="col-md-6">
                                 <label htmlFor="inputPlanType" className="form-label fw-bold">Plan Type</label>
-                                <input type="text" className="form-control" id="inputPlanType" value={tiffinData.planType || ""} readOnly />
+                                <input type="text" className="form-control no-focus-outline" id="inputPlanType" value={tiffinData.planType || ""} readOnly />
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="inputMenuPrice" className="form-label fw-bold">Price</label>
                                 <div className="input-group mb-3">
                                     <span className="input-group-text">₹</span>
-                                    <input type="text" className="form-control" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" value={tiffinData.price || ""} readOnly />
+                                    <input type="text" className="form-control no-focus-outline" id='inputMenuPrice' aria-label="Amount (to the nearest dollar)" value={tiffinData.price || ""} readOnly />
                                     <span className="input-group-text">.00</span>
                                 </div>
                             </div>
                             <div className="col-md-8">
                                 <label htmlFor="inputAddons" className="form-label fw-bold">Add Ons</label>
-                                <input type="text" className="form-control" id="inputAddons" value={tiffinData.addOns || ""} readOnly />
+                                <input type="text" className="form-control no-focus-outline" id="inputAddons" value={tiffinData.addOns || ""} readOnly />
                             </div>
                         </div>
 
@@ -212,7 +212,7 @@ export const ViewTiffinPlan = () => {
                                                 <td key={i}>
                                                     {editingIndex === index ? (
                                                         <select
-                                                            className="form-select"
+                                                            className="form-select no-focus-outline"
                                                             value={selectedMenu[index]?.[mealType] || plan?.menuItem?.[mealType]?.menuId}
                                                             onChange={(e) => handleSelectChange(e, index, mealType)}
                                                         >
