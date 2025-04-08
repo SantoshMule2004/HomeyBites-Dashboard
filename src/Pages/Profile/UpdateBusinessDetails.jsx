@@ -17,14 +17,14 @@ export const UpdateBusinessDetails = () => {
         gstin: user.gstin,
         address: [
             {
-                addressLine: user.address[0].addressLine,
-                landmark: user.address[0].landmark,
-                city: user.address[0].city,
-                state: user.address[0].state,
-                country: user.address[0].country,
-                latitude: user.address[0].latitude,
-                longitude: user.address[0].longitude,
-                serviceRadius: user.address[0].serviceRadius
+                addressLine: user?.address[0]?.addressLine,
+                landmark: user?.address[0]?.landmark,
+                city: user?.address[0]?.city,
+                state: user?.address[0]?.state,
+                country: user?.address[0]?.country,
+                latitude: user?.address[0]?.latitude,
+                longitude: user?.address[0]?.longitude,
+                serviceRadius: user?.address[0]?.serviceRadius
             }
         ]
     })
