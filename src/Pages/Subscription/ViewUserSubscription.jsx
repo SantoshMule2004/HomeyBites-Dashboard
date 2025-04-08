@@ -24,7 +24,14 @@ export const ViewUserSubscription = () => {
                 setLoading(false);
                 setsubscriptionData(response);
                 setuserData(response?.user);
-                setTiffinData(response?.tiffinPlan);
+
+                if (response?.tiffinPlan) {
+                    console.log("tiffin plan", response?.tiffinPlan)
+                    setTiffinData(response?.tiffinPlan);
+                  } else {
+                    console.log("tiffin log", response?.tiffinPlanLog)
+                    setTiffinData(response?.tiffinPlanLog);
+                  }
 
                 console.log("subscription data", response);
                 console.log("User data", response?.user);

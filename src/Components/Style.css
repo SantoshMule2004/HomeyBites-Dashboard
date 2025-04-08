@@ -30,7 +30,7 @@
 }
 
 .divider {
-    border-top: solid 1px #7e7c7c;
+    border-top: solid 1px #e2e6ea;
 }
 
 /* Logo */
@@ -154,6 +154,16 @@
     box-shadow: none;
     border-color: #e2e6ea;
   }
+
+.login-security {
+    width: 100%;
+    text-align: left;
+    border: none;
+}
+
+.login-security:hover{
+    background-color: #e2e6ea;
+}
 
 @media (max-width: 1000px) {
     .Base {

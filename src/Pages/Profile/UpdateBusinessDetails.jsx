@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../../Components/Auth/Index';
-import { updateBusinessDetails, updateUserInfo } from '../../Services/UserService';
+import { getUserInfo, setUserInfo } from '../../Components/Auth/Index';
+import { getProviderInfo, updateBusinessDetails, updateUserInfo } from '../../Services/UserService';
 import { toast } from 'react-toastify';
+import ScreenLoader from '../../Components/ScreenLoader';
 
 export const UpdateBusinessDetails = () => {
+
+    const [loading, setLoading] = useState(false);
+    const [LoginButtonText, setLoginLoading] = useButtonLoader(
+        "Update business details",
+        ""
+    )
 
     const navigate = useNavigate();
 
     const user = getUserInfo();
+
+    const [providerData, setproviderData] = useState({});
 
     const [businessData, setBusinessData] = useState({
         businessName: user.businessName,
@@ -29,11 +38,14 @@ export const UpdateBusinessDetails = () => {
         ]
     })
 
-    const [loading, setLoading] = useState(false);
-    const [LoginButtonText, setLoginLoading] = useButtonLoader(
-        "Update business details",
-        ""
-    )
+    // const getProviderInfoHandler = () => {
+    //     getProviderInfo(user.userId).then((response) => {
+    //         setproviderData(response);
+    //         setLoading(false);
+    //     }).catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
 
     // change handler
     const changeHandler = (event, property) => {
@@ -65,12 +77,15 @@ export const UpdateBusinessDetails = () => {
         setLoginLoading(true);
 
         console.log("userData to be sent", businessData)
-        
+
         updateBusinessDetails(user.userId, businessData, user.address[0].addId).then((response) => {
             setLoginLoading(false);
+            console.log("UserData", response?.classObj)
+            setUserInfo(response?.classObj);
             toast.success("Business details updated successfully..!");
             console.log(response);
-            
+            navigate("/profile")
+
         }).catch((error) => {
             console.log(error);
             setLoginLoading(false);
@@ -138,8 +153,7 @@ export const UpdateBusinessDetails = () => {
 
 
                 <div className="col-12 mt-5 d-flex justify-content-center">
-                    {/* <button type="submit" className="btn button">Add Menuitem</button> */}
-                    <button className={`btn button`} type='submit' onClick={UpdateBusinessDetailsHandler}>{LoginButtonText}</button>
+                    <button className={`btn button`} type='submit' onClick={UpdateBusinessDetailsHandler} style={{ width: '250px' }}>{LoginButtonText}</button>
                 </div>
             </form>
         </div>

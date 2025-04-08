@@ -30,3 +30,8 @@ export const getUserInfo = () => {
     if(isLoggedIn())
         return JSON.parse(localStorage.getItem("user"));
 }
+
+export const setUserInfo = (user) => {
+    const userData = JSON.stringify(user);
+    localStorage.setItem("user", userData);
+}
