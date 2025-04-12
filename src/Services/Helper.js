@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getAuthToken } from "../Components/Auth/Index";
 
-export const BASE_URL = 'https://homeybites.onrender.com'; 
+export const BASE_URL = 'https://homeybites-production.up.railway.app'; 
  
 export const myAxios = axios.create({
     baseURL: BASE_URL,
@@ -25,4 +25,5 @@ myAxios.interceptors.request.use((config)=>{
 });
 
 // const API_BASE_URL = "https://homeybites.onrender.com ";
+// const API_BASE_URL_RAILWAY = "https://homeybites-production.up.railway.app ";
 // Local URL = http://localhost:8080

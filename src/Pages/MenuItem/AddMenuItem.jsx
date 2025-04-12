@@ -4,6 +4,7 @@ import useButtonLoader from '../../Components/UseButtonLoader';
 import { toast } from 'react-toastify';
 import { addMenu } from '../../Services/MenuService';
 import { getUserInfo } from '../../Components/Auth/Index';
+import { useNavigate } from 'react-router-dom';
 
 export const AddMenuItem = () => {
 
@@ -14,6 +15,8 @@ export const AddMenuItem = () => {
         menuType: '',
         active: true
     })
+
+    const navigate = useNavigate();
 
     const [menuImage, setMenuImage] = useState("");
 
@@ -70,6 +73,7 @@ export const AddMenuItem = () => {
                 setLoading(false);
                 console.log(response);
                 toast.success("Menu item added successfully..");
+                navigate('/menuitem');
             }).catch((error) => {
                 setMenuItemButtonLoading(false);
                 setLoading(false);
