@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Base } from '../Base/Base'
-import Poha from '../../assets/Breakfast/Poha.jpg'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { deleteMenu, getMenu } from '../../Services/MenuService';
 import ScreenLoader from '../../Components/ScreenLoader';
