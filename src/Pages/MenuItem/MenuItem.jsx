@@ -5,6 +5,7 @@ import { getUserInfo } from '../../Components/Auth/Index'
 import { getMenuOfProvider } from '../../Services/MenuService'
 import '../../Components/Style.css'
 import ScreenLoader from '../../Components/ScreenLoader'
+import { useMenuItems } from '../../Context/MenuItemContext'
 
 export const MenuItem = () => {
     const navigate = useNavigate();
@@ -13,17 +14,27 @@ export const MenuItem = () => {
     const user = getUserInfo();
     const [menuItems, setMenuItems] = useState([]);
 
+    const { getMenuItemsData, setMenuItemsData } = useMenuItems();
+
     const getMenuItems = () => {
         setLoading(true);
         if (user != null) {
-            getMenuOfProvider(user.userId).then((response) => {
+            if (getMenuItemsData() == null) {
+                console.log("Making API call")
+                getMenuOfProvider(user.userId).then((response) => {
+                    setLoading(false);
+                    setMenuItems(response);
+                    setMenuItemsData(response);
+                    console.log(response)
+                }).catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                })
+            } else {
                 setLoading(false);
-                setMenuItems(response);
-                console.log(response)
-            }).catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
+                console.log("Data from localstorage")
+                setMenuItems(getMenuItemsData());
+            }
         }
     }
 

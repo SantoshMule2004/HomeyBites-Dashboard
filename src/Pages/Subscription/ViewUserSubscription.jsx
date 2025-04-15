@@ -17,6 +17,8 @@ export const ViewUserSubscription = () => {
     const [userData, setuserData] = useState([]);
     const [tiffinData, setTiffinData] = useState([]);
 
+    const [menuData, setMenuData] = useState({});
+
     const getSubscriptionInfo = () => {
         setLoading(true);
         if (planId != null) {
@@ -28,10 +30,22 @@ export const ViewUserSubscription = () => {
                 if (response?.tiffinPlan) {
                     console.log("tiffin plan", response?.tiffinPlan)
                     setTiffinData(response?.tiffinPlan);
-                  } else {
+                } else {
                     console.log("tiffin log", response?.tiffinPlanLog)
                     setTiffinData(response?.tiffinPlanLog);
-                  }
+                }
+
+                const tiffinInfo = response?.tiffinPlan ? response?.tiffinPlan : response?.tiffinPlanLog;
+                const map = {};
+                tiffinInfo.tiffinDays.forEach(day => {
+                    day.menuItem.forEach(item => {
+                        if (typeof item === 'object' && item !== null && 'menuId' in item) {
+                            map[item.menuId] = item; // Stores unique menuId → object
+                        }
+                    });
+                });
+
+                setMenuData(map);
 
                 console.log("subscription data", response);
                 console.log("User data", response?.user);
@@ -123,9 +137,9 @@ export const ViewUserSubscription = () => {
                                 {tiffinData?.tiffinDays.map((day, index) => (
                                     <tr key={index}>
                                         <td className='fw-bold'>{day?.weekDay || '-'}</td>
-                                        <td>{day?.menuItem?.[0]?.menuName || '-'}</td>
-                                        <td>{day?.menuItem?.[1]?.menuName || '-'}</td>
-                                        <td>{day?.menuItem?.[2]?.menuName || '-'}</td>
+                                        <td>{day?.menuItem?.[0]?.menuName || menuData[day?.menuItem?.[0]]?.menuName}</td>
+                                        <td>{day?.menuItem?.[1]?.menuName || menuData[day?.menuItem?.[1]]?.menuName}</td>
+                                        <td>{day?.menuItem?.[2]?.menuName || menuData[day?.menuItem?.[2]]?.menuName}</td>
                                     </tr>
                                 ))}
                             </tbody>

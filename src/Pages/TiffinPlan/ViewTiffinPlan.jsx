@@ -8,10 +8,11 @@ import ScreenLoader from '../../Components/ScreenLoader';
 import { toast } from 'react-toastify';
 import { getMenuOfProvider } from '../../Services/MenuService';
 import { getUserInfo } from '../../Components/Auth/Index';
+import { useTiffinPlans } from '../../Context/TiffinPlanContext';
 
 export const ViewTiffinPlan = () => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [tiffinPlanText, setTiffinPlanButtonLoading] = useButtonLoader(
         "Delete",
         ""
@@ -27,10 +28,14 @@ export const ViewTiffinPlan = () => {
 
     const [selectedMenu, setSelectedMenu] = useState({})
 
+    const { updateTiffinPlanData, getSingleTiffinPlan } = useTiffinPlans();
+
     const user = getUserInfo();
     const [menuItems, setMenuItems] = useState([]);
     const [breakFastData, setbreakFastData] = useState([]);
     const [ThaliData, setThaliData] = useState([]);
+
+    const [menuData, setMenuData] = useState({});
 
     // get menuitems to be shown
     const getMenuItems = () => {
@@ -56,7 +61,9 @@ export const ViewTiffinPlan = () => {
 
     const planId = localStorage.getItem("planId");
     console.log("plan id", planId)
-    const [tiffinData, setTiffinData] = useState([]);
+    const [tiffinData, setTiffinData] = useState(() => {
+        return localStorage.getItem("tiffinData") || [];
+    });
 
     const getTiffinData = () => {
         setLoading(true);
@@ -66,6 +73,20 @@ export const ViewTiffinPlan = () => {
                 setLoading(false);
                 setTiffinPlanButtonLoading(false);
                 setTiffinData(response);
+                console.log("updated plan data", response)
+
+                const tiffinInfo = response;
+                const map = {};
+                tiffinInfo.tiffinDays.forEach(day => {
+                    day.menuItem.forEach(item => {
+                        if (typeof item === 'object' && item !== null && 'menuId' in item) {
+                            map[item.menuId] = item; // Stores unique menuId → object
+                        }
+                    });
+                });
+
+                setMenuData(map);
+
                 console.log(response)
                 localStorage.setItem("tiffinData", JSON.stringify(response));
             }).catch((error) => {
@@ -96,7 +117,7 @@ export const ViewTiffinPlan = () => {
     useEffect(() => {
         getTiffinData();
         getMenuItems();
-    }, [])
+    }, [planId])
 
     const handleDeleteClick = () => {
         setIsModalOpen(true);
@@ -130,9 +151,23 @@ export const ViewTiffinPlan = () => {
 
     const handleSave = (index) => {
         setSaveLoading(true);
-        const oldIds = tiffinData.tiffinDays[index].menuItem.map(item => item.menuId);
-        const newIds = [selectedMenu[index][0], selectedMenu[index][1], selectedMenu[index][2]];
+        // const menuItem = tiffinData.tiffinDays[index].menuItem;
+        // const oldIds = tiffinData.tiffinDays[index].menuItem.map(item => item ? item.menuId : menuData[item].menuId);
 
+        const oldIds = tiffinData.tiffinDays[index].menuItem.map(item => {
+            if (typeof item === 'object' && item !== null && 'menuId' in item) {
+                return item.menuId;
+            } else if (typeof item === 'string' || typeof item === 'number') {
+                return item; // assuming it's already the menuId
+            } else {
+                return null; // or handle error
+            }
+        });
+
+        // menuData[plan?.menuItem?.[mealType]]?.menuName
+
+        const newIds = [selectedMenu[index][0], selectedMenu[index][1], selectedMenu[index][2]];
+        console.log("Index: ", index);
         const payload = {
             oldIds,
             newIds
@@ -143,11 +178,14 @@ export const ViewTiffinPlan = () => {
         // api call to update menuitem in tiffin plan
         updateMneuItemInTiffinPlan(planId, tiffinData.tiffinDays[index].weekDay, payload).then((response) => {
             setSaveLoading(false);
-            toast.success("menuitem Updated successfully..!");
-            localStorage.setItem("planId", response?.classObj?.tiffinPlanId);
-            console.log(response);
-            navigate("/view-tiffinplan")
             setEditingIndex(null);
+            toast.success("menuitem Updated successfully..!");
+            console.log(response);
+            updateTiffinPlanData(tiffinData?.tiffinPlanId, response?.classObj);
+            navigate("/view-tiffinplan")
+            localStorage.setItem("tiffinData", response?.classObj);
+            setTiffinData(getSingleTiffinPlan(response?.classObj?.tiffinPlanId));
+            localStorage.setItem("planId", response?.classObj?.tiffinPlanId);
         }).catch((error) => {
             setSaveLoading(false);
             console.log(error)
@@ -213,7 +251,7 @@ export const ViewTiffinPlan = () => {
                                                     {editingIndex === index ? (
                                                         <select
                                                             className="form-select no-focus-outline"
-                                                            value={selectedMenu[index]?.[mealType] || plan?.menuItem?.[mealType]?.menuId}
+                                                            value={selectedMenu[index]?.[mealType] || (plan?.menuItem?.[mealType]?.menuId || menuData[plan?.menuItem?.[mealType]]?.menuId)}
                                                             onChange={(e) => handleSelectChange(e, index, mealType)}
                                                         >
                                                             {menuItems.map((menu) => (
@@ -223,17 +261,17 @@ export const ViewTiffinPlan = () => {
                                                             ))}
                                                         </select>
                                                     ) : (
-                                                        plan?.menuItem?.[mealType]?.menuName || "-"
+                                                        plan?.menuItem?.[mealType]?.menuName || menuData[plan?.menuItem?.[mealType]]?.menuName
                                                     )}
                                                 </td>
                                             ))}
                                             <td>
                                                 {editingIndex === index ? (
-                                                    <button className="btn button" style={{width:"100%"}} onClick={() => handleSave(index)}>
+                                                    <button className="btn button" style={{ width: "100%" }} onClick={() => handleSave(index)}>
                                                         {saveText}
                                                     </button>
                                                 ) : (
-                                                    <button className="btn button" style={{width:"100%"}} onClick={() => handleUpdateClick(index)}>
+                                                    <button className="btn button" style={{ width: "100%" }} onClick={() => handleUpdateClick(index)}>
                                                         Update
                                                     </button>
                                                 )}

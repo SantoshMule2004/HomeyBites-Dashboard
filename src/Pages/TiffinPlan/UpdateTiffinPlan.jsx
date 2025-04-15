@@ -6,6 +6,7 @@ import { getMenuOfProvider } from '../../Services/MenuService';
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { updateTiffinPlan } from '../../Services/TiffinPlanService';
 import { toast } from 'react-toastify';
+import { useTiffinPlans } from '../../Context/TiffinPlanContext';
 
 export const UpdateTiffinPlan = () => {
 
@@ -14,6 +15,8 @@ export const UpdateTiffinPlan = () => {
         "Update",
         "Update"
     )
+    const { updateTiffinPlanData } = useTiffinPlans();
+
     const user = getUserInfo();
 
     const navigate = useNavigate();
@@ -104,6 +107,7 @@ export const UpdateTiffinPlan = () => {
         updateTiffinPlan(tiffinData.tiffinPlanId, formData).then((response) => {
             setButtonLoading(false);
             toast.success("Tiffin plan Updated successfully..!");
+            updateTiffinPlanData(tiffinData.tiffinPlanId, response?.classObj);
             navigate("/tiffinplan")
 
         }).catch((error) => {

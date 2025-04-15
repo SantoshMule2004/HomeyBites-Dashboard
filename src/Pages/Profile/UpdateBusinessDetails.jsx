@@ -99,28 +99,28 @@ export const UpdateBusinessDetails = () => {
 
                 <div className="col-md-12">
                     <label htmlFor="inputBusinessName" className="form-label fw-bold">Business Name</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputBusinessName" onChange={(e) => changeHandler(e, 'businessName')} value={businessData.businessName} />
+                    <input type="text" className="form-control no-focus-outline" id="inputBusinessName" onChange={(e) => changeHandler(e, 'businessName')} value={businessData.businessName || ""} />
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="inputFoodNo" className="form-label fw-bold">Food License No.</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputFoodNo" onChange={(e) => changeHandler(e, 'foodLicenseNo')} value={businessData.foodLicenseNo} readOnly />
+                    <input type="text" className="form-control no-focus-outline" id="inputFoodNo" onChange={(e) => changeHandler(e, 'foodLicenseNo')} value={businessData.foodLicenseNo || ""} readOnly />
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="inputGSTIN" className="form-label fw-bold">GSTIN No.</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputGSTIN" onChange={(e) => changeHandler(e, 'gstin')} value={businessData.gstin} readOnly />
+                    <input type="text" className="form-control no-focus-outline" id="inputGSTIN" onChange={(e) => changeHandler(e, 'gstin')} value={businessData.gstin || ""} readOnly />
                 </div>
 
                 <h4 className='heading mt-5'>Business address</h4>
 
                 <div className="col-md-12">
                     <label htmlFor="inputAddressLine" className="form-label fw-bold">Address line</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputAddressLine" value={businessData.address[0].addressLine} onChange={(e) => handleChange(e, 0, 'addressLine')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputAddressLine" value={businessData.address[0].addressLine || ""} onChange={(e) => handleChange(e, 0, 'addressLine')} />
                 </div>
                 <div className="col-md-12">
                     <label htmlFor="inputLandmark" className="form-label fw-bold">Landmark</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputLandmark" value={businessData.address[0].landmark} onChange={(e) => handleChange(e, 0, 'landmark')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputLandmark" value={businessData.address[0].landmark || ""} onChange={(e) => handleChange(e, 0, 'landmark')} />
                 </div>
                 {/* <div className="col-md-4">
                     <label htmlFor="inputCountry" className="form-label fw-bold">Country</label>
@@ -128,26 +128,26 @@ export const UpdateBusinessDetails = () => {
                 </div> */}
                 <div className="col-md-4">
                     <label htmlFor="inputState" className="form-label fw-bold">State</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputState" value={businessData.address[0].state} onChange={(e) => handleChange(e, 0, 'state')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputState" value={businessData.address[0].state || ""} onChange={(e) => handleChange(e, 0, 'state')} />
                 </div>
 
                 <div className="col-md-4">
                     <label htmlFor="inputCity" className="form-label fw-bold">City</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputCity" value={businessData.address[0].city} onChange={(e) => handleChange(e, 0, 'city')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputCity" value={businessData.address[0].city || ""} onChange={(e) => handleChange(e, 0, 'city')} />
                 </div>
 
                 <div className="col-md-4">
                     <label htmlFor="inputSRadius" className="form-label fw-bold">Service radius</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputSRadius    " value={businessData.address[0].serviceRadius} onChange={(e) => handleChange(e, 0, 'serviceRadius')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputSRadius    " value={businessData.address[0].serviceRadius || ""} onChange={(e) => handleChange(e, 0, 'serviceRadius')} />
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="inputLat" className="form-label fw-bold">Latitude</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputLat" value={businessData.address[0].latitude} onChange={(e) => handleChange(e, 0, 'latitude')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputLat" value={businessData.address[0].latitude || ""} onChange={(e) => handleChange(e, 0, 'latitude')} />
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputLon" className="form-label fw-bold">Longitude</label>
-                    <input type="text" className="form-control no-focus-outline" id="inputLon" value={businessData.address[0].longitude} onChange={(e) => handleChange(e, 0, 'longitude')} />
+                    <input type="text" className="form-control no-focus-outline" id="inputLon" value={businessData.address[0].longitude || ""} onChange={(e) => handleChange(e, 0, 'longitude')} />
                 </div>
 
 

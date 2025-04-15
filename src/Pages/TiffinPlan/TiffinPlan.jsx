@@ -4,12 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getUserInfo } from '../../Components/Auth/Index'
 import { getTiffinPlans } from '../../Services/TiffinPlanService'
 import ScreenLoader from '../../Components/ScreenLoader'
+import { useTiffinPlans } from '../../Context/TiffinPlanContext'
 
 export const TiffinPlan = () => {
 
     const [tiffiPlans, setTiffinPlans] = useState([]);
 
     const [loading, setLoading] = useState(true);
+
+    const { getTiffinPlanData, setTiffinPlanData } = useTiffinPlans();
 
     const user = getUserInfo();
 
@@ -23,14 +26,22 @@ export const TiffinPlan = () => {
     const getTiffinPlanOfProvider = () => {
         setLoading(true);
         if (user != null) {
-            getTiffinPlans(user.userId).then((response) => {
+            if (getTiffinPlanData() == null) {
+                console.log("API call")
+                getTiffinPlans(user.userId).then((response) => {
+                    setLoading(false);
+                    console.log(response)
+                    setTiffinPlans(response);
+                    setTiffinPlanData(response);
+                }).catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                })
+            } else {
+                console.log("Localstorage")
                 setLoading(false);
-                console.log(response)
-                setTiffinPlans(response);
-            }).catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
+                setTiffinPlans(getTiffinPlanData());
+            }
         }
     }
 

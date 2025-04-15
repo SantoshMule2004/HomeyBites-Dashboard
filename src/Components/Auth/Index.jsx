@@ -19,6 +19,9 @@ export const doLogout = (next) => {
     localStorage.removeItem("tiffinData");
     localStorage.removeItem("menuData");
     localStorage.removeItem("providerId");
+    localStorage.removeItem("menuItems");
+    localStorage.removeItem("tiffinPlans");
+    localStorage.removeItem("Subscriptions");
     next()
 }
 

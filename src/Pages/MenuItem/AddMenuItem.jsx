@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { addMenu } from '../../Services/MenuService';
 import { getUserInfo } from '../../Components/Auth/Index';
 import { useNavigate } from 'react-router-dom';
+import { useMenuItems } from '../../Context/MenuItemContext';
 
 export const AddMenuItem = () => {
 
@@ -15,6 +16,8 @@ export const AddMenuItem = () => {
         menuType: '',
         active: true
     })
+
+    const { addMenuItemToData } = useMenuItems();
 
     const navigate = useNavigate();
 
@@ -72,6 +75,10 @@ export const AddMenuItem = () => {
                 setMenuItemButtonLoading(false);
                 setLoading(false);
                 console.log(response);
+
+                // adding new added item to local storage
+                addMenuItemToData(response?.classObj);
+
                 toast.success("Menu item added successfully..");
                 navigate('/menuitem');
             }).catch((error) => {

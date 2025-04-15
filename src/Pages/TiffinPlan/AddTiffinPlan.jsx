@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { addTiffinPlan } from '../../Services/TiffinPlanService';
 import ScreenLoader from '../../Components/ScreenLoader';
 import { useNavigate } from 'react-router-dom';
+import { useTiffinPlans } from '../../Context/TiffinPlanContext';
 
 export const AddTiffinPlan = () => {
     const [loading, setLoading] = useState(false);
@@ -14,6 +15,8 @@ export const AddTiffinPlan = () => {
         "Add Tiffinplan",
         ""
     )
+
+    const { addTiffinPlanData } = useTiffinPlans();
 
     const navigate = useNavigate();
 
@@ -76,6 +79,7 @@ export const AddTiffinPlan = () => {
                 console.log("sent tiffin data", tiffinData)
                 console.log("response", response)
                 // setLoading(false);
+                addTiffinPlanData(response?.classObj)
                 toast.success("Tiffin plan added successfully..!");
                 navigate("/tiffinplan");
             }).catch((error) => {

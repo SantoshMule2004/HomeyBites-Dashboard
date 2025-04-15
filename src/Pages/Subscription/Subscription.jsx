@@ -4,10 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getUserInfo } from '../../Components/Auth/Index';
 import { fetchSubscriptions } from '../../Services/SubscriptionService';
 import ScreenLoader from '../../Components/ScreenLoader';
+import { useSubscriptions } from '../../Context/SubscriptionContext';
 
 export const Subscription = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+
+    const { getSubscriptionData, setSubscriptionData } = useSubscriptions();
 
     const user = getUserInfo();
 
@@ -16,14 +19,23 @@ export const Subscription = () => {
     const getSubscriptionsOfTiffinProvider = () => {
         setLoading(true);
         if (user != null) {
-            fetchSubscriptions(user.userId).then((response) => {
+            if(getSubscriptionData() == null) {
+                console.log("API call")
+                fetchSubscriptions(user.userId).then((response) => {
+                    setLoading(false);
+                    setsubscriptionData(response);
+                    setSubscriptionData(response);
+                    console.log(response)
+                }).catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                })
+            } else {
                 setLoading(false);
-                setsubscriptionData(response);
-                console.log(response)
-            }).catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
+                console.log("local storage")
+                setsubscriptionData(getSubscriptionData());
+            }
+            
         }
     }
 
@@ -58,12 +70,12 @@ export const Subscription = () => {
                                 </thead>
                                 <tbody>
                                     {subscriptionData.map((sub) => (
-                                        <tr key={sub?.user.userId}>
-                                            <td>{sub?.user.firstName + " " + sub?.user.lastName}</td>
-                                            <td>{sub?.user.emailId}</td>
-                                            <td>{sub.startDate}</td>
-                                            <td>{sub.endDate}</td>
-                                            <td>{sub.planDuration}</td>
+                                        <tr key={sub?.user?.userId}>
+                                            <td>{sub?.user?.firstName + " " + sub?.user?.lastName}</td>
+                                            <td>{sub?.user?.emailId}</td>
+                                            <td>{sub?.startDate}</td>
+                                            <td>{sub?.endDate}</td>
+                                            <td>{sub?.planDuration}</td>
                                             <td><Link to='/view-user-subscription' onClick={() => localStorage.setItem("subId", sub.planId)} className='btn fw-bold' style={{ color: '#ff6600', border: 'none' }}>View</Link></td>
                                         </tr>
                                     ))}

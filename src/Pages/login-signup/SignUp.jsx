@@ -22,7 +22,7 @@ const Signup = () => {
         gender:'-',
         phoneNo: '',
         password: '',
-        cpassword:''
+        cPassword:''
     })
 
     const [loading, setLoading] = useState(false);
@@ -157,7 +157,7 @@ const Signup = () => {
 
                         <div className="input">
                             <img src={password_icon} alt="" />
-                            <input type="password" placeholder='confirm password' onChange={(e) => changeHandler(e, 'cpassword')} value={data.cpassword} />
+                            <input type="password" placeholder='confirm password' onChange={(e) => changeHandler(e, 'cPassword')} value={data.cPassword} />
                         </div>
 
                         <div className="submit-container">
