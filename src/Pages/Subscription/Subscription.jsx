@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Base } from '../Base/Base'
 import { Link, useNavigate } from 'react-router-dom'
-import { getUserInfo } from '../../Components/Auth/Index';
 import { fetchSubscriptions } from '../../Services/SubscriptionService';
 import ScreenLoader from '../../Components/ScreenLoader';
 import { useSubscriptions } from '../../Context/SubscriptionContext';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const Subscription = () => {
     const navigate = useNavigate();
@@ -12,6 +11,7 @@ export const Subscription = () => {
 
     const { getSubscriptionData, setSubscriptionData } = useSubscriptions();
 
+    const { getUserInfo } = useUserInfo();
     const user = getUserInfo();
 
     const [subscriptionData, setsubscriptionData] = useState([]);
@@ -26,6 +26,8 @@ export const Subscription = () => {
                     setsubscriptionData(response);
                     setSubscriptionData(response);
                     console.log(response)
+                    localStorage.setItem("totalSubscriptions", response.length)
+                    // console.log(localStorage.getItem("totalSubscriptions"))
                 }).catch((error) => {
                     setLoading(false);
                     console.log(error);

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Base } from '../Base/Base'
 import { Link, useNavigate } from 'react-router-dom'
-import { getUserInfo } from '../../Components/Auth/Index'
 import { getTiffinPlans } from '../../Services/TiffinPlanService'
 import ScreenLoader from '../../Components/ScreenLoader'
 import { useTiffinPlans } from '../../Context/TiffinPlanContext'
+import { TiffinPlanCard } from '../../Components/TiffinPlanCard'
+import { useUserInfo } from '../../Context/UserContext'
 
 export const TiffinPlan = () => {
+
+    const { getUserInfo } = useUserInfo();
 
     const [tiffiPlans, setTiffinPlans] = useState([]);
 
@@ -62,20 +64,7 @@ export const TiffinPlan = () => {
                             <p className="fs-6">Click on <strong>"Add Plan"</strong> to create your first tiffin plan.</p>
                         </div>
                     ) : (
-                        <div className="row">
-                            {tiffiPlans.map((plan) => (
-                                <div className="col-lg-3 col-md-4 col-sm-6 mb-3" key={plan.tiffinPlanId}>
-                                    <div className="card shadow-sm h-100 d-flex flex-column">
-                                        <div className="card-body d-flex flex-column flex-grow-1">
-                                            <h5 className="card-title">{plan.planName}</h5>
-                                            <p className="text-muted small">{plan.planType} Plan</p>
-                                            <p className="fw-bold text-success mb-2">₹{plan.price}</p>
-                                            <a className="btn" onClick={() => ViewTiffinPlanInfo(plan.tiffinPlanId)}>view</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <TiffinPlanCard tiffinPlans={tiffiPlans} OnClickHandler={ViewTiffinPlanInfo} />
                     )}
                     <Link to='/add-tiffinplan'>
                         <button className="btn button position-fixed bottom-0 end-0 m-4 shadow-lg"

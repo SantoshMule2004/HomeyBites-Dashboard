@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Base } from '../Base/Base'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { deleteTiffinPlan, getTiffinPlan, updateMneuItemInTiffinPlan } from '../../Services/TiffinPlanService';
@@ -7,10 +6,12 @@ import ConfirmModal from '../../Components/ConfirmModel';
 import ScreenLoader from '../../Components/ScreenLoader';
 import { toast } from 'react-toastify';
 import { getMenuOfProvider } from '../../Services/MenuService';
-import { getUserInfo } from '../../Components/Auth/Index';
 import { useTiffinPlans } from '../../Context/TiffinPlanContext';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const ViewTiffinPlan = () => {
+
+    const { getUserInfo } = useUserInfo();
 
     const [loading, setLoading] = useState(true);
     const [tiffinPlanText, setTiffinPlanButtonLoading] = useButtonLoader(
@@ -28,7 +29,7 @@ export const ViewTiffinPlan = () => {
 
     const [selectedMenu, setSelectedMenu] = useState({})
 
-    const { updateTiffinPlanData, getSingleTiffinPlan } = useTiffinPlans();
+    const { updateTiffinPlanData, deleteTiffinPlanData, getSingleTiffinPlan } = useTiffinPlans();
 
     const user = getUserInfo();
     const [menuItems, setMenuItems] = useState([]);
@@ -56,10 +57,16 @@ export const ViewTiffinPlan = () => {
         }
     }
 
+    useEffect(() => {
+        console.log("Brekfast data", breakFastData)
+        console.log("tHALI data", ThaliData)
+    })
+
     const navigate = useNavigate();
     const location = useLocation();
 
     const planId = localStorage.getItem("planId");
+    console.log("Typeof planId", typeof(planId));
     console.log("plan id", planId)
     const [tiffinData, setTiffinData] = useState(() => {
         return localStorage.getItem("tiffinData") || [];
@@ -70,11 +77,10 @@ export const ViewTiffinPlan = () => {
         setTiffinPlanButtonLoading(true);
         if (planId != null) {
             getTiffinPlan(planId).then((response) => {
-                setLoading(false);
                 setTiffinPlanButtonLoading(false);
                 setTiffinData(response);
                 console.log("updated plan data", response)
-
+                
                 const tiffinInfo = response;
                 const map = {};
                 tiffinInfo.tiffinDays.forEach(day => {
@@ -84,9 +90,12 @@ export const ViewTiffinPlan = () => {
                         }
                     });
                 });
-
+                
                 setMenuData(map);
 
+                getMenuItems();
+                
+                setLoading(false);
                 console.log(response)
                 localStorage.setItem("tiffinData", JSON.stringify(response));
             }).catch((error) => {
@@ -105,6 +114,8 @@ export const ViewTiffinPlan = () => {
             navigate('/tiffinplan');
             setLoading(false);
             setTiffinPlanButtonLoading(false);
+            console.log("type of plan id", typeof(planId))
+            deleteTiffinPlanData(Number(planId));
             console.log(response);
             toast.success("Tiffinplan deleted successfulluy..!");
         }).catch((error) => {
@@ -116,7 +127,6 @@ export const ViewTiffinPlan = () => {
 
     useEffect(() => {
         getTiffinData();
-        getMenuItems();
     }, [planId])
 
     const handleDeleteClick = () => {
@@ -223,7 +233,7 @@ export const ViewTiffinPlan = () => {
                             </div>
                         </div>
 
-                        <div className="table-responsive mt-3">
+                        <div className="table-responsive mt-3 hide-scrollbar">
                             <table className="table">
                                 <thead className="table-dark" style={{ height: '60px' }}>
                                     <tr>
@@ -254,11 +264,31 @@ export const ViewTiffinPlan = () => {
                                                             value={selectedMenu[index]?.[mealType] || (plan?.menuItem?.[mealType]?.menuId || menuData[plan?.menuItem?.[mealType]]?.menuId)}
                                                             onChange={(e) => handleSelectChange(e, index, mealType)}
                                                         >
-                                                            {menuItems.map((menu) => (
-                                                                <option key={menu.menuId} value={menu.menuId}>
-                                                                    {menu.menuName}
-                                                                </option>
-                                                            ))}
+                                                            {
+                                                                (() => {
+                                                                    const selectedMenuId =
+                                                                        selectedMenu[index]?.[mealType] ||
+                                                                        plan?.menuItem?.[mealType]?.menuId ||
+                                                                        menuData[plan?.menuItem?.[mealType]]?.menuId;
+
+                                                                    const isBreakfast = breakFastData.some(
+                                                                        (item) => item.menuId === selectedMenuId
+                                                                    );
+
+                                                                    return isBreakfast
+                                                                        ? breakFastData.map((menu) => (
+                                                                            <option key={menu.menuId} value={menu.menuId}>
+                                                                                {menu.menuName}
+                                                                            </option>
+                                                                        ))
+                                                                        : ThaliData.map((menu) => (
+                                                                            <option key={menu.menuId} value={menu.menuId}>
+                                                                                {menu.menuName}
+                                                                            </option>
+                                                                        ));
+                                                                })()
+                                                            }
+                                                            
                                                         </select>
                                                     ) : (
                                                         plan?.menuItem?.[mealType]?.menuName || menuData[plan?.menuItem?.[mealType]]?.menuName
@@ -267,11 +297,11 @@ export const ViewTiffinPlan = () => {
                                             ))}
                                             <td>
                                                 {editingIndex === index ? (
-                                                    <button className="btn button" style={{ width: "100%" }} onClick={() => handleSave(index)}>
+                                                    <button className="btn button" style={{ width: "75%" }} onClick={() => handleSave(index)}>
                                                         {saveText}
                                                     </button>
                                                 ) : (
-                                                    <button className="btn button" style={{ width: "100%" }} onClick={() => handleUpdateClick(index)}>
+                                                    <button className="btn button" style={{ width: "75%" }} onClick={() => handleUpdateClick(index)}>
                                                         Update
                                                     </button>
                                                 )}

@@ -12,7 +12,7 @@ const NavigationBar = ({ isOpen, onClose }) => {
     account: false,
   });
 
-  const toggleSection = (section) => {
+  const toggleSection = (section) => { 
     setOpenSections((prev) => {
       const newSections = Object.keys(prev).reduce((acc, key) => {
         acc[key] = key === section; // Set the clicked section to true, others to false
@@ -43,7 +43,7 @@ const NavigationBar = ({ isOpen, onClose }) => {
           <button onClick={() => {
             setActive("tiffinplan");
             toggleSection("tiffinplan");
-          }} className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "tiffinplan" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#tiffinplan-collapse">Tiffin Plans</button>
+          }} className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "tiffinplan" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#tiffinplan-collapse">{openSections.tiffinplan ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Tiffin Plans</button>
           <div className={`collapse ${openSections.tiffinplan ? 'show' : ''}`} id="tiffinplan-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
               <li><i className="fa-solid fa-plus" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/add-tiffinplan" className="text-decoration-none rounded text-secondary">Add tiffin plan</Link></li>
@@ -58,7 +58,7 @@ const NavigationBar = ({ isOpen, onClose }) => {
             setActive("menuitem");
             toggleSection("menuitem");
           }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "menuitem" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#menuitem-collapse"> Menu items</button>
+           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "menuitem" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#menuitem-collapse">{openSections.menuitem ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Menu items</button>
           <div className={`collapse ${openSections.menuitem ? 'show' : ''}`} id="menuitem-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
               <li><i className="fa-solid fa-plus" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/add-menuitem" className="text-decoration-none rounded text-secondary">Add menu item</Link></li>
@@ -73,7 +73,7 @@ const NavigationBar = ({ isOpen, onClose }) => {
             setActive("subscription");
             toggleSection("subscription");
           }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "subscription" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#subscription-collapse"> Subscriptions</button>
+           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "subscription" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#subscription-collapse">{openSections.subscription ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Subscriptions</button>
           <div className={`collapse ${openSections.subscription ? 'show' : ''}`} id="subscription-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
               <li><i className="fa-solid fa-user-check" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/user-subscription" className="text-decoration-none rounded text-secondary">View subscriptions</Link></li>
@@ -89,10 +89,10 @@ const NavigationBar = ({ isOpen, onClose }) => {
             setActive("order");
             toggleSection("orders");
           }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "order" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#orders-collapse"> Orders</button>
+           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "order" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#orders-collapse">{openSections.orders ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Orders</button>
           <div className={`collapse ${openSections.orders ? 'show' : ''}`} id="orders-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-              <li><i className="fa-solid fa-circle-check" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/today-orders" className="text-decoration-none rounded text-secondary">Today`s Orders</Link></li>
+              <li><i className="fa-solid fa-circle-check" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/today-orders" className="text-decoration-none rounded text-secondary">Today’s Orders</Link></li>
               <li><i className="fa-solid fa-rectangle-list" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/all-orders" className="text-decoration-none rounded text-secondary">All Orders</Link></li>
             </ul>
           </div>
@@ -104,7 +104,7 @@ const NavigationBar = ({ isOpen, onClose }) => {
             setActive("revenue");
             toggleSection("revenue");
           }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "revenue" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#revenue-collapse"> Revenue</button>
+           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "revenue" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#revenue-collapse">{openSections.revenue ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Revenue</button>
           <div className={`collapse ${openSections.revenue ? 'show' : ''}`} id="revenue-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
               <li><i className="fa-solid fa-wallet" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/revenue" className="text-decoration-none rounded text-secondary">revenue</Link></li>
@@ -113,16 +113,16 @@ const NavigationBar = ({ isOpen, onClose }) => {
           </div>
         </li>
 
-        <li className="divider my-3"></li>
+        {/* <li className="divider my-3"></li>
 
-        {/* Account Section */}
+        {/* Account Section 
         <li className="mb-1">
           <Link to='#'>  <button onClick={() => {
             setActive("account");
             toggleSection("account");
           }}
            className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "account" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#account-collapse"> Settings</button></Link>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

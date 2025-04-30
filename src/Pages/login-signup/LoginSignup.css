@@ -111,6 +111,7 @@
     color: #797979;
     font-size: 15px;
     cursor: pointer;
+    padding-left: 64%;
 }
 
 .forget-password:hover {

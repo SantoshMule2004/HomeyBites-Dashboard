@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Base } from '../Base/Base'
 import { Link, useLocation } from 'react-router-dom';
 import { fetchSubscriptionOfUser } from '../../Services/SubscriptionService';
 import ScreenLoader from '../../Components/ScreenLoader';

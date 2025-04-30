@@ -56,16 +56,17 @@
 /* buttons */
 .button {
     color: #ff6600 !important;
-    background-color: #eee !important;
+    background-color: #fff4e6 !important;
     text-decoration: none !important;
     font-size: 19px !important;
     font-weight: 500 !important;
     border: none;
+    margin: 5px;
 }
 
 .button:hover {
-    color: #ff6600 !important;
-    background-color: #e5e5e5 !important;
+    /* color: #ff6600 !important; */
+    background-color: #ffe0cc !important;
 }
 
 /* Heading */
@@ -134,17 +135,17 @@
 /* for the profile dropdown */
 .custom-item:focus,
 .custom-item:active {
-  background-color: #e2e6ea !important;
-  color: #000 !important;
+    background-color: #e2e6ea !important;
+    color: #000 !important;
 }
 
-.profile-div{
+.profile-div {
     cursor: pointer;
     display: flex;
     flex-direction: row;
 }
 
-.profile-div:hover{
+.profile-div:hover {
     background-color: #e2e6ea;
 }
 
@@ -153,7 +154,7 @@
     outline: none;
     box-shadow: none;
     border-color: #e2e6ea;
-  }
+}
 
 .login-security {
     width: 100%;
@@ -161,9 +162,35 @@
     border: none;
 }
 
-.login-security:hover{
+.login-security:hover {
     background-color: #e2e6ea;
 }
+
+/* hide scroll-bar */
+.hide-scrollbar {
+    overflow: auto;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* Internet Explorer 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+/* dropdown submenu */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
 
 @media (max-width: 1000px) {
     .Base {
@@ -190,7 +217,7 @@
     .menuBar {
         display: block;
     }
-    
+
     .SideBar {
         position: absolute;
         left: -100%;
@@ -201,7 +228,7 @@
 
     .SideBar.open {
         left: 0;
-      }
+    }
 
     .Base {
         left: 0;

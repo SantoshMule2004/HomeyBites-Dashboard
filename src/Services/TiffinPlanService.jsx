@@ -6,6 +6,12 @@ export const getTiffinPlans = (userId) => {
     .then((response) => response.data);
 }
 
+// get all tiffin plans
+export const getAllTiffinPlans = () => {
+    return myAxios.get('/api/v1/tiffinplan/')
+    .then((response) => response.data);
+}
+
 // get single tiffin plan
 export const getTiffinPlan = (planId) => {
     return myAxios.get('/api/v1/tiffinplan/'+planId)

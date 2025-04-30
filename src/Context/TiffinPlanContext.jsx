@@ -26,15 +26,27 @@ export const TiffinPlanContext = ({ children }) => {
     }
 
     const updateTiffinPlanData = (planId, tiffinPlan) => {
+
         // get data stord in localstorage
         let tiffinData = localStorage.getItem("tiffinPlans");
         let tiffinArray = tiffinData ? JSON.parse(tiffinData) : [];
 
         // filter out the previous item
-        tiffinArray = tiffinArray.filter(item => item.tiffinPlanId !== planId);
+        tiffinArray = tiffinArray.filter(item => item.tiffinPlanId !== Number(planId));
 
         // add new updated item to it
         tiffinArray.push(tiffinPlan);
+        localStorage.setItem("tiffinPlans", JSON.stringify(tiffinArray));
+    }
+
+    const deleteTiffinPlanData = (planId) => {
+        // get data stord in localstorage
+        let tiffinData = localStorage.getItem("tiffinPlans");
+        let tiffinArray = tiffinData ? JSON.parse(tiffinData) : [];
+        
+        // filter out the previous item
+        tiffinArray = tiffinArray.filter(item => item.tiffinPlanId !== Number(planId));
+
         localStorage.setItem("tiffinPlans", JSON.stringify(tiffinArray));
     }
 
@@ -43,13 +55,13 @@ export const TiffinPlanContext = ({ children }) => {
         let tiffinData = localStorage.getItem("tiffinPlans");
         let tiffinArray = tiffinData ? JSON.parse(tiffinData) : [];
 
-        const planItem =  tiffinArray.find(item => item.tiffinPlanId === planId); 
+        const planItem =  tiffinArray.find(item => item.tiffinPlanId === Number(planId)); 
         console.log("context plan: ", planItem);
         return planItem;
     }
 
     return (
-        <TiffinContext.Provider value={{ getTiffinPlanData, setTiffinPlanData, addTiffinPlanData, updateTiffinPlanData, getSingleTiffinPlan }}>
+        <TiffinContext.Provider value={{ getTiffinPlanData, setTiffinPlanData, addTiffinPlanData, updateTiffinPlanData, deleteTiffinPlanData, getSingleTiffinPlan }}>
             {children}
         </TiffinContext.Provider>
     );

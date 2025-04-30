@@ -3,9 +3,9 @@ import { Base } from '../Base/Base'
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { toast } from 'react-toastify';
 import { addMenu } from '../../Services/MenuService';
-import { getUserInfo } from '../../Components/Auth/Index';
 import { useNavigate } from 'react-router-dom';
 import { useMenuItems } from '../../Context/MenuItemContext';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const AddMenuItem = () => {
 
@@ -16,6 +16,8 @@ export const AddMenuItem = () => {
         menuType: '',
         active: true
     })
+
+    const { getUserInfo } = useUserInfo();
 
     const { addMenuItemToData } = useMenuItems();
 
@@ -59,6 +61,41 @@ export const AddMenuItem = () => {
 
         if (!menuData.menuName && !menuData.description && !menuData.price && !menuData.menuType && !CategoryId) {
             toast.error("Please fill all the details..");
+            setMenuItemButtonLoading(false);
+            setLoading(false);
+            return;
+        }
+
+        if (!menuData.description) {
+            toast.error("Please enter description of the menu item");
+            setMenuItemButtonLoading(false);
+            setLoading(false);
+            return;
+        }
+
+        if (!menuData.menuName) {
+            toast.error("Please enter name of the menu item");
+            setMenuItemButtonLoading(false);
+            setLoading(false);
+            return;
+        }
+
+        if (!menuData.price) {
+            toast.error("Please enter price of the menu item");
+            setMenuItemButtonLoading(false);
+            setLoading(false);
+            return;
+        }
+
+        if (!menuData.menuType) {
+            toast.error("Please enter type of the menu item");
+            setMenuItemButtonLoading(false);
+            setLoading(false);
+            return;
+        }
+
+        if (!menuImage) {
+            toast.error("Please add image of the menu item");
             setMenuItemButtonLoading(false);
             setLoading(false);
             return;

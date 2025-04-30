@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Base } from '../Base/Base'
 import { Link, useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../../Components/Auth/Index';
 import { getMenuOfProvider } from '../../Services/MenuService';
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { updateTiffinPlan } from '../../Services/TiffinPlanService';
 import { toast } from 'react-toastify';
 import { useTiffinPlans } from '../../Context/TiffinPlanContext';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const UpdateTiffinPlan = () => {
+
+    const { getUserInfo } = useUserInfo();
 
     const [loading, setLoading] = useState(false);
     const [TiffinPlanText, setButtonLoading] = useButtonLoader(

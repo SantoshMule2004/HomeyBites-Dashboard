@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import './LoginSignup.css'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import useButtonLoader from '../../Components/UseButtonLoader';
+import '../../Pages/login-signup/LoginSignup.css'
 import email_icon from '/email.png'
 import password_icon from '/password.png'
-import { logIn, sendOtp } from '../../Services/UserService'
-import { toast } from "react-toastify";
-import useButtonLoader from "../../Components/UseButtonLoader";
+import { adminLogIn } from '../../Services/UserService';
 import { useUserInfo } from '../../Context/UserContext';
+import { toast } from 'react-toastify';
 
-const Login = () => {
+export const AdminLogin = () => {
+
+  const { doLogin } = useUserInfo();
 
   const navigate = useNavigate();
 
@@ -16,8 +18,6 @@ const Login = () => {
     username: '',
     password: ''
   })
-
-  const { doLogin } = useUserInfo();
 
   const [error, setError] = useState({
     errors: {},
@@ -38,23 +38,23 @@ const Login = () => {
   const changeHandler = (event, property) => {
     setData({ ...data, [property]: event.target.value })
   }
-  //Email Handler
-  const verifyEmailHandler = () => {
-    if (!data.username) {
-      toast.error("Please enter email id to send OTP")
-    }
-    sendOtp(data.username).then((response) => {
-      // console.log(response)
-      console.log("success")
-      toast.success("Email verification OTP sent successfully..!")
-      localStorage.setItem("username", data.username);
-      navigate('/verify-otp', { state: { from: "Login" } })
+  // //Email Handler
+  // const verifyEmailHandler = () => {
+  //   if (!data.username) {
+  //     toast.error("Please enter email id to send OTP")
+  //   }
+  //   sendOtp(data.username).then((response) => {
+  //     // console.log(response)
+  //     console.log("success")
+  //     toast.success("Email verification OTP sent successfully..!")
+  //     localStorage.setItem("username", data.username);
+  //     navigate('/verify-otp', { state: { from: "Login" } })
 
-    }).catch((error) => {
-      // console.log(error)
-      console.log("error log")
-    })
-  }
+  //   }).catch((error) => {
+  //     // console.log(error)
+  //     console.log("error log")
+  //   })
+  // }
   //forget  password handler
   // const forgetpasswordHandler = () => {
   //   navigate('/forget-password');  // Navigate to the Forget Password Page
@@ -76,15 +76,16 @@ const Login = () => {
     }
 
     //sending data to backend
-    logIn(data).then((response) => {
+    adminLogIn(data).then((response) => {
       console.log("SUccess log")
       setLoginLoading(false);
       setLoading(false);
 
+      localStorage.setItem("AdminLogin", true);
       // save data to local storage
       doLogin(response, () => {
         //redirect
-        navigate('/dashboard')
+        navigate('/admin-dashboard')
       })
 
       toast.success(response?.message)
@@ -113,7 +114,7 @@ const Login = () => {
     <div className="login-page">
       <div className='container-login'>
         <div className="header1">
-          <div className="text">Login</div>
+          <div className="text">Admin Login</div>
           <div className="underline"></div>
         </div>
         <form>
@@ -130,19 +131,11 @@ const Login = () => {
             <div className="forget-password" onClick={() => navigate('/forget-password')} > Forget Password?</div>
 
             <div className="submit-container">
-              <button className={`submit ${loading ? "submit-clicked" : ""} `} type='submit' onClick={loginHandler}>{LoginButtonText}</button>
-              <div className="submit" onClick={() => navigate('/register')}>Register</div>
-            </div>
-
-            <div className="submit-container">
-              <div className="verify-email" onClick={verifyEmailHandler}>Verify Email</div>
-              <div className="verify-email" onClick={() => navigate('/admin-login')}>Login as a Admin</div>
+              <button className={`submit ${loading ? "submit-clicked" : ""} `} type='submit' onClick={loginHandler} style={{ width: '100%' }}>{LoginButtonText}</button>
             </div>
           </div>
         </form>
-
       </div>
     </div>
   );
-};
-export default Login; 
+}

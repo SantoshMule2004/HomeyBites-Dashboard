@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Base } from '../Base/Base'
-import { getUserInfo } from '../../Components/Auth/Index';
 import { getMenuOfProvider } from '../../Services/MenuService';
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { toast } from 'react-toastify';
 import { addTiffinPlan } from '../../Services/TiffinPlanService';
-import ScreenLoader from '../../Components/ScreenLoader';
 import { useNavigate } from 'react-router-dom';
 import { useTiffinPlans } from '../../Context/TiffinPlanContext';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const AddTiffinPlan = () => {
+
+    const { getUserInfo } = useUserInfo();
+
     const [loading, setLoading] = useState(false);
     const [TiffinPlanText, setTiffinButtonLoading] = useButtonLoader(
         "Add Tiffinplan",
@@ -61,32 +62,63 @@ export const AddTiffinPlan = () => {
         }
     }
 
+    const allDaysHaveMenus = tiffinData.tiffinDays.every(day =>
+        day.menuIds.every(id => id.trim() !== "")
+    );
+
     const addTiffinPlanHandler = (event) => {
         event.preventDefault();
         setTiffinButtonLoading(true);
-        // setLoading(true);
 
         if (!tiffinData.planName && !tiffinData.planType && !tiffinData.price && !tiffinData.addOns && !tiffinData.tiffinDays) {
-            toast.error("");
+            toast.error("Please enter all details");
             setTiffinButtonLoading(false);
-            // setLoading(false);
             return;
         }
+
+        if (!tiffinData.planName) {
+            toast.error("Please enter tiffin plan name");
+            setTiffinButtonLoading(false);
+            return;
+        }
+
+        if (!tiffinData.planType) {
+            toast.error("Please enter tiffin plan type");
+            setTiffinButtonLoading(false);
+            return;
+        }
+
+        if (!tiffinData.price) {
+            toast.error("Please enter tiffin plan price");
+            setTiffinButtonLoading(false);
+            return;
+        }
+
+        if (!tiffinData.planName) {
+            toast.error("Please enter tiffin plan name");
+            setTiffinButtonLoading(false);
+            return;
+        }
+
+        if(!allDaysHaveMenus) {
+            toast.error("Please add menuitems to all days");
+            setTiffinButtonLoading(false);
+            return;
+        }
+
 
         if (user != null) {
             addTiffinPlan(user.userId, tiffinData).then((response) => {
                 setTiffinButtonLoading(false);
                 console.log("sent tiffin data", tiffinData)
                 console.log("response", response)
-                // setLoading(false);
                 addTiffinPlanData(response?.classObj)
                 toast.success("Tiffin plan added successfully..!");
                 navigate("/tiffinplan");
             }).catch((error) => {
                 setTiffinButtonLoading(false);
-                // setLoading(false);
                 console.log(error);
-                toast.error(error);
+                toast.error(error?.response?.data?.message);
             })
         }
     }
@@ -113,10 +145,6 @@ export const AddTiffinPlan = () => {
 
     return (
         <div className="container mt-5 p-3" style={{ backgroundColor: '#faf9f6' }}>
-            {/* {loading ? (
-                    <ScreenLoader />
-                ) : ( 
-                    <>*/}
             <h2 className="text-3xl mb-5 heading">Add Tiffin Plans</h2>
             <form className="row g-3">
                 <div className="col-md-6">
@@ -209,8 +237,6 @@ export const AddTiffinPlan = () => {
                     <button type="submit" className="btn button" style={{ width: '25%' }} onClick={addTiffinPlanHandler}>{TiffinPlanText}</button>
                 </div>
             </form>
-            {/* </>
-                )} */}
         </div>
     )
 }

@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import DashboardStats from '../../Components/DashboardStats';
-import { getOrderCount, getTiffinProviderOrdersInaRange } from '../../Services/OrderService';
-import { getSubscriptionCount } from '../../Services/SubscriptionService';
-import { useUserInfo } from '../../Context/UserContext';
+import { getAllOrderCount, getOrdersInaRange } from '../../Services/OrderService';
+import { getAllSubscriptionCount } from '../../Services/SubscriptionService';
+import { getAllUserByRole, getAllUserCount, getAllUserCountByRole } from '../../Services/UserService';
 
-export const Dashboard = () => {
-    
+export const AdminDashboard = () => {
     const COLORS = ["#0088FE", "#FFBB28"];
-    
+
     const [loading, setLoading] = useState(false);
 
-    const { getUserInfo } = useUserInfo();
-    const user = getUserInfo();
-
     const [ordersData, setOrdersData] = useState({});
-    const [subscriptionCount, setSubscriptionCount] = useState("");
+    const [allUserCount, setAllUserCount] = useState("");
+    const [userCount, setUserCount] = useState("");
+    const [providerCount, setProviderCount] = useState("");
     const [orderCount, setOrderCount] = useState("");
 
     useEffect(() => {
         getAllOrders();
-        getSubscriptions();
+        getAllUsers();
         getOrders();
     }, []);
 
     const getAllOrders = () => {
         const { monday, sunday } = getCurrentWeekRange();
 
-        getTiffinProviderOrdersInaRange(user.userId, monday, sunday).then((response) => {
+        getOrdersInaRange(monday, sunday).then((response) => {
             const formattedData = formatOrdersData(response);
             setOrdersData(formattedData);
         }).catch(error => console.error('Error fetching orders:', error));
@@ -73,36 +71,43 @@ export const Dashboard = () => {
         }));
     };
 
-    const getSubscriptions = () => {
-        getSubscriptionCount(user.userId).then((response)=> {
-            setSubscriptionCount(response);
-            console.log("subscription count", response)
+    const getAllUsers = () => {
+        getAllUserCount().then((response) => {
+            setAllUserCount(response);
+        })
+
+        getAllUserCountByRole("ROLE_NORMAL_USER").then((response) => {
+            setUserCount(response);
+        })
+
+        getAllUserCountByRole("ROLE_TIFFIN_PROVIDER").then((response) => {
+            setProviderCount(response);
         })
     }
 
     const getOrders = () => {
-        getOrderCount(user.userId).then((response)=> {
+        getAllOrderCount().then((response) => {
             console.log(response);
             setOrderCount(response);
         })
     }
-    
+
     const revenue = 25000;
 
     const subscriptionData = [
-        { name: "Subscribed", value: Number(subscriptionCount) },
-        { name: "Non-Subscribed", value: Number(orderCount) },
+        { name: "Normal User", value: Number(userCount) },
+        { name: "Tiffin Provider", value: Number(providerCount) },
     ];
-
 
     return (
         <div className="container mt-5 p-2">
             <h1 className="text-3xl mb-2 heading">Dashboard</h1>
             <DashboardStats firstBox={orderCount} firstBoxTitle="Total Orders"
                 secondBox={revenue} secondBoxTitle="Revenue"
-                thirdBox={subscriptionCount} thirdBoxTitle="Active subscriptions"
+                thirdBox={allUserCount} thirdBoxTitle="Total users"
                 lineChartData={ordersData} lineChartTite="Orders Over the Week" xaxisDataKey={"day"} lineDataKey={"orders"}
-                pieChartData={subscriptionData} PieChartTitle="subscription status" COLORS={COLORS} />
+                pieChartData={subscriptionData} PieChartTitle="Users" COLORS={COLORS}
+            />
         </div>
     );
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import useButtonLoader from '../../Components/UseButtonLoader';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo, setUserInfo } from '../../Components/Auth/Index';
 import { getProviderInfo, updateBusinessDetails, updateUserInfo } from '../../Services/UserService';
 import { toast } from 'react-toastify';
 import ScreenLoader from '../../Components/ScreenLoader';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const UpdateBusinessDetails = () => {
 
@@ -13,8 +13,9 @@ export const UpdateBusinessDetails = () => {
         "Update business details",
         ""
     )
-
     const navigate = useNavigate();
+
+    const { getUserInfo, setUserInfo } = useUserInfo();
 
     const user = getUserInfo();
 

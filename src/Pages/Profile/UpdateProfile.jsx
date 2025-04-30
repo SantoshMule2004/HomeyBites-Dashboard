@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import useButtonLoader from '../../Components/UseButtonLoader';
-import { getUserInfo, setUserInfo } from '../../Components/Auth/Index';
 import { updateUserInfo } from '../../Services/UserService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const UpdateProfile = () => {
 
+    const { getUserInfo, setUserInfo } = useUserInfo();
     const user = getUserInfo();
 
     const navigate = useNavigate();

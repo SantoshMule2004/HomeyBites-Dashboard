@@ -1,48 +1,27 @@
 import React, { useState } from 'react';
-import '../../Components/Style.css'
+import './Style.css'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, CartesianGrid, Line } from 'recharts';
 
-const ordersData = [
-    { day: "Mon", orders: 30 },
-    { day: "Tue", orders: 45 },
-    { day: "Wed", orders: 50 },
-    { day: "Thu", orders: 35 },
-    { day: "Fri", orders: 60 },
-    { day: "Sat", orders: 75 },
-    { day: "Sun", orders: 80 },
-];
-
-const subscriptionData = [
-    { name: "Subscribed", value: 120 },
-    { name: "Non-Subscribed", value: 80 },
-];
-
-const COLORS = ["#0088FE", "#FFBB28"];
-
-const DashboardStats = () => {
-    const [totalOrders] = useState(450);
-    const [revenue] = useState(25000);
-    const [subscriptions] = useState(120);
-    
+const DashboardStats = ({ firstBox, firstBoxTitle, secondBox, secondBoxTitle, thirdBox, thirdBoxTitle, lineChartData, xaxisDataKey, lineDataKey, lineChartTite, pieChartData, PieChartTitle, COLORS }) => {
     return (
         <div className="container-fluid p-4">
             <div className="row">
                 <div className="col-md-4 mb-2">
                     <div className="card p-3 text-center shadow">
-                        <h5>Total Orders</h5>
-                        <h3>350</h3>
+                        <h5>{firstBoxTitle}</h5>
+                        <h3>{firstBox}</h3>
                     </div>
                 </div>
                 <div className="col-md-4 mb-2">
                     <div className="card p-3 text-center shadow">
-                        <h5>Total Revenue</h5>
-                        <h3>₹4500</h3>
+                        <h5>{secondBoxTitle}</h5>
+                        <h3>₹{secondBox}</h3>
                     </div>
                 </div>
                 <div className="col-md-4">
                     <div className="card p-3 text-center shadow">
-                        <h5>Active Subscriptions</h5>
-                        <h3>120</h3>
+                        <h5>{thirdBoxTitle}</h5>
+                        <h3>{thirdBox}</h3>
                     </div>
                 </div>
             </div>
@@ -50,14 +29,14 @@ const DashboardStats = () => {
             <div className="row mt-4">
                 <div className="col-md-6">
                     <div className="card p-3 shadow">
-                        <h5>Orders Over the Week</h5>
+                        <h5>{lineChartTite}</h5>
                         <ResponsiveContainer width="100%" height={300}>
-                            <LineChart data={ordersData}>
+                            <LineChart data={lineChartData}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="day" />
+                                <XAxis dataKey={xaxisDataKey} />
                                 <YAxis />
                                 <Tooltip />
-                                <Line type="monotone" dataKey="orders" stroke="#8884d8" strokeWidth={2} />
+                                <Line type="monotone" dataKey={lineDataKey} stroke="#8884d8" strokeWidth={2} />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
@@ -65,15 +44,22 @@ const DashboardStats = () => {
 
                 <div className="col-md-6 mt-4">
                     <div className="card p-3 shadow">
-                        <h5>Subscription Status</h5>
+                        <h5>{PieChartTitle}</h5>
                         <ResponsiveContainer width="100%" height={300}>
                             <PieChart>
-                                <Pie data={subscriptionData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100}>
-                                    {subscriptionData.map((entry, index) => (
+                                <Pie data={pieChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100}>
+                                    {pieChartData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
                                 <Tooltip />
+                                <Legend
+                                    verticalAlign="top"
+                                    align='center'
+                                    height={36}
+                                    iconType="square"
+                                    layout="vertical"
+                                />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
