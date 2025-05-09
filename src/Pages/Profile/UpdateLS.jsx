@@ -79,6 +79,7 @@ export const UpdateLS = () => {
         }
 
         updateContactDetails(user?.userId, number).then((response) => {
+            console.log(response);
             toast.success("Contact number updated successfully..!")
             navigate('/login-security')
             console.log("updated number")
@@ -122,18 +123,15 @@ export const UpdateLS = () => {
             })
         }
         else if (from === 'ForgetPassword') {
-
+            
             resetPass(passwordDto, user?.emailId).then((response) => {
                 toast.success("Passowrd changed successfully..!");
                 console.log(response);
+                navigate('/login-security')
             }).catch((error) => {
                 console.log(error);
             })
         }
-    }
-
-    const deleteAccountHandler = () => {
-
     }
 
     return (
@@ -164,15 +162,15 @@ export const UpdateLS = () => {
                     <h2 className="text-3xl mb-4 heading text-center">Reset Password</h2>
                     <form className="mt-5 row g-3" onSubmit={(e) => resetPasswordHandler(e, 'ResetPassword')}>
                         <div className="col-md-4">
-                            <input type="text" className="form-control no-focus-outline" placeholder='Old Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'oldPassword')} value={passwordDto.oldPassword} />
+                            <input type="password" className="form-control no-focus-outline" placeholder='Old Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'oldPassword')} value={passwordDto.oldPassword} />
                         </div>
 
                         <div className="col-md-4">
-                            <input type="text" className="form-control no-focus-outline" placeholder='New Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'newPassword')} value={passwordDto.newPassword} />
+                            <input type="password" className="form-control no-focus-outline" placeholder='New Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'newPassword')} value={passwordDto.newPassword} />
                         </div>
 
                         <div className="col-md-4">
-                            <input type="text" className="form-control no-focus-outline" placeholder='Confirm Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'cPassword')} value={passwordDto.cPassword} />
+                            <input type="password" className="form-control no-focus-outline" placeholder='Confirm Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'cPassword')} value={passwordDto.cPassword} />
                         </div>
 
                         <div className="mt-3 col-12 mt-1 d-flex justify-content-center">
@@ -188,11 +186,11 @@ export const UpdateLS = () => {
                             <div>
                                 <form className="mt-5 row g-3" onSubmit={(e) => resetPasswordHandler(e, 'ForgetPassword')}>
                                     <div className="col-md-6">
-                                        <input type="text" className="form-control no-focus-outline" placeholder='New Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'newPassword')} value={passwordDto.newPassword} />
+                                        <input type="password" className="form-control no-focus-outline" placeholder='New Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'newPassword')} value={passwordDto.newPassword} />
                                     </div>
 
                                     <div className="col-md-6">
-                                        <input type="text" className="form-control no-focus-outline" placeholder='Confirm Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'cPassword')} value={passwordDto.cPassword} />
+                                        <input type="password" className="form-control no-focus-outline" placeholder='Confirm Password' id="inputMenuName" onChange={(e) => passwordChange(e, 'cPassword')} value={passwordDto.cPassword} />
                                     </div>
 
                                     <div className="mt-3 col-12 mt-1 d-flex justify-content-center">
@@ -211,20 +209,6 @@ export const UpdateLS = () => {
                 </div>
             ) : (
                 <div>
-                    <h2 className="text-3xl mb-4 heading text-center">Delete account</h2>
-                    {
-                        isVerfied && (
-                            <div>
-                                Verified
-                            </div>
-                        )
-                    }
-
-                    {
-                        !isVerfied && (
-                            <VerifyEmail title='Delete Business Account' onClickhandler={verifyEmailAddress} onChangeHandler={changeData} data={data.otp} ></VerifyEmail>
-                        )
-                    }
                 </div>
             )}
 

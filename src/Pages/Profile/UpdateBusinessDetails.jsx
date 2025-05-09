@@ -23,6 +23,10 @@ export const UpdateBusinessDetails = () => {
     const [providerData, setproviderData] = useState({});
 
     const [businessData, setBusinessData] = useState({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phoneNo: user.phoneNo,
+        dob: user.dob,
         businessName: user.businessName,
         foodLicenseNo: user.foodLicenseNo,
         gstin: user.gstin,

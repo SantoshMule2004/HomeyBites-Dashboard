@@ -14,7 +14,7 @@ export const AddTiffinPlan = () => {
     const [loading, setLoading] = useState(false);
     const [TiffinPlanText, setTiffinButtonLoading] = useButtonLoader(
         "Add Tiffinplan",
-        ""
+        "Add Tiffinplan"
     )
 
     const { addTiffinPlanData } = useTiffinPlans();

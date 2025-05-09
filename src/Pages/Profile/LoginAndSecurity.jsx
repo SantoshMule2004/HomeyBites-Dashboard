@@ -64,10 +64,6 @@ export const LoginAndSecurity = () => {
                             <Link onClick={() => sendOTP("ForgetPassword")} className='btn button-secondary login-security'><i className="fa-solid fa-key me-3"></i>Forget Password?</Link>
                         </div>
                         <div className="divider"></div>
-
-                        <div className="col-md-12">
-                            <Link onClick={handleDeleteClick} className='btn button-secondary login-security'><i className="fa-solid fa-user-minus me-3"></i>Delete account</Link>
-                        </div>
                     </div>
 
                     <ConfirmModal isOpen={isModalOpen} onConfirm={handleConfirm} onCancel={handleCancel} title="Confirm" content="Confirm, you want to delete your account?" />

@@ -145,7 +145,8 @@ export const AddMenuItem = () => {
                 </div>
                 <div className="col-md-6">
                     <label htmlFor="inputMenuType" className="form-label fw-bold">Menu Type</label>
-                    <select id="inputMenuType" className="form-select no-focus-outline" value="Thali" onChange={(e) => changeHandler(e, 'menuType')}>
+                    <select id="inputMenuType" className="form-select no-focus-outline" value={menuData.menuType} onChange={(e) => changeHandler(e, 'menuType')}>
+                        <option value=''>Select menuitem type</option>
                         <option value='Thali'>Thali</option>
                         <option value='Breakfast'>Breakfast</option>
                     </select>
@@ -161,7 +162,8 @@ export const AddMenuItem = () => {
 
                 <div className="col-md-8">
                     <label htmlFor="inputCategory" className="form-label fw-bold">Category: </label>
-                    <select id="inputCategory" className="form-select no-focus-outline" value="1" onClick={categoryHandler}>
+                    <select id="inputCategory" className="form-select no-focus-outline" value={CategoryId} onChange={categoryHandler}>
+                        <option value=''>Select category of menuitem</option>
                         <option value='1'>Vegetarian (Veg)</option>
                         <option value='2'>Non-Vegetarian (Non-Veg)</option>
                         <option value='3'>Vegan</option>
