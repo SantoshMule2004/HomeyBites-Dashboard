@@ -29,6 +29,7 @@ export const AdminRevenue = () => {
     const TotalRevenue = () => {
         setLoading(true);
         getTotalRevenue().then((response) => {
+            setTotalRevenue(response)
             console.log("Total revenue", response)
         })
     }
