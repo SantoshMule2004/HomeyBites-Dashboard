@@ -3,31 +3,42 @@ import DashboardStats from '../../Components/DashboardStats';
 import { getAllOrderCount, getOrdersInaRange } from '../../Services/OrderService';
 import { getAllSubscriptionCount } from '../../Services/SubscriptionService';
 import { getAllUserByRole, getAllUserCount, getAllUserCountByRole } from '../../Services/UserService';
+import ScreenLoader from '../../Components/ScreenLoader';
+import { getTotalRevenue } from '../../Services/PaymentService';
+import { useOrderData } from '../../Context/OrderContext';
 
 export const AdminDashboard = () => {
     const COLORS = ["#0088FE", "#FFBB28"];
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const { getDashboardOrders, setDashboardOrders } = useOrderData();
 
     const [ordersData, setOrdersData] = useState({});
     const [allUserCount, setAllUserCount] = useState("");
     const [userCount, setUserCount] = useState("");
     const [providerCount, setProviderCount] = useState("");
     const [orderCount, setOrderCount] = useState("");
-
-    useEffect(() => {
-        getAllOrders();
-        getAllUsers();
-        getOrders();
-    }, []);
+    const [totalRevenue, setTotalRevenue] = useState("");
 
     const getAllOrders = () => {
-        const { monday, sunday } = getCurrentWeekRange();
 
-        getOrdersInaRange(monday, sunday).then((response) => {
-            const formattedData = formatOrdersData(response);
-            setOrdersData(formattedData);
-        }).catch(error => console.error('Error fetching orders:', error));
+        if (getDashboardOrders() == null) {
+            const { monday, sunday } = getCurrentWeekRange();
+            
+            getOrdersInaRange(monday, sunday).then((response) => {
+                setLoading(false);
+                const formattedData = formatOrdersData(response);
+                setOrdersData(formattedData);
+                setDashboardOrders(formattedData);
+            }).catch((error) => {
+                setLoading(false);
+                console.error('Error fetching orders:', error)
+            });
+        } else {
+            setLoading(false);
+            setOrdersData(getDashboardOrders());
+        }
     }
 
     const getCurrentWeekRange = () => {
@@ -72,6 +83,7 @@ export const AdminDashboard = () => {
     };
 
     const getAllUsers = () => {
+        setLoading(true);
         getAllUserCount().then((response) => {
             setAllUserCount(response);
         })
@@ -89,10 +101,31 @@ export const AdminDashboard = () => {
         getAllOrderCount().then((response) => {
             console.log(response);
             setOrderCount(response);
+        }).catch((error) => {
+            console.log(error)
         })
     }
 
-    const revenue = 25000;
+    const getRevenue = () => {
+        getTotalRevenue().then((response) => {
+            setTotalRevenue(response)
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const loadData = () => {
+        // setLoading(true);
+        getAllUsers();
+        getOrders();
+        getRevenue();
+        getAllOrders();
+        // setLoading(false);
+    }
+
+    useEffect(() => {
+        loadData();
+    }, []);
 
     const subscriptionData = [
         { name: "Normal User", value: Number(userCount) },
@@ -101,13 +134,18 @@ export const AdminDashboard = () => {
 
     return (
         <div className="container mt-5 p-2">
-            <h1 className="text-3xl mb-2 heading">Dashboard</h1>
-            <DashboardStats firstBox={orderCount} firstBoxTitle="Total Orders"
-                secondBox={revenue} secondBoxTitle="Revenue"
-                thirdBox={allUserCount} thirdBoxTitle="Total users"
-                lineChartData={ordersData} lineChartTite="Orders Over the Week" xaxisDataKey={"day"} lineDataKey={"orders"}
-                pieChartData={subscriptionData} PieChartTitle="Users" COLORS={COLORS}
-            />
+            {loading ? (
+                <ScreenLoader />
+            ) : (
+                <>
+                    <h1 className="text-3xl mb-2 heading">Dashboard</h1>
+                    <DashboardStats firstBox={orderCount} firstBoxTitle="Total Orders"
+                        secondBox={totalRevenue} secondBoxTitle="Revenue"
+                        thirdBox={allUserCount} thirdBoxTitle="Total users"
+                        lineChartData={ordersData} lineChartTite="Orders Over the Week" xaxisDataKey={"day"} lineDataKey={"orders"}
+                        pieChartData={subscriptionData} PieChartTitle="Users" COLORS={COLORS}
+                    />
+                </>)}
         </div>
     );
 }

@@ -18,6 +18,7 @@ export const UpdateBusinessDetails = () => {
     const { getUserInfo, setUserInfo } = useUserInfo();
 
     const user = getUserInfo();
+    console.log(user);
 
     const [providerData, setproviderData] = useState({});
 

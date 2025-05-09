@@ -87,8 +87,8 @@ export const NavigationBarAdmin = ({ isOpen, onClose }) => {
                         className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "revenue" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#revenue-collapse">{openSections.revenue ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp; Revenue</button>
                     <div className={`collapse ${openSections.revenue ? 'show' : ''}`} id="revenue-collapse">
                         <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-                            <li><i className="fa-solid fa-wallet" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/revenue" className="text-decoration-none rounded text-secondary">revenue</Link></li>
-                            <li><i className="fa-solid fa-coins" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="#" className="text-decoration-none rounded text-secondary">Payment history</Link></li>
+                            <li><i className="fa-solid fa-wallet" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/admin-revenue" className="text-decoration-none rounded text-secondary">revenue</Link></li>
+                            <li><i className="fa-solid fa-coins" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/admin-payment-history" className="text-decoration-none rounded text-secondary">Payment history</Link></li>
                         </ul>
                     </div>
                 </li>

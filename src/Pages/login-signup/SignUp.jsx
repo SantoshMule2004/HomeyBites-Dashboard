@@ -19,7 +19,7 @@ const Signup = () => {
         lastName: '',
         emailId: '',
         dob:'-',
-        gender:'-',
+        gender:'Male',
         phoneNo: '',
         password: '',
         cPassword:''

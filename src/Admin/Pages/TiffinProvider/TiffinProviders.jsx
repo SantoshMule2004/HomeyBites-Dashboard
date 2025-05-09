@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../../Components/ScreenLoader'
 import { UserInfoTable } from '../../../Components/UserInfoTable'
 import { getAllUserByRole } from '../../../Services/UserService';
+import { useUserInfo } from '../../../Context/UserContext';
 
 export const TiffinProviders = () => {
 
@@ -9,16 +10,23 @@ export const TiffinProviders = () => {
 
     const [tiffinProviders, settiffinProviders] = useState([]);
 
+    const { getSystemProviderInfo, setSystemProviderInfo } = useUserInfo();
+
     const getAllUsers = () => {
         setLoading(true);
-        getAllUserByRole("ROLE_TIFFIN_PROVIDER").then((response) => {
+        if (getSystemProviderInfo() == null) {
+            getAllUserByRole("ROLE_TIFFIN_PROVIDER").then((response) => {
+                setLoading(false);
+                settiffinProviders(response)
+                setSystemProviderInfo(response)
+            }).catch((error) => {
+                setLoading(false);
+                console.log(error)
+            })
+        } else {
             setLoading(false);
-            console.log(response)
-            settiffinProviders(response)
-        }).catch((error) => {
-            setLoading(false);
-            console.log(error)
-        })
+            settiffinProviders(getSystemProviderInfo());
+        }
     }
 
     useEffect(() => {

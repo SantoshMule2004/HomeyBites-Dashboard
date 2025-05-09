@@ -3,6 +3,7 @@ import ScreenLoader from '../../Components/ScreenLoader'
 import { getAllUserByRole } from '../../Services/UserService';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserInfoTable } from '../../Components/UserInfoTable';
+import { useUserInfo } from '../../Context/UserContext';
 
 export const Users = () => {
 
@@ -11,20 +12,26 @@ export const Users = () => {
 
     const [allUsers, setAllUsers] = useState([]);
 
+    const { getSystemUserInfo, setSystemUserInfo } = useUserInfo();
 
     const getAllUsers = () => {
         setLoading(true);
-        getAllUserByRole("ROLE_NORMAL_USER").then((response) =>{
+        if (getSystemUserInfo() == null) {
+            getAllUserByRole("ROLE_NORMAL_USER").then((response) => {
+                setLoading(false);
+                setAllUsers(response);
+                setSystemUserInfo(response);
+            }).catch((error) => {
+                setLoading(false);
+                console.log(error)
+            })
+        } else {
             setLoading(false);
-            console.log(response)
-            setAllUsers(response)
-        }).catch((error) => {
-            setLoading(false);
-            console.log(error)
-        })
+            setAllUsers(getSystemUserInfo());
+        }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getAllUsers();
     }, [])
 

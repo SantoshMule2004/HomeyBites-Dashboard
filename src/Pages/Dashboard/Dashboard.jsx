@@ -3,12 +3,17 @@ import DashboardStats from '../../Components/DashboardStats';
 import { getOrderCount, getTiffinProviderOrdersInaRange } from '../../Services/OrderService';
 import { getSubscriptionCount } from '../../Services/SubscriptionService';
 import { useUserInfo } from '../../Context/UserContext';
+import { getTotalRevenueOfProvider } from '../../Services/PaymentService';
+import ScreenLoader from '../../Components/ScreenLoader';
+import { useOrderData } from '../../Context/OrderContext';
 
 export const Dashboard = () => {
-    
+
     const COLORS = ["#0088FE", "#FFBB28"];
-    
-    const [loading, setLoading] = useState(false);
+
+    const { getDashboardOrders, setDashboardOrders } = useOrderData();
+
+    const [loading, setLoading] = useState(true);
 
     const { getUserInfo } = useUserInfo();
     const user = getUserInfo();
@@ -16,20 +21,33 @@ export const Dashboard = () => {
     const [ordersData, setOrdersData] = useState({});
     const [subscriptionCount, setSubscriptionCount] = useState("");
     const [orderCount, setOrderCount] = useState("");
+    const [totalRevenue, setTotalRevenue] = useState("");
 
     useEffect(() => {
-        getAllOrders();
         getSubscriptions();
         getOrders();
+        getTotalRevenue();
+        getAllOrders();
     }, []);
 
     const getAllOrders = () => {
-        const { monday, sunday } = getCurrentWeekRange();
-
-        getTiffinProviderOrdersInaRange(user.userId, monday, sunday).then((response) => {
-            const formattedData = formatOrdersData(response);
-            setOrdersData(formattedData);
-        }).catch(error => console.error('Error fetching orders:', error));
+        if(getDashboardOrders() == null) {
+            const { monday, sunday } = getCurrentWeekRange();
+            getTiffinProviderOrdersInaRange(user.userId, monday, sunday).then((response) => {
+                console.log("inside dashboard")
+                const formattedData = formatOrdersData(response);
+                setOrdersData(formattedData);
+                setDashboardOrders(formattedData);
+                setLoading(false);
+            }).catch((error) => {
+                setLoading(false);
+                console.error('Error fetching orders:', error)
+            });
+        } else {
+            setLoading(false);
+            setOrdersData(getDashboardOrders());
+            console.log("Localsotrage");
+        }
     }
 
     const getCurrentWeekRange = () => {
@@ -74,20 +92,28 @@ export const Dashboard = () => {
     };
 
     const getSubscriptions = () => {
-        getSubscriptionCount(user.userId).then((response)=> {
+        setLoading(true);
+        getSubscriptionCount(user.userId).then((response) => {
             setSubscriptionCount(response);
             console.log("subscription count", response)
         })
     }
 
     const getOrders = () => {
-        getOrderCount(user.userId).then((response)=> {
+        getOrderCount(user.userId).then((response) => {
             console.log(response);
             setOrderCount(response);
         })
     }
-    
-    const revenue = 25000;
+
+    const getTotalRevenue = () => {
+        getTotalRevenueOfProvider(user.userId).then((response) => {
+            setTotalRevenue(response)
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
 
     const subscriptionData = [
         { name: "Subscribed", value: Number(subscriptionCount) },
@@ -97,12 +123,17 @@ export const Dashboard = () => {
 
     return (
         <div className="container mt-5 p-2">
-            <h1 className="text-3xl mb-2 heading">Dashboard</h1>
-            <DashboardStats firstBox={orderCount} firstBoxTitle="Total Orders"
-                secondBox={revenue} secondBoxTitle="Revenue"
-                thirdBox={subscriptionCount} thirdBoxTitle="Active subscriptions"
-                lineChartData={ordersData} lineChartTite="Orders Over the Week" xaxisDataKey={"day"} lineDataKey={"orders"}
-                pieChartData={subscriptionData} PieChartTitle="subscription status" COLORS={COLORS} />
+            {loading ? (
+                <ScreenLoader />
+            ) : (
+                <>
+                    <h1 className="text-3xl mb-2 heading">Dashboard</h1>
+                    <DashboardStats firstBox={orderCount} firstBoxTitle="Total Orders"
+                        secondBox={totalRevenue} secondBoxTitle="Revenue"
+                        thirdBox={subscriptionCount} thirdBoxTitle="Active subscriptions"
+                        lineChartData={ordersData} lineChartTite="Orders Over the Week" xaxisDataKey={"day"} lineDataKey={"orders"}
+                        pieChartData={subscriptionData} PieChartTitle="subscription status" COLORS={COLORS} />
+                </>)}
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../../Components/ScreenLoader'
 import { fetchMenu } from '../../../Services/MenuService';
+import { useMenuItems } from '../../../Context/MenuItemContext';
 
 export const AllMenuItems = () => {
 
@@ -8,16 +9,23 @@ export const AllMenuItems = () => {
 
     const [allMenuItemData, setallMenuItemData] = useState([]);
 
+    const { getMenuItemsData, setMenuItemsData } = useMenuItems();
+
     const getAllMenuItems = () => {
         setLoading(true);
-        fetchMenu().then((response) => {
+        if(getMenuItemsData() == null) {
+            fetchMenu().then((response) => {
+                setLoading(false);
+                setallMenuItemData(response)
+                setMenuItemsData(response);
+            }).catch((error) => {
+                setLoading(false);
+                console.log(error)
+            })
+        } else {
             setLoading(false);
-            console.log(response)
-            setallMenuItemData(response)
-        }).catch((error) => {
-            setLoading(false);
-            console.log(error)
-        })
+            setallMenuItemData(getMenuItemsData());
+        }
     }
 
     useEffect(() => {

@@ -29,6 +29,16 @@ export const UserContext = ({ children }) => {
         localStorage.removeItem("tiffinPlans");
         localStorage.removeItem("Subscriptions");
         localStorage.removeItem("AdminLogin");
+        localStorage.removeItem("Allorders");
+        localStorage.removeItem("EmailsData");
+        localStorage.removeItem("AllTodaysOrders");
+        localStorage.removeItem("TodaysEmailsData");
+        localStorage.removeItem("DashboardOrders");
+        localStorage.removeItem("RevenueData");
+        localStorage.removeItem("PaymentData");
+        localStorage.removeItem("PaymentEmailsData");
+        localStorage.removeItem("SystemUser");
+        localStorage.removeItem("SystemProvider");
         next()
     }
 
@@ -46,8 +56,28 @@ export const UserContext = ({ children }) => {
         localStorage.setItem("user", userData);
     }
 
+    const getSystemUserInfo = () => {
+        if (isLoggedIn())
+            return JSON.parse(localStorage.getItem("SystemUser"));
+    }
+
+    const setSystemUserInfo = (user) => {
+        const userData = JSON.stringify(user);
+        localStorage.setItem("SystemUser", userData);
+    }
+
+    const getSystemProviderInfo = () => {
+        if (isLoggedIn())
+            return JSON.parse(localStorage.getItem("SystemProvider"));
+    }
+
+    const setSystemProviderInfo = (user) => {
+        const userData = JSON.stringify(user);
+        localStorage.setItem("SystemProvider", userData);
+    }
+
     return (
-        <UserInfoContext.Provider value={{ isLoggedIn, doLogin, doLogout, getAuthToken, getUserInfo, setUserInfo }}>
+        <UserInfoContext.Provider value={{ isLoggedIn, doLogin, doLogout, getAuthToken, getUserInfo, setUserInfo, getSystemProviderInfo, getSystemUserInfo, setSystemProviderInfo, setSystemUserInfo }}>
             {children}
         </UserInfoContext.Provider>
     )

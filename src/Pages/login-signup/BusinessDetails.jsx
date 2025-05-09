@@ -138,42 +138,42 @@ const BusinessDetails = () => {
                         <h4>Enter Business Address:</h4>
 
                         <div className="input">
-                            <img src={phone_icon} alt="" />
+                            {/* <img src={phone_icon} alt="" /> */}
                             <input type="text" placeholder='address line' value={data.address[0].addressLine} onChange={(e) => handleChange(e, 0, 'addressLine')} />
                         </div>
 
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='Landmark' value={data.address[0].landmark} onChange={(e) => handleChange(e, 0, 'landmark')} />
                         </div>
                         
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='country' value={data.address[0].country} onChange={(e) => handleChange(e, 0, 'country')} />
                         </div>
 
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='state' value={data.address[0].state} onChange={(e) => handleChange(e, 0, 'state')} />
                         </div>
 
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='city' value={data.address[0].city} onChange={(e) => handleChange(e, 0, 'city')} />
                         </div>
 
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='latitude' value={data.address[0].latitude} onChange={(e) => handleChange(e, 0, 'latitude')} />
                         </div>
 
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='longitude' value={data.address[0].longitude} onChange={(e) => handleChange(e, 0, 'longitude')} />
                         </div>
 
                         <div className="input">
-                            <img src={password_icon} alt="" />
+                            {/* <img src={password_icon} alt="" /> */}
                             <input type="text" placeholder='service radius' value={data.address[0].serviceRadius} onChange={(e) => handleChange(e, 0, 'serviceRadius')} />
                         </div>
 

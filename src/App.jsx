@@ -40,6 +40,9 @@ import { ViewSingleUserInfo } from './Admin/Pages/ViewSingleUserInfo';
 import { ViewPlansOfProvider } from './Admin/Pages/TiffinProvider/ViewPlansOfProvider';
 import { ViewMenuItemProvider } from './Admin/Pages/TiffinProvider/ViewMenuItemProvider';
 import { ViewSingleTiffinPlan } from './Admin/Pages/TiffinProvider/ViewSingleTiffinPlan';
+import { AdminRevenue } from './Admin/Pages/AdminRevenue';
+import { AdminPaymentHistory } from './Admin/Pages/AdminPaymentHistory';
+import { PaymentHistory } from './Pages/Revenue/PaymentHistory';
 
 function App() {
   const location = useLocation();
@@ -66,6 +69,9 @@ function App() {
             <Routes>
               <Route path='/update' element={<UpdateLS />} />
               <Route path='/admin-dashboard' element={<AdminDashboard />} />
+              <Route path='/admin-revenue' element={<AdminRevenue />} />
+              <Route path='/admin-payment-history' element={<AdminPaymentHistory />} />
+              <Route path='/payment-history' element={<PaymentHistory />} />
               <Route path='/users' element={<Users />} />
               <Route path='/tiffin-providers' element={<TiffinProviders />} />
               <Route path='/tiffin-provider-plans' element={<ViewPlansOfProvider />} />

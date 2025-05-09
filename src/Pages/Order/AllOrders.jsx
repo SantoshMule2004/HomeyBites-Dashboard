@@ -4,14 +4,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getAllOrders, getAllOrdersOfProvider } from '../../Services/OrderService'
 import ScreenLoader from '../../Components/ScreenLoader'
 import { useUserInfo } from '../../Context/UserContext';
+import { useOrderData } from '../../Context/OrderContext'
 
 export const AllOrders = () => {
 
     const [orderData, setOrderData] = useState({});
 
+    const { getOrdersInfo, setOrdersInfo, getEmailIds, setEmails } = useOrderData();
+
     const isAdmin = localStorage.getItem("AdminLogin");
 
-    const {getUserInfo} = useUserInfo();
+    const { getUserInfo } = useUserInfo();
     const user = getUserInfo();
 
     const navigate = useNavigate();
@@ -19,54 +22,56 @@ export const AllOrders = () => {
 
     const [emailIds, setEmailIds] = useState({});
 
-    const getAllOrder = () => {
+    const getAllOrder = () => { 
         setLoading(true);
-        if (isAdmin) {
-            getAllOrders().then((response) => {
-                console.log("success", response);
-                setOrderData(response)
-                localStorage.setItem("totalOrders", response.length);
-
-                const OrderInfo = response;
-                const map = {};
-                OrderInfo.forEach(order => {
-                    if (typeof order.user === 'object' && order.user !== null && 'userId' in order.user) {
-                        console.log("inside order")
-                        map[order.user.userId] = order?.user?.emailId; // Stores unique email ids
-                    }
-                });
-
-                setEmailIds(map);
-                setLoading(false);
-
-            }).catch((error) => {
-                setLoading(false);
-                console.log(error);
-            })
-        } else {
-            if (user != null) {
-                getAllOrdersOfProvider(user.userId, "Completed").then((response) => {
-                    setLoading(false);
-                    console.log("uccess", response);
+        if(getOrdersInfo() == null) {
+            if (isAdmin) {
+                getAllOrders().then((response) => {
                     setOrderData(response)
-                    localStorage.setItem("totalOrders", response.length);
-
+                    setOrdersInfo(response);
+                    
                     const OrderInfo = response;
                     const map = {};
                     OrderInfo.forEach(order => {
                         if (typeof order.user === 'object' && order.user !== null && 'userId' in order.user) {
-                            console.log("inside order")
                             map[order.user.userId] = order?.user?.emailId; // Stores unique email ids
                         }
                     });
-
                     setEmailIds(map);
-
+                    setEmails(map);
+                    setLoading(false);
+                    
                 }).catch((error) => {
                     setLoading(false);
                     console.log(error);
                 })
+            } else {
+                if (user != null) {
+                    getAllOrdersOfProvider(user.userId, "Completed").then((response) => {
+                        setOrderData(response)
+                        setOrdersInfo(response);
+                        
+                        const OrderInfo = response;
+                        const map = {};
+                        OrderInfo.forEach(order => {
+                            if (typeof order.user === 'object' && order.user !== null && 'userId' in order.user) {
+                                map[order.user.userId] = order?.user?.emailId; // Stores unique email ids
+                            }
+                        });
+                        setEmailIds(map);
+                        setEmails(map);
+                        setLoading(false);
+    
+                    }).catch((error) => {
+                        setLoading(false);
+                        console.log(error);
+                    })
+                }
             }
+        } else {
+            setLoading(false);
+            setOrderData(getOrdersInfo());
+            setEmailIds(getEmailIds());
         }
     }
 
@@ -80,20 +85,8 @@ export const AllOrders = () => {
                 <ScreenLoader />
             ) : (
                 <>
-                    <div className='d-flex align-items-start justify-content-between'>
-                        <h2 className="text-3xl mb-4 heading">All Orders</h2>
+                    <h2 className="text-3xl mb-4 heading">All Orders</h2>
 
-                        <div className="dropdown me-4">
-                            <button className="nav-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style={{ borderRadius: '25px', backgroundColor: '#fff', padding: '5px 10px' }}>
-                                <i className="fas fa-filter"></i> Filter
-                            </button>
-                            <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton1">
-                                <li><Link to='#' className='dropdown-item custom-item' >By order status</Link></li>
-                                <li><Link to='#' className='dropdown-item custom-item'>By tiffin provider</Link></li>
-                                <li><Link to='#' className='dropdown-item custom-item'>Logout</Link></li>
-                            </ul>
-                        </div>
-                    </div>
                     {orderData.length === 0 ? (
                         <div className="text-center text-muted my-5">
                             <p className="fs-6">Currently no <strong>Order’s</strong> available.</p>
@@ -109,7 +102,7 @@ export const AllOrders = () => {
                                         <th className='align-middle' scope="col">Order date</th>
                                         <th className='align-middle' scope="col">Price</th>
                                         <th className='align-middle' scope="col">Order status</th>
-                                        <th className='align-middle' scope="col"></th>
+                                        {/* <th className='align-middle' scope="col"></th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -121,7 +114,7 @@ export const AllOrders = () => {
                                             <td>{new Date(order.orderDate).toLocaleString()}</td>
                                             <td>{order.price}</td>
                                             <td className={`fw-bold ${order.orderStatus === "Completed" ? 'text-success' : 'text-warning'}`}>{order.orderStatus}</td>
-                                            <td><Link to='#' className='btn fw-bold text-secondary'>View Info</Link></td>
+                                            {/* <td><Link to='#' className='btn button'>View Info</Link></td> */}
                                         </tr>
                                     ))}
                                 </tbody>

@@ -3,10 +3,13 @@ import ScreenLoader from '../../../Components/ScreenLoader'
 import { getAllTiffinPlans } from '../../../Services/TiffinPlanService';
 import { TiffinPlanCard } from '../../../Components/TiffinPlanCard';
 import { useNavigate } from 'react-router-dom';
+import { useTiffinPlans } from '../../../Context/TiffinPlanContext';
 
 export const AllTiffinPlans = () => {
 
     const [loading, setLoading] = useState(true);
+
+    const { getTiffinPlanData, setTiffinPlanData } = useTiffinPlans();
 
     const [allTiffinPlans, setallTiffinPlans] = useState([]);
 
@@ -14,14 +17,19 @@ export const AllTiffinPlans = () => {
 
     const getAllPlans = () => {
         setLoading(true);
-        getAllTiffinPlans().then((response) => {
+        if (getTiffinPlanData() == null) {
+            getAllTiffinPlans().then((response) => {
+                setLoading(false);
+                setallTiffinPlans(response)
+                setTiffinPlanData(response)
+            }).catch((error) => {
+                setLoading(false);
+                console.log(error)
+            })
+        } else {
             setLoading(false);
-            console.log(response)
-            setallTiffinPlans(response)
-        }).catch((error) => {
-            setLoading(false);
-            console.log(error)
-        })
+            setallTiffinPlans(getTiffinPlanData());
+        }
     }
 
     useEffect(() => {

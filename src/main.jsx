@@ -7,6 +7,7 @@ import { MenuItemContext } from './Context/MenuItemContext.jsx'
 import { TiffinPlanContext } from './Context/TiffinPlanContext.jsx'
 import { SubscriptionContext } from './Context/SubscriptionContext.jsx'
 import { UserContext } from './Context/UserContext.jsx'
+import { OrderContext } from './Context/OrderContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -15,7 +16,9 @@ createRoot(document.getElementById('root')).render(
         <MenuItemContext>
           <TiffinPlanContext>
             <SubscriptionContext>
-              <App />
+              <OrderContext>
+                <App />
+              </OrderContext>
             </SubscriptionContext>
           </TiffinPlanContext>
         </MenuItemContext>

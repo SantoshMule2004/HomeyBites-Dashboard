@@ -108,7 +108,7 @@ const NavigationBar = ({ isOpen, onClose }) => {
           <div className={`collapse ${openSections.revenue ? 'show' : ''}`} id="revenue-collapse">
             <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
               <li><i className="fa-solid fa-wallet" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/revenue" className="text-decoration-none rounded text-secondary">revenue</Link></li>
-              <li><i className="fa-solid fa-coins" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="#" className="text-decoration-none rounded text-secondary">Payment history</Link></li>
+              <li><i className="fa-solid fa-coins" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/payment-history" className="text-decoration-none rounded text-secondary">Payment history</Link></li>
             </ul>
           </div>
         </li>
