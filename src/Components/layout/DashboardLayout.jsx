@@ -8,7 +8,7 @@ import logo from '../../assets/images/logo.png';
 import { useUserInfo } from "../../Context/UserContext";
 import { getAllCategories } from "../../Services/menuService";
 import { useMenuItems } from "../../Context/MenuItemContext";
-import { getBusinessDetails } from "../../Services/userService";
+import { getBusinessDetails } from '../../Services/userService';
 
 
 export default function DashboardLayout() {
