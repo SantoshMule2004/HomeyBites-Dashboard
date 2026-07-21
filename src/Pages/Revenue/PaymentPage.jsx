@@ -35,7 +35,7 @@ import {
 import "./Payments.css";
 import { useUserInfo } from "../../Context/UserContext";
 import { getProviderOrders, updateOrderStatus } from "../../Services/orderService";
-import { getProviderPayments, updatePaymentStatus } from "../../Services/PaymentService";
+import { getProviderPayments, updatePaymentStatus } from "../../Services/paymentService";
 import UpdatePaymentStatusModal from "./UpdatePaymentStatusModal";
 
 const PAGE_SIZE = 8;
