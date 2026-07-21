@@ -1,0 +1,145 @@
+/* src/layout/Sidebar.css */
+
+.hb-sidebar {
+  position: fixed;
+  top: var(--hb-navbar-height);
+  left: 0;
+  bottom: 0;
+  width: var(--hb-sidebar-width);
+  background-color: var(--hb-sidebar-bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 900;
+  transition: transform 0.25s ease;
+}
+
+.hb-sidebar__nav {
+  padding: 20px 12px;
+}
+
+.hb-sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hb-sidebar__item {
+  margin-bottom: 4px;
+}
+
+.hb-sidebar__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: var(--hb-sidebar-text);
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.hb-sidebar__link:hover {
+  background-color: var(--hb-sidebar-hover-bg);
+  color: #ffffff;
+}
+
+.hb-sidebar__link--active {
+  background-color: var(--hb-sidebar-active-bg);
+  color: var(--hb-accent);
+  font-weight: 600;
+}
+
+.hb-sidebar__link--active .hb-sidebar__icon {
+  color: var(--hb-accent);
+}
+
+/* Parent item when one of its sub-items is selected: just tint the text/icon,
+   no background box, so it doesn't look like two things are selected at once. */
+.hb-sidebar__link--parent-active {
+  color: var(--hb-accent);
+  font-weight: 600;
+}
+
+.hb-sidebar__link--parent-active .hb-sidebar__icon {
+  color: var(--hb-accent);
+}
+
+.hb-sidebar__link--parent {
+  justify-content: flex-start;
+}
+
+.hb-sidebar__icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.hb-sidebar__chevron {
+  margin-left: auto;
+  font-size: 1.1rem;
+  transition: transform 0.15s ease;
+}
+
+.hb-sidebar__chevron--open {
+  transform: rotate(90deg);
+}
+
+.hb-sidebar__submenu {
+  list-style: none;
+  margin: 2px 0 6px 0;
+  padding-left: 34px;
+  border-left: 1px solid var(--hb-sidebar-hover-bg);
+}
+
+.hb-sidebar__submenu li {
+  margin-bottom: 4px;
+}
+
+.hb-sidebar__submenu li:last-child {
+  margin-bottom: 0;
+}
+
+.hb-sidebar__sublink {
+  display: block;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  color: var(--hb-sidebar-subtext);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.hb-sidebar__sublink:hover {
+  background-color: var(--hb-sidebar-hover-bg);
+  color: #ffffff;
+}
+
+.hb-sidebar__sublink--active {
+  background-color: var(--hb-sidebar-active-bg);
+  color: var(--hb-accent);
+  font-weight: 600;
+}
+
+/* Divider style used between sections, mirrors the reference screenshot */
+.hb-sidebar__divider {
+  border: none;
+  border-top: 1px solid var(--hb-sidebar-hover-bg);
+  margin: 14px 4px;
+}
+
+/* --- Responsive: off-canvas on small screens --- */
+@media (max-width: 991.98px) {
+  .hb-sidebar {
+    transform: translateX(-100%);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .hb-sidebar--open {
+    transform: translateX(0);
+  }
+}

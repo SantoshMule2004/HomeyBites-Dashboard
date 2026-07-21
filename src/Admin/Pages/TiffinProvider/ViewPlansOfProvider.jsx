@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { TiffinPlanCard } from '../../../Components/TiffinPlanCard';
-import { getTiffinPlans } from '../../../Services/TiffinPlanService';
+// import { getTiffinPlans } from '../../../Services/TiffinPlanService';
 import ScreenLoader from '../../../Components/ScreenLoader';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,7 +49,7 @@ export const ViewPlansOfProvider = () => {
     }
 
     return (
-        <div className="container mt-5 p-2">
+        <div className="container p-2">
             {loading ? (
                 <ScreenLoader />
             ) : (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../Components/ScreenLoader'
-import { getAllUserByRole } from '../../Services/UserService';
+// import { getAllUserByRole } from '../../Services/UserService';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserInfoTable } from '../../Components/UserInfoTable';
 import { useUserInfo } from '../../Context/UserContext';
@@ -36,7 +36,7 @@ export const Users = () => {
     }, [])
 
     return (
-        <div className='container mt-5 p-2'>
+        <div className='container p-2'>
             {loading ? (
                 <ScreenLoader />
             ) : (

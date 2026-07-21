@@ -1,9 +1,41 @@
 /* side bar  */
-.SideBar {
-    position: fixed;
-    width: 19%;
-    margin-top: 90px;
-    height: 100vh;
+:root{
+    --navbar-height:72px;
+    --sidebar-width:270px;
+}
+
+/* Sidebar */
+
+.SideBar{
+    position:fixed;
+    top:var(--navbar-height);
+    left:0;
+
+    width:var(--sidebar-width);
+
+    height:calc(100vh - var(--navbar-height));
+
+    overflow-y:auto;
+
+    z-index:1000;
+}
+
+/* Main Content */
+
+.Base{
+
+    margin-top:var(--navbar-height);
+
+    margin-left:var(--sidebar-width);
+
+    min-height:calc(100vh - var(--navbar-height));
+
+    padding:24px;
+
+    width:calc(100% - var(--sidebar-width));
+
+    transition:all .3s ease;
+
 }
 
 /* sidebar buttons */
@@ -77,13 +109,6 @@
 }
 
 /* Base class */
-.Base {
-    position: relative;
-    width: 80%;
-    left: 20%;
-    padding-top: 43px;
-    /* background-color: #fff; */
-}
 
 /* Dashboard */
 .animate-hover {
@@ -213,29 +238,28 @@
     }
 }
 
-@media (max-width: 475px) {
-    .menuBar {
-        display: block;
+@media (max-width:992px){
+
+    .SideBar{
+
+        left:-270px;
+
+        transition:left .3s ease;
+
     }
 
-    .SideBar {
-        position: absolute;
-        left: -100%;
-        height: 100vh;
-        z-index: 999;
-        transition: left 0.3s ease;
+    .SideBar.open{
+
+        left:0;
+
     }
 
-    .SideBar.open {
-        left: 0;
+    .Base{
+
+        width:100%;
+
+        margin-left:0;
+
     }
 
-    .Base {
-        left: 0;
-        width: 100%;
-    }
-
-    .menuBar {
-        display: block;
-    }
 }

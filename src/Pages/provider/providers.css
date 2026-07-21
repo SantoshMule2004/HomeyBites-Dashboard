@@ -1,0 +1,108 @@
+/* src/pages/MenuItems/MenuItems.css
+   Only what's specific to THIS page — the title/header row. Search,
+   filters, table, badges, and action buttons live in
+   src/components/tables/Table.css, and the modal shell lives in
+   src/components/Modal.css — both shared across pages. */
+
+.hb-menuitems__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.hb-menuitems__title {
+  color: var(--hb-accent, #ff7a1a);
+  font-weight: 800;
+  margin: 0;
+}
+
+/* --- Image upload + preview, in the Add/Update Menu Item modal --- */
+.hb-image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hb-image-upload__preview {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: visible;
+  background-color: #f2f2f2;
+  border: 1px solid #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hb-image-upload__preview img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hb-image-upload__placeholder {
+  font-size: 0.75rem;
+  color: #aaaaaa;
+  padding: 0 10px;
+}
+
+.hb-image-upload__edit-btn {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--hb-accent, #ff7a1a);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid #ffffff;
+  font-size: 0.85rem;
+}
+
+.hb-image-upload__edit-btn:hover {
+  background-color: #e56a10;
+}
+
+.hb-image-upload__input {
+  /* Visually hidden but still focusable/clickable via the label above */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hb-image-upload__hint {
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: #888888;
+  max-width: 320px;
+}
+
+@media (max-width: 575.98px) {
+  .hb-menuitems__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hb-menuitems__header .hb-date-filter {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px; /* room for scrollbar so it doesn't clip the inputs */
+  }
+}

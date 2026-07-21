@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../../Components/ScreenLoader'
 import { UserInfoTable } from '../../../Components/UserInfoTable'
-import { getAllUserByRole } from '../../../Services/UserService';
+// import { getAllUserByRole } from '../../../Services/UserService';
 import { useUserInfo } from '../../../Context/UserContext';
 
 export const TiffinProviders = () => {
@@ -33,7 +33,7 @@ export const TiffinProviders = () => {
         getAllUsers();
     }, [])
     return (
-        <div className='container mt-5 p-2'>
+        <div className='container p-2'>
             {loading ? (
                 <ScreenLoader />
             ) : (

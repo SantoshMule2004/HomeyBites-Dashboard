@@ -1,0 +1,213 @@
+/* src/components/dashboard/Dashboard.css
+   Shared styling for StatCard/StatCardsGrid/RevenueChart/RevenueSummaryCard
+   — used by both ProviderDashboardPage and AdminDashboardPage. */
+
+/* --- Stat cards --- */
+.hb-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.hb-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+}
+
+.hb-stat-card__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: #fff1e6;
+  color: var(--hb-accent, #ff7a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.hb-stat-card__value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--hb-text-dark, #222222);
+  line-height: 1.2;
+}
+
+.hb-stat-card__label {
+  font-size: 0.8rem;
+  color: #888888;
+  margin-top: 2px;
+}
+
+/* --- Revenue section header: title + filter bar on one line --- */
+.hb-revenue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hb-revenue-header .hb-dashboard__section-title {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* --- Revenue filter bar: groupBy + date range, each with its own label --- */
+.hb-revenue-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.hb-revenue-filter__group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hb-revenue-filter__label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #999999;
+}
+
+.hb-revenue-filter__select {
+  min-width: 130px;
+  height: 40px;
+}
+
+/* --- Revenue row: summary card + chart side by side --- */
+.hb-dashboard__revenue-row {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.hb-revenue-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hb-revenue-summary__label {
+  font-size: 0.85rem;
+  color: #888888;
+}
+
+.hb-revenue-summary__value {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--hb-text-dark, #222222);
+  margin-bottom: 8px;
+}
+
+.hb-revenue-summary__breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 10px;
+}
+
+.hb-revenue-summary__breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-revenue-summary__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hb-revenue-summary__chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.hb-revenue-summary__chip--success {
+  background-color: #d1e7dd;
+  color: #146c43;
+}
+
+.hb-revenue-summary__chip--warning {
+  background-color: #fff3cd;
+  color: #a06a00;
+}
+
+.hb-revenue-summary__chip--danger {
+  background-color: #fbdde0;
+  color: #d9534f;
+}
+
+.hb-revenue-summary__chip--neutral {
+  background-color: #eeeeee;
+  color: #666666;
+}
+
+.hb-revenue-chart__title {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-revenue-chart__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 240px;
+  color: #aaaaaa;
+  font-size: 0.9rem;
+}
+
+.hb-revenue-chart__tooltip {
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hb-revenue-chart__tooltip-label {
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--hb-text-dark, #222222);
+}
+
+@media (max-width: 767.98px) {
+  .hb-dashboard__revenue-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hb-revenue-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hb-revenue-filter {
+    width: 100%;
+  }
+
+  .hb-revenue-filter__select,
+  .hb-revenue-filter .hb-date-input {
+    flex: 1 1 auto;
+  }
+}

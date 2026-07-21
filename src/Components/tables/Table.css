@@ -1,0 +1,541 @@
+/* src/components/tables/Table.css
+   Shared styling for the reusable search/filter/table components.
+   Import once anywhere these components are used — Vite/webpack dedupes it. */
+
+/* --- Filters bar / search / filter select --- */
+.hb-filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.hb-search {
+  position: relative;
+  flex: 1 1 320px;
+  min-width: 240px;
+}
+
+.hb-search__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999999;
+}
+
+.hb-search__input {
+  padding-left: 40px;
+  border-radius: 8px;
+  height: 46px;
+}
+
+.hb-search__input:focus,
+.hb-filter-select:focus {
+  border-color: var(--hb-accent, #ff7a1a);
+  box-shadow: 0 0 0 0.2rem rgba(255, 122, 26, 0.25);
+  outline: none;
+}
+
+.hb-filter-select {
+  width: auto;
+  min-width: 150px;
+  border-radius: 8px;
+  height: 46px;
+  flex-shrink: 0;
+}
+
+/* --- Date filter --- */
+.hb-date-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; /* mode dropdown + its date input(s) stay on one line when there's room */
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* The mode dropdown ("All Dates" / "From Date" / "Date Range") doesn't need
+   to be as wide as the other filter dropdowns — keep it compact. */
+.hb-date-filter > .hb-filter-select {
+  min-width: 128px;
+  flex-shrink: 1;
+}
+
+.hb-date-input {
+  border-radius: 8px;
+  height: 46px;
+  min-width: 0;
+  width: 130px;
+  flex-shrink: 1;
+}
+
+.hb-date-input:focus {
+  border-color: var(--hb-accent, #ff7a1a);
+  box-shadow: 0 0 0 0.2rem rgba(255, 122, 26, 0.25);
+  outline: none;
+}
+
+.hb-date-filter__separator {
+  color: #777777;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* Once things get tight (tablet width and below), let the mode dropdown
+   and date input(s) wrap onto their own line(s) instead of overflowing
+   the screen — each one still fills the available width cleanly. */
+@media (max-width: 767.98px) {
+  .hb-date-filter {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .hb-date-filter > .hb-filter-select,
+  .hb-date-input {
+    flex: 1 1 130px;
+    width: auto;
+  }
+
+  .hb-date-filter__separator {
+    flex-basis: 100%;
+    text-align: center;
+  }
+}
+
+.hb-filters-bar__reset {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* --- Table card + table --- */
+
+/* Add this to any page's root wrapper (alongside the page's own class) to
+   make its <DataTable /> fill all the remaining height below a header/
+   filters bar, with only the table body scrolling — not the whole page. */
+.hb-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.hb-list-page > .hb-table-card {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hb-table-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  /* No `overflow: hidden` here — it would clip action-button tooltips.
+     Rounded corners come from radius on the header/scroll area + pagination
+     footer below instead. */
+}
+
+.hb-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+/* Wraps the <table> — this scrolls vertically while the header (sticky
+   inside it) stays put, and the page itself doesn't scroll for this.
+   Inside a .hb-list-page it flexes to fill the available space; on its
+   own it falls back to a fixed max-height. */
+.hb-table-scroll {
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 10px 10px 0 0;
+}
+
+.hb-list-page .hb-table-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+}
+
+.hb-table thead tr {
+  background-color: var(--hb-accent, #ff7a1a);
+}
+
+.hb-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  color: #ffffff;
+  background-color: var(--hb-accent, #ff7a1a);
+  font-weight: 700;
+  padding: 16px 18px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.hb-table tbody td {
+  padding: 16px 18px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0f0f0;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.hb-table__thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.hb-table__thumb-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  color: #bbbbbb;
+  font-size: 1.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hb-table__name {
+  font-weight: 600;
+}
+
+.hb-table__desc {
+  font-size: 0.85rem;
+  color: #888888;
+  max-width: 260px;
+}
+
+.hb-table__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* --- Status badges --- */
+.hb-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hb-badge--success {
+  background-color: #d1e7dd;
+  color: #146c43;
+}
+
+.hb-badge--danger {
+  background-color: #fbdde0;
+  color: #d9534f;
+}
+
+.hb-badge--warning {
+  background-color: #fff3cd;
+  color: #a06a00;
+}
+
+.hb-badge--neutral {
+  background-color: #eeeeee;
+  color: #555555;
+}
+
+.hb-badge--info {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.hb-badge--accent {
+  background-color: #e6d9f7;
+  color: #5b2c96;
+}
+
+/* --- Action buttons --- */
+.hb-btn-primary {
+  background-color: var(--hb-accent, #ff7a1a);
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hb-btn-primary:hover {
+  background-color: #e56a10;
+  color: #ffffff;
+}
+
+.hb-btn-update {
+  background-color: #fbe4d5;
+  color: #b1590f;
+  border: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.hb-btn-update:hover {
+  background-color: #f7d3b8;
+  color: #b1590f;
+}
+
+.hb-btn-disable {
+  background-color: #e63946;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.hb-btn-disable:hover {
+  background-color: #d32f3d;
+  color: #ffffff;
+}
+
+.hb-btn-enable {
+  background-color: #2e9e5b;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.hb-btn-enable:hover {
+  background-color: #27894f;
+  color: #ffffff;
+}
+
+.hb-btn-secondary {
+  background-color: #eeeeee;
+  color: #333333;
+  border: none;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.hb-btn-secondary:hover {
+  background-color: #e2e2e2;
+}
+
+.hb-btn-delete {
+  background-color: transparent;
+  color: #e63946;
+  border: 1px solid #e63946;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.hb-btn-delete:hover {
+  background-color: #e63946;
+  color: #ffffff;
+}
+
+/* --- Icon-only action buttons (used when a row has 3+ actions) --- */
+.hb-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.hb-icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hb-icon-btn--update {
+  background-color: #fbe4d5;
+  color: #b1590f;
+}
+
+.hb-icon-btn--update:hover {
+  background-color: #f7d3b8;
+}
+
+.hb-icon-btn--enable {
+  background-color: #2e9e5b;
+  color: #ffffff;
+}
+
+.hb-icon-btn--enable:hover {
+  background-color: #27894f;
+}
+
+.hb-icon-btn--disable {
+  background-color: #e63946;
+  color: #ffffff;
+}
+
+.hb-icon-btn--disable:hover {
+  background-color: #d32f3d;
+}
+
+.hb-icon-btn--delete {
+  background-color: transparent;
+  color: #e63946;
+  border: 1px solid #e63946;
+}
+
+.hb-icon-btn--delete:hover {
+  background-color: #e63946;
+  color: #ffffff;
+}
+
+.hb-icon-btn--neutral {
+  background-color: #eeeeee;
+  color: #333333;
+}
+
+/* Tooltip shown on hover, via the data-tooltip attribute — sits BELOW
+   the icon, not above (above got lost/clipped near the sticky header). */
+.hb-icon-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222222;
+  color: #ffffff;
+  padding: 4px 9px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+  z-index: 50;
+}
+
+.hb-icon-btn::before {
+  content: "";
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #222222;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease;
+  z-index: 50;
+}
+
+.hb-icon-btn:hover::after,
+.hb-icon-btn:hover::before {
+  opacity: 1;
+}
+
+/* --- Pagination --- */
+.hb-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.hb-pagination__info {
+  font-size: 0.85rem;
+  color: #777777;
+}
+
+.hb-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hb-pagination__btn {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--hb-text-dark, #222222);
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.hb-pagination__btn:hover:not(:disabled) {
+  border-color: var(--hb-accent, #ff7a1a);
+  color: var(--hb-accent, #ff7a1a);
+}
+
+.hb-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.hb-pagination__btn--active {
+  background-color: var(--hb-accent, #ff7a1a);
+  border-color: var(--hb-accent, #ff7a1a);
+  color: #ffffff;
+}
+
+.hb-pagination__ellipsis {
+  padding: 0 4px;
+  color: #999999;
+}
+
+/* @media (max-width: 767.98px) {
+  .hb-list-page .hb-card hb-table-card .hb-table-scroll {
+    min-height: 480px;
+  }
+} */
+
+@media (max-width: 575.98px) {
+  .hb-filter-select {
+    width: 100%;
+  }
+
+  .hb-date-input {
+    width: 100%;
+  }
+
+  .hb-filters-bar__reset {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .hb-pagination {
+    justify-content: center;
+    text-align: center;
+  }
+}

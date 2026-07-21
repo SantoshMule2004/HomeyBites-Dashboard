@@ -1,61 +1,94 @@
+// src/layout/Navbar.jsx
+import { useEffect, useRef, useState } from "react";
+import { MdMenu, MdKeyboardArrowDown, MdPerson, MdLogout } from "react-icons/md";
+import "./Navbar.css";
 
-import './Style.css';
-import logo from '../assets/homeybites-logo.png'
-import { Link } from 'react-router-dom';
-import { useUserInfo } from '../Context/UserContext';
+/**
+ * Navbar
+ * Props:
+ *  - user: { name, avatarUrl? }   (from your AuthContext)
+ *  - onToggleSidebar: () => void  (used for mobile hamburger)
+ *  - onLogout: () => void         (optional, wire to your auth logout)
+ *  - logo, brandName: optional overrides for branding
+ */
+export default function Navbar({
+  user,
+  onToggleSidebar,
+  onLogout,
+  logoSrc,
+  brandName = "HomeyBites",
+}) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
-export const NavBar = ({ onToggleSidebar }) => {
+  // Close the dropdown on any click outside of it, or on Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
 
-    const { getUserInfo, doLogout, isLoggedIn } = useUserInfo();
-
-    const isAdmin = localStorage.getItem("AdminLogin");
-
-    const logOut = () => {
-        doLogout(() => {
-            setLogin(false);
-            navigate('/');
-        });
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+    const handleEscape = (event) => {
+      if (event.key === "Escape") setMenuOpen(false);
     };
 
-    const user = getUserInfo();
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [menuOpen]);
 
-    return (
-        <nav className="navbar navbar-white fixed-top navbar-expand-lg bg-white px-5">
-            <div className="container-fluid">
-                <div className="d-flex justify-content-start">
-                    <div className="d-flex align-items-center me-3">
-                        <i className="fa-solid fa-bars menuBar" onClick={onToggleSidebar}></i>
-                    </div>
-                    <Link to={`${isAdmin ? '/admin-dashboard' : '/dashboard'}`} className="d-flex text-decoration-none mt-1 align-items-center text-dark">
-                        <span className='fs-4 d-sm-inline'><img className='Logo' src={logo} alt='Logo'></img></span>
-                    </Link>
-                </div>
-                <div className="d-flex justify-content-end">
-                    {/* <a href="#" className="Login p-2">Login</a> */}
-                    {/* {
-                        isLoggedIn() && (
-                            <i className="fa-solid fa-circle-user fs-3"></i>
-                        )
-                    } */}
+  return (
+    <header className="hb-navbar">
+      <div className="hb-navbar__left">
+        <button
+          type="button"
+          className="hb-navbar__hamburger"
+          onClick={onToggleSidebar}
+          aria-label="Toggle sidebar"
+        >
+          <MdMenu />
+        </button>
 
-                    {
-                        isLoggedIn() && (
-                            <>
-                                <div className="dropdown">
-                                    <button className="nav-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i className="fa-solid fa-circle-user"></i> {user.firstName + " " + user.lastName}
-                                    </button>
-                                    <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton1">
-                                        <li><Link to='/profile' className='dropdown-item custom-item' >Profile</Link></li>
-                                        {/* <li><Link to='/' className='dropdown-item' onClick={logOut}>Logout</Link></li> */}
-                                        <li><Link to='/' className='dropdown-item custom-item' onClick={logOut}>Logout</Link></li>
-                                    </ul>
-                                </div>
-                            </>
-                        )
-                    }
-                </div>
+        <div className="hb-navbar__brand">
+          {logoSrc && <img src={logoSrc} alt={brandName} className="hb-navbar__logo" />}
+          <span className="hb-navbar__brand-name">{brandName}</span>
+        </div>
+      </div>
+
+      <div className="hb-navbar__right">
+        <div
+          className="hb-navbar__user"
+          ref={userMenuRef}
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          {user?.avatarUrl ? (
+            <img src={user.avatarUrl} alt={user?.businessName} className="hb-navbar__avatar" />
+          ) : (
+            <MdPerson className="hb-navbar__avatar-icon" />
+          )}
+          <span className="hb-navbar__username">{user?.userRole === "ROLE_ADMIN" ? `${user?.firstName} ${user?.lastName}` : user?.businessName || "User"}</span>
+          <MdKeyboardArrowDown
+            className={`hb-navbar__caret ${menuOpen ? "hb-navbar__caret--open" : ""}`}
+          />
+
+          {menuOpen && (
+            <div className="hb-navbar__dropdown">
+              <button
+                type="button"
+                className="hb-navbar__dropdown-item"
+                onClick={onLogout}
+              >
+                <MdLogout /> Logout
+              </button>
             </div>
-        </nav>
-    )
+          )}
+        </div>
+      </div>
+    </header>
+  );
 }

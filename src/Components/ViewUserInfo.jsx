@@ -1,5 +1,5 @@
 import React from 'react'
-import { getMenuOfProvider } from '../Services/MenuService'
+// import { getMenuOfProvider } from '../Services/MenuService'
 import { useNavigate } from 'react-router-dom'
 
 export const ViewUserInfo = ({ userData }) => {

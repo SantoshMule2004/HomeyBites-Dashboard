@@ -4,7 +4,7 @@ import useButtonLoader from '../../Components/UseButtonLoader';
 import '../../Pages/login-signup/LoginSignup.css'
 import email_icon from '/email.png'
 import password_icon from '/password.png'
-import { adminLogIn } from '../../Services/UserService';
+// import { adminLogIn } from '../../Services/UserService';
 import { useUserInfo } from '../../Context/UserContext';
 import { toast } from 'react-toastify';
 

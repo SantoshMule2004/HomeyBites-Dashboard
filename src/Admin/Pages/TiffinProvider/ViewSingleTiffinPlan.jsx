@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../../Components/ScreenLoader';
-import { getTiffinPlan } from '../../../Services/TiffinPlanService';
+// import { getTiffinPlan } from '../../../Services/TiffinPlanService';
 
 export const ViewSingleTiffinPlan = () => {
 
@@ -44,7 +44,7 @@ export const ViewSingleTiffinPlan = () => {
 
     return (
         <div>
-            <div className='container mt-5 p-3' >
+            <div className='container p-3' >
                 {loading ? (
                     <ScreenLoader />
                 ) : (

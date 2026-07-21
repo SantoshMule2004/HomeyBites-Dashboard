@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getMenuItemRevenue, getPastPayment, getSUbRevenue, getTotalRevenue } from '../../Services/PaymentService';
+// import { getMenuItemRevenue, getPastPayment, getSUbRevenue, getTotalRevenue } from '../../Services/PaymentService';
 import DashboardStats from '../../Components/DashboardStats'
 import ScreenLoader from '../../Components/ScreenLoader';
 import dayjs from 'dayjs';
@@ -111,7 +111,7 @@ export const AdminRevenue = () => {
     ];
 
     return (
-        <div className="container mt-5 p-2">
+        <div className="container p-2">
             {loading ? (
                 <ScreenLoader />
             ) : (

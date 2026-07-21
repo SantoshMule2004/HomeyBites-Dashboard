@@ -1,0 +1,51 @@
+/* src/pages/TiffinPlans/TiffinPlans.css
+   Only what's specific to THIS page — the title/header row and the small
+   B/L/D "meals offered" badges. Search, filters, table, status badges, and
+   action buttons live in src/components/table/Table.css, and the modal
+   shell lives in src/components/Modal.css — both shared across pages. */
+
+.hb-tiffinplans__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.hb-tiffinplans__title {
+  color: var(--hb-accent, #ff7a1a);
+  font-weight: 800;
+  margin: 0;
+}
+
+/* --- Meals offered (Breakfast / Lunch / Dinner) mini badges --- */
+.hb-meal-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.hb-meal-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #eeeeee;
+  color: #aaaaaa;
+}
+
+.hb-meal-badge--on {
+  background-color: #d1e7dd;
+  color: #146c43;
+}
+
+@media (max-width: 575.98px) {
+  .hb-tiffinplans__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../../Components/ScreenLoader'
-import { getAllTiffinPlans } from '../../../Services/TiffinPlanService';
+// import { getAllTiffinPlans } from '../../../Services/TiffinPlanService';
 import { TiffinPlanCard } from '../../../Components/TiffinPlanCard';
 import { useNavigate } from 'react-router-dom';
 import { useTiffinPlans } from '../../../Context/TiffinPlanContext';
@@ -42,7 +42,7 @@ export const AllTiffinPlans = () => {
     }
 
     return (
-        <div className='container mt-5 p-2'>
+        <div className='container p-2'>
             {loading ? (
                 <ScreenLoader />
             ) : (

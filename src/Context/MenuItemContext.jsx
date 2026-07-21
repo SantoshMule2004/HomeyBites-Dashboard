@@ -4,6 +4,15 @@ export const MenuContext = createContext();
 
 export const MenuItemContext = ({ children }) => {
 
+    const getcategories = () => {
+        return JSON.parse(localStorage.getItem("categories"));
+    }
+
+    const setCategories = (categories) => {
+        const categoriesData = JSON.stringify(categories);
+        localStorage.setItem("categories", categoriesData);
+    }
+
     const getMenuItemsData = () => {
         return JSON.parse(localStorage.getItem("menuItems"));
     }
@@ -37,15 +46,15 @@ export const MenuItemContext = ({ children }) => {
         // get data stord in localstorage
         let menuData = localStorage.getItem("menuItems");
         let menuArray = menuData ? JSON.parse(menuData) : [];
-        
+
         // filter out the previous item
         menuArray = menuArray.filter(item => item.menuId !== Number(menuId));
-        
+
         localStorage.setItem("menuItems", JSON.stringify(menuArray));
     }
 
     return (
-        <MenuContext.Provider value={{ getMenuItemsData, setMenuItemsData, addMenuItemToData, updateMenuItemData, deleteMenuItemData }}>
+        <MenuContext.Provider value={{ getcategories, setCategories, getMenuItemsData, setMenuItemsData, addMenuItemToData, updateMenuItemData, deleteMenuItemData }}>
             {children}
         </MenuContext.Provider>
     );

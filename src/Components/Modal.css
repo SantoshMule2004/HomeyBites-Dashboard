@@ -1,0 +1,68 @@
+/* src/components/Modal.css
+   Shared modal shell — the backdrop, card, header/body/footer. Import this
+   anywhere you build a popup (form modals, confirm dialogs, etc.) instead
+   of redefining it per page. */
+
+.hb-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 20px;
+}
+
+.hb-modal {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.hb-modal--sm {
+  max-width: 420px;
+}
+
+.hb-modal--lg {
+  max-width: 720px;
+}
+
+.hb-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.hb-modal__title {
+  margin: 0;
+  font-weight: 700;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-modal__close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #888888;
+  cursor: pointer;
+}
+
+.hb-modal__body {
+  padding: 20px 24px;
+}
+
+.hb-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid #eeeeee;
+}

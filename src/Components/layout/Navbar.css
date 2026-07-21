@@ -1,0 +1,145 @@
+/* src/layout/Navbar.css */
+
+.hb-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--hb-navbar-height);
+  background-color: var(--hb-navbar-bg);
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.hb-navbar__left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hb-navbar__hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--hb-text-dark);
+  cursor: pointer;
+}
+
+.hb-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hb-navbar__logo {
+  height: 40px;
+  width: auto;
+}
+
+.hb-navbar__brand-name {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--hb-text-dark);
+}
+
+.hb-navbar__right {
+  display: flex;
+  align-items: center;
+}
+
+.hb-navbar__user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.hb-navbar__user:hover {
+  background-color: #f5f5f5;
+}
+
+.hb-navbar__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hb-navbar__avatar-icon {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: #eee;
+  color: var(--hb-text-dark);
+}
+
+.hb-navbar__username {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: var(--hb-text-dark);
+}
+
+.hb-navbar__caret {
+  color: var(--hb-text-dark);
+  transition: transform 0.15s ease;
+}
+
+.hb-navbar__caret--open {
+  transform: rotate(180deg);
+}
+
+.hb-navbar__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  min-width: 140px;
+  overflow: hidden;
+}
+
+.hb-navbar__dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--hb-text-dark);
+  cursor: pointer;
+}
+
+.hb-navbar__dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 991.98px) {
+  .hb-navbar__hamburger {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 500px) {
+  .hb-navbar__username {
+    max-width: 50px;
+}
+}
+
+

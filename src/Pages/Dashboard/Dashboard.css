@@ -1,0 +1,88 @@
+/* src/pages/Dashboard/Dashboard.css
+   Shared between ProviderDashboardPage and AdminDashboardPage — just the
+   "recent activity" tables layout. The page title uses the shared
+   <PageHeader />, and stat cards/chart/summary styling lives in
+   src/components/dashboard/Dashboard.css. */
+
+.hb-dashboard__tables-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start; /* each cell sizes to its own content — no stretch-related overlap between rows */
+  gap: 28px 20px; /* extra row-gap so a tall table in one column can't crowd the title below it in the next row */
+  margin-bottom: 32px; /* breathing room below the whole tables section */
+}
+
+.hb-dashboard__table-col {
+  min-width: 0; /* lets the table scroll horizontally inside its column instead of overflowing */
+  margin-bottom: 8px; /* fallback spacing in case grid gap isn't what's rendering in your setup */
+}
+
+.hb-dashboard__section-title {
+  font-weight: 700;
+  color: var(--hb-text-dark, #222222);
+  margin-bottom: 10px;
+}
+
+.hb-dashboard__loading-wrap,
+.hb-dashboard__error-wrap {
+  padding: 40px 0;
+}
+
+
+.hb-dash__title {
+  color: var(--hb-accent);
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.hb-stats {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.hb-card {
+  background: #ffffff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  height: 100%;
+}
+
+.hb-stat-card {
+  text-align: center;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hb-stat-card__title {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-stat-card__value {
+  margin: 0;
+  font-weight: 700;
+  color: var(--hb-accent, #ff7a1a);
+}
+
+.hb-chart-card {
+  min-height: 360px;
+}
+
+.hb-chart-card__title {
+  margin: 0 0 8px 0;
+  color: var(--hb-text-dark, #222222);
+  font-size: 1.05rem;
+}
+
+@media (max-width: 991.98px) {
+  .hb-dashboard__tables-row {
+    grid-template-columns: 1fr;
+  }
+}

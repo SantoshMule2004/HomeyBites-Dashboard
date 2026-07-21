@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../Components/ScreenLoader';
 import { Link } from 'react-router-dom';
-import { getAllPaymentData } from '../../Services/PaymentService';
+// import { getAllPaymentData } from '../../Services/PaymentService';
 import { PaymentHistoryModule } from '../../Components/PaymentHistoryModule';
 import { useOrderData } from '../../Context/OrderContext';
 
@@ -50,7 +50,7 @@ export const AdminPaymentHistory = () => {
     }, [])
 
     return (
-        <div className='container mt-5 p-2'>
+        <div className='container p-2'>
             {loading ? (
                 <ScreenLoader />
             ) : (

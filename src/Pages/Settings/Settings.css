@@ -1,0 +1,24 @@
+/* src/pages/Settings/Settings.css
+   Reuses the input/error/OTP-block styles already defined in
+   src/pages/Login/Login.css and src/pages/Register/Register.css — only
+   what's specific to Settings (subheadings) lives here. */
+
+@import "../Login/Login.css";
+@import "../Register/Register.css";
+
+.hb-settings-section__subheading {
+  font-weight: 700;
+  color: var(--hb-text-dark, #222222);
+  margin-bottom: 14px;
+}
+
+.form-control:focus {
+  border-color: var(--hb-accent, #ff7a1a);
+  box-shadow: 0 0 0 0.2rem rgba(255, 122, 26, 0.25);
+}
+
+.hb-settings-input {
+  /* padding-left: 40px; */
+  height: 46px;
+  border-radius: 8px;
+}

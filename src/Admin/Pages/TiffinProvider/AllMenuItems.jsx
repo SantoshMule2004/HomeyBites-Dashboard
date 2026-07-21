@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../../Components/ScreenLoader'
-import { fetchMenu } from '../../../Services/MenuService';
+// import { fetchMenu } from '../../../Services/MenuService';
 import { useMenuItems } from '../../../Context/MenuItemContext';
 
 export const AllMenuItems = () => {
@@ -33,7 +33,7 @@ export const AllMenuItems = () => {
     }, [])
 
     return (
-        <div className='container mt-5 p-2 hide-scrollbar'>
+        <div className='container p-2 hide-scrollbar'>
             {loading ? (
                 <ScreenLoader />
             ) : (

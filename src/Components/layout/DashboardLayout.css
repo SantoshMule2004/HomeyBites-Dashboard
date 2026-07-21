@@ -1,0 +1,67 @@
+/* src/layout/DashboardLayout.css */
+
+:root {
+  /* --- Layout sizing --- */
+  --hb-navbar-height: 64px;
+  --hb-sidebar-width: 250px;
+
+  /* --- Colors, matched to the reference Homey Bites dashboard --- */
+  --hb-navbar-bg: #ffffff;
+  --hb-content-bg: #efefef;
+
+  --hb-sidebar-bg: #14141a;          /* near-black sidebar */
+  --hb-sidebar-hover-bg: #24242c;
+  --hb-sidebar-active-bg: #2b2b33;
+  --hb-sidebar-text: #d8d8dc;
+  --hb-sidebar-subtext: #b7b7bd;
+
+  --hb-accent: #ff7a1a;              /* orange accent (Dashboard title / active link) */
+  --hb-text-dark: #222222;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.hb-layout {
+  min-height: 100vh;
+}
+
+/* Push content below the fixed navbar and right of the fixed sidebar */
+.hb-layout__content {
+  margin-left: var(--hb-sidebar-width);
+  padding-top: var(--hb-navbar-height);
+  min-height: 100vh;
+  background-color: var(--hb-content-bg);
+}
+
+.hb-layout__content-inner {
+  height: calc(100vh - var(--hb-navbar-height));
+  overflow-y: auto;
+  padding: 28px 32px;
+}
+
+.hb-layout__backdrop {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  .hb-layout__content {
+    margin-left: 0;
+  }
+
+  .hb-layout__backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--hb-navbar-height) 0 0 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 899; /* just under sidebar */
+  }
+}

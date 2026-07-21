@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ScreenLoader from '../../Components/ScreenLoader';
-import { getProviderInfo } from '../../Services/UserService';
+// import { getProviderInfo } from '../../Services/UserService';
 import { ViewUserInfo } from '../../Components/ViewUserInfo';
 
 export const ViewSingleUserInfo = () => {
@@ -33,7 +33,7 @@ export const ViewSingleUserInfo = () => {
     }, [userData])
 
     return (
-        <div className='container mt-5 p-2'>
+        <div className='container p-2'>
             {loading ? (
                 <ScreenLoader />
             ) : (

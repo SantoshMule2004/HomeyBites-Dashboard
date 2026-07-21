@@ -1,0 +1,117 @@
+/* src/pages/Register/Register.css
+   Reuses the input/error/button styles already defined in
+   src/pages/Login/Login.css (hb-login__input, hb-login__field-error,
+   hb-login__error, hb-btn-primary, etc.) — only what's specific to
+   registration (wider card, OTP block, use-location button) lives here. */
+
+@import "../Login/Login.css";
+
+.hb-register {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f6f6f6;
+  padding: 24px 20px;
+}
+
+.hb-register__card {
+  width: 100%;
+  max-width: 640px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  padding: 32px 34px;
+}
+
+.hb-register__login-link {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888888;
+  margin-top: 18px;
+  margin-bottom: 0;
+}
+
+.hb-register__login-link a {
+  color: var(--hb-accent, #ff7a1a);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hb-register__login-link a:hover {
+  text-decoration: underline;
+}
+
+/* --- OTP block, shown once OTP has been sent --- */
+.hb-otp-block {
+  background-color: #fff8f2;
+  border: 1px solid #ffe2c7;
+  border-radius: 10px;
+  padding: 18px;
+  margin-top: 6px;
+}
+
+.hb-otp-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #555555;
+  margin-bottom: 14px;
+}
+
+.hb-otp-block__edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--hb-accent, #ff7a1a);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hb-otp-input {
+  max-width: 140px;
+  height: 46px;
+  font-size: 1.3rem;
+  letter-spacing: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.hb-otp-block__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+/* --- "Use My Current Location" button, in BusinessDetailsForm --- */
+.hb-use-location-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--hb-accent, #ff7a1a);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hb-use-location-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 575.98px) {
+  .hb-register__card {
+    padding: 24px 18px;
+  }
+}

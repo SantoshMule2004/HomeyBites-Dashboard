@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import DashboardStats from '../../Components/DashboardStats';
-import { getAllOrderCount, getOrdersInaRange } from '../../Services/OrderService';
-import { getAllSubscriptionCount } from '../../Services/SubscriptionService';
-import { getAllUserByRole, getAllUserCount, getAllUserCountByRole } from '../../Services/UserService';
+// import { getAllOrderCount, getOrdersInaRange } from '../../Services/OrderService';
+// import { getAllSubscriptionCount } from '../../Services/SubscriptionService';
+// import { getAllUserByRole, getAllUserCount, getAllUserCountByRole } from '../../Services/UserService';
 import ScreenLoader from '../../Components/ScreenLoader';
-import { getTotalRevenue } from '../../Services/PaymentService';
+// import { getTotalRevenue } from '../../Services/PaymentService';
 import { useOrderData } from '../../Context/OrderContext';
 
 export const AdminDashboard = () => {
@@ -133,7 +133,7 @@ export const AdminDashboard = () => {
     ];
 
     return (
-        <div className="container mt-5 p-2">
+        <div className="container p-2">
             {loading ? (
                 <ScreenLoader />
             ) : (

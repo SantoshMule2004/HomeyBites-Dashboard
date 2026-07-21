@@ -1,131 +1,111 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+// src/layout/Sidebar.jsx
+import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { getMenuForRole } from '../../utils/menuConfig';
+import "./Sidebar.css";
 
-const NavigationBar = ({ isOpen, onClose }) => {
-  const [openSections, setOpenSections] = useState({
-    dashboard: false,
-    tiffinplan: false,
-    menuitem: false,
-    subscription: false,
-    orders: false,
-    revenue: false,
-    account: false,
-  });
+/**
+ * Sidebar
+ * Props:
+ *  - role: "provider" | "admin"  (pass user.role from your AuthContext)
+ *  - isOpen: boolean  (controls mobile slide-in / collapsed state)
+ */
+export default function Sidebar({ role, isOpen, onNavigate }) {
+  const menuItems = getMenuForRole(role);
+  const location = useLocation();
+  const [openMenus, setOpenMenus] = useState({});
 
-  const toggleSection = (section) => { 
-    setOpenSections((prev) => {
-      const newSections = Object.keys(prev).reduce((acc, key) => {
-        acc[key] = key === section; // Set the clicked section to true, others to false
-        return acc;
-      }, {});
-      return newSections;
+  // Auto-expand (and keep highlighted) any parent whose child route is active,
+  // so navigating directly to a sub-page still shows the right context open.
+  useEffect(() => {
+    const next = {};
+    menuItems.forEach((item) => {
+      if (item.children?.some((child) => child.path === location.pathname)) {
+        next[item.label] = true;
+      }
     });
+    setOpenMenus((prev) => ({ ...prev, ...next }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  const toggleSubMenu = (label) => {
+    setOpenMenus((prev) => ({ ...prev, [label]: !prev[label] }));
   };
 
-  const [Active, setActive] = useState("dashboard");
-
   return (
-    <div className={`flex-shrink-0 bg-dark SideBar ${isOpen ? 'open' : ''} p-3`}>
-      <ul className="list-unstyled ps-0">
+    <aside className={`hb-sidebar ${isOpen ? "hb-sidebar--open" : ""}`}>
+      <nav className="hb-sidebar__nav">
+        <ul className="hb-sidebar__list">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const hasChildren = Array.isArray(item.children) && item.children.length > 0;
 
-        {/* Dashboard Section */}
-        <li className="mb-1">
-          <Link to='/dashboard'><button onClick={() => {
-            setActive("dashboard");
-            toggleSection("dashboard");
-          }} className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "dashboard" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#dashboard-collapse">Dashboard</button></Link>
-        </li>
+            if (!hasChildren) {
+              return (
+                <li key={item.label} className="hb-sidebar__item">
+                  <NavLink
+                    to={item.path}
+                    onClick={onNavigate}
+                    className={({ isActive }) =>
+                      `hb-sidebar__link ${isActive ? "hb-sidebar__link--active" : ""}`
+                    }
+                  >
+                    <Icon className="hb-sidebar__icon" />
+                    <span>{item.label}</span>
+                  </NavLink>
+                </li>
+              );
+            }
 
-        <li className="divider my-3"></li>
+            const isMenuOpen = !!openMenus[item.label];
+            const isChildActive = item.children.some(
+              (child) => child.path === location.pathname
+            );
 
-        {/* Tiffin plan Section */}
-        <li className="mb-1">
-          <button onClick={() => {
-            setActive("tiffinplan");
-            toggleSection("tiffinplan");
-          }} className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "tiffinplan" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#tiffinplan-collapse">{openSections.tiffinplan ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Tiffin Plans</button>
-          <div className={`collapse ${openSections.tiffinplan ? 'show' : ''}`} id="tiffinplan-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-              <li><i className="fa-solid fa-plus" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/add-tiffinplan" className="text-decoration-none rounded text-secondary">Add tiffin plan</Link></li>
-              <li><i className="fa-solid fa-clipboard-list" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/tiffinplan" className="text-decoration-none rounded text-secondary">View tiffin plans</Link></li>
-            </ul>
-          </div>
-        </li>
+            return (
+              <li key={item.label} className="hb-sidebar__item">
+                <button
+                  type="button"
+                  className={`hb-sidebar__link hb-sidebar__link--parent ${
+                    isChildActive ? "hb-sidebar__link--parent-active" : ""
+                  }`}
+                  onClick={() => toggleSubMenu(item.label)}
+                  aria-expanded={isMenuOpen}
+                >
+                  <Icon className="hb-sidebar__icon" />
+                  <span>{item.label}</span>
+                  <MdKeyboardArrowRight
+                    className={`hb-sidebar__chevron ${
+                      isMenuOpen ? "hb-sidebar__chevron--open" : ""
+                    }`}
+                  />
+                </button>
 
-        {/* Menu item Section */}
-        <li className="mb-1">
-          <button onClick={() => {
-            setActive("menuitem");
-            toggleSection("menuitem");
-          }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "menuitem" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#menuitem-collapse">{openSections.menuitem ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Menu items</button>
-          <div className={`collapse ${openSections.menuitem ? 'show' : ''}`} id="menuitem-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-              <li><i className="fa-solid fa-plus" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/add-menuitem" className="text-decoration-none rounded text-secondary">Add menu item</Link></li>
-              <li><i className="fa-solid fa-bell-concierge" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/menuitem" className="text-decoration-none rounded text-secondary">View menu items</Link></li>
-            </ul>
-          </div>
-        </li>
-
-        {/* Subscription Section */}
-        <li className="mb-1">
-          <button onClick={() => {
-            setActive("subscription");
-            toggleSection("subscription");
-          }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "subscription" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#subscription-collapse">{openSections.subscription ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Subscriptions</button>
-          <div className={`collapse ${openSections.subscription ? 'show' : ''}`} id="subscription-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-              <li><i className="fa-solid fa-user-check" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/user-subscription" className="text-decoration-none rounded text-secondary">View subscriptions</Link></li>
-            </ul>
-          </div>
-        </li>
-
-        <li className="divider my-3"></li>
-
-        {/* Orders Section */}
-        <li className="mb-1">
-          <button onClick={() => {
-            setActive("order");
-            toggleSection("orders");
-          }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "order" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#orders-collapse">{openSections.orders ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Orders</button>
-          <div className={`collapse ${openSections.orders ? 'show' : ''}`} id="orders-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-              <li><i className="fa-solid fa-circle-check" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/today-orders" className="text-decoration-none rounded text-secondary">Today’s Orders</Link></li>
-              <li><i className="fa-solid fa-rectangle-list" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/all-orders" className="text-decoration-none rounded text-secondary">All Orders</Link></li>
-            </ul>
-          </div>
-        </li>
-
-        {/* Revenue Section */}
-        <li className="mb-1">
-          <button onClick={() => {
-            setActive("revenue");
-            toggleSection("revenue");
-          }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "revenue" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#revenue-collapse">{openSections.revenue ? (<i className="fa-solid fa-caret-down"></i>) : (<i className="fa-solid fa-caret-right"></i>)}&nbsp;&nbsp;Revenue</button>
-          <div className={`collapse ${openSections.revenue ? 'show' : ''}`} id="revenue-collapse">
-            <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small" style={{ marginLeft: '20px' }}>
-              <li><i className="fa-solid fa-wallet" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/revenue" className="text-decoration-none rounded text-secondary">revenue</Link></li>
-              <li><i className="fa-solid fa-coins" style={{ color: '#7e7c7c', marginRight: '5px', paddingBottom: '10px', paddingTop: '10px' }}></i><Link to="/payment-history" className="text-decoration-none rounded text-secondary">Payment history</Link></li>
-            </ul>
-          </div>
-        </li>
-
-        {/* <li className="divider my-3"></li>
-
-        {/* Account Section 
-        <li className="mb-1">
-          <Link to='#'>  <button onClick={() => {
-            setActive("account");
-            toggleSection("account");
-          }}
-           className={`btn sidebar-btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white ${Active === "account" ? "active" : ""}`} data-bs-toggle="collapse" data-bs-target="#account-collapse"> Settings</button></Link>
-        </li> */}
-      </ul>
-    </div>
+                {isMenuOpen && (
+                  <ul className="hb-sidebar__submenu">
+                    {item.children.map((child) => (
+                      <li key={child.label}>
+                        <NavLink
+                          to={child.path}
+                          onClick={onNavigate}
+                          className={({ isActive }) =>
+                            `hb-sidebar__sublink ${
+                              isActive ? "hb-sidebar__sublink--active" : ""
+                            }`
+                          }
+                        >
+                          {child.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </aside>
   );
-};
-
-export default NavigationBar;
+}
