@@ -5,8 +5,8 @@
 
 import { useEffect, useState } from "react";
 import { ORDER_STATUS_OPTIONS, ORDER_STATUS_META, getStatusMeta } from "../../utils/config";
-import "../../components/tables/Table.css";
-import "../../components/Modal.css";
+import "../../Components/tables/Table.css";
+import "../../Components/Modal.css";
 
 export default function UpdateOrderStatusModal({ isOpen, order, onSave, onClose }) {
   const [status, setStatus] = useState("");

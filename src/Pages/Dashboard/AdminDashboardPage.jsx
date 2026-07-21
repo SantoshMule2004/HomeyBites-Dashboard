@@ -15,15 +15,15 @@ import {
   FaRupeeSign,
   FaChartLine,
 } from "react-icons/fa";
-import LoadingSpinner from "../../components/common/LoadingSpinner";
-import ErrorState from "../../components/common/ErrorState";
-import PageHeader from "../../components/common/PageHeader";
-import StatCardsGrid from "../../components/dashboard/StatCardsGrid";
-import RevenueFilterBar from "../../components/dashboard/RevenueFilterBar";
-import RevenueChart from "../../components/dashboard/RevenueChart";
-import RevenueSummaryCard from "../../components/dashboard/RevenueSummaryCard";
-import DataTable from "../../components/tables/DataTable";
-import StatusBadge from "../../components/tables/StatusBadge";
+import LoadingSpinner from "../../Components/common/LoadingSpinner";
+import ErrorState from "../../Components/common/ErrorState";
+import PageHeader from "../../Components/common/PageHeader";
+import StatCardsGrid from "../../Components/dashboard/StatCardsGrid";
+import RevenueFilterBar from "../../Components/dashboard/RevenueFilterBar";
+import RevenueChart from "../../Components/dashboard/RevenueChart";
+import RevenueSummaryCard from "../../Components/dashboard/RevenueSummaryCard";
+import DataTable from "../../Components/tables/DataTable";
+import StatusBadge from "../../Components/tables/StatusBadge";
 import { getAdminDashboard, getAdminRevenueDashboard } from "../../Services/DashboardService";
 import { ORDER_STATUS_META, PAYMENT_STATUS_META, getStatusMeta } from "../../utils/config";
 import "./Dashboard.css";

@@ -4,7 +4,7 @@
 //   1. Change Password — you know your current password.
 //   2. Forgot Password — you don't; verify via OTP sent to your registered
 //      email instead, then set a new password. (Shared with the login-time
-//      flow — see components/common/ForgotPasswordFlow.jsx.)
+//      flow — see Components/common/ForgotPasswordFlow.jsx.)
 //   3. Change Email — changing your login email itself, also via OTP.
 //
 // 👇 API WIRING:
@@ -26,7 +26,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import { changePassword } from "../../Services/authService";
-import ForgotPasswordFlow from "../../components/common/ForgotPasswordFlow";
+import ForgotPasswordFlow from "../../Components/common/ForgotPasswordFlow";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

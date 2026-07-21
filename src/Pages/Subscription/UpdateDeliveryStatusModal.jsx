@@ -4,8 +4,8 @@
 // fulfillment status. No other fields are editable here.
 
 import { useEffect, useState } from "react";
-import "../../components/tables/Table.css";
-import "../../components/Modal.css";
+import "../../Components/tables/Table.css";
+import "../../Components/Modal.css";
 import { DELIVERY_STATUS_META, DELIVERY_STATUS_OPTIONS, getStatusMeta } from "../../utils/config";
 
 export default function UpdateDeliveryStatusModal({ isOpen, delivery, onSave, onClose }) {

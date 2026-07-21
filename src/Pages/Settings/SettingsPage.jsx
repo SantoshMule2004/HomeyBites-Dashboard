@@ -13,12 +13,12 @@
 //   ...returning { general, business, delivery } in one call (or three
 //   separate calls if your backend splits them) — replace the dummy import
 //   below with that fetch, keeping the same { general, business, delivery }
-//   shape so the section components don't need to change.
+//   shape so the section Components don't need to change.
 
 import { useState } from "react";
 import { FaUser, FaStore, FaTruck, FaShieldAlt } from "react-icons/fa";
-import { Accordion, AccordionItem } from "../../components/common/Accordion";
-import PageHeader from "../../components/common/PageHeader";
+import { Accordion, AccordionItem } from "../../Components/common/Accordion";
+import PageHeader from "../../Components/common/PageHeader";
 import dummySettingsData from "./dummySettingsData";
 import GeneralSection from "./GeneralSection";
 import BusinessInfoSection from "./BusinessInfoSection";

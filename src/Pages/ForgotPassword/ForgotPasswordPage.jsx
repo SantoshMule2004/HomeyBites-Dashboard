@@ -7,7 +7,7 @@
 // password's been reset.
 
 import { Link, useNavigate } from "react-router-dom";
-import ForgotPasswordFlow from "../../components/common/ForgotPasswordFlow";
+import ForgotPasswordFlow from "../../Components/common/ForgotPasswordFlow";
 import "../Login/Login.css";
 
 export default function ForgotPasswordPage() {

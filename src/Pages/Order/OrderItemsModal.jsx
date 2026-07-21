@@ -6,13 +6,13 @@
 // list endpoint may or may not include the full items array.
 
 import { useEffect, useState } from "react";
-import LoadingSpinner from "../../components/common/LoadingSpinner";
-import ErrorState from "../../components/common/ErrorState";
-import StatusBadge from "../../components/tables/StatusBadge";
+import LoadingSpinner from "../../Components/common/LoadingSpinner";
+import ErrorState from "../../Components/common/ErrorState";
+import StatusBadge from "../../Components/tables/StatusBadge";
 import { getProviderOrder } from "../../Services/orderService";
 import { ORDER_STATUS_META, PAYMENT_STATUS_META, getStatusMeta } from "../../utils/config";
-import "../../components/tables/Table.css";
-import "../../components/Modal.css";
+import "../../Components/tables/Table.css";
+import "../../Components/Modal.css";
 import "./Orders.css";
 
 export default function OrderItemsModal({ isOpen, providerId, providerOrderId, onClose }) {

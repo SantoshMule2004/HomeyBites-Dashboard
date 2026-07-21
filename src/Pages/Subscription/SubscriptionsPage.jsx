@@ -1,7 +1,7 @@
 // src/pages/TiffinPlans/TiffinPlansPage.jsx
 //
 // Table-based Tiffin Plans page, built from the same reusable pieces as
-// Menu Items (src/components/tables/ + src/components/common/), wired to
+// Menu Items (src/Components/tables/ + src/Components/common/), wired to
 // your real TiffinPlan endpoints the same way MenuItemsPage is.
 //
 // Per your earlier request: no image column, no menuType/category filters,
@@ -21,12 +21,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
-import FiltersBar from "../../components/tables/FiltersBar";
-import DataTable from "../../components/tables/DataTable";
-import StatusBadge from "../../components/tables/StatusBadge";
-import TableActionButton from "../../components/tables/TableActionButton";
-import ConfirmDialog from "../../components/common/ConfirmDialog";
-import ErrorState from "../../components/common/ErrorState";
+import FiltersBar from "../../Components/tables/FiltersBar";
+import DataTable from "../../Components/tables/DataTable";
+import StatusBadge from "../../Components/tables/StatusBadge";
+import TableActionButton from "../../Components/tables/TableActionButton";
+import ConfirmDialog from "../../Components/common/ConfirmDialog";
+import ErrorState from "../../Components/common/ErrorState";
 import { guessStatusVariant } from "../../utils/statusVariant";
 import "./Subscriptions.css";
 import { useUserInfo } from "../../Context/UserContext";

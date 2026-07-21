@@ -1,22 +1,22 @@
 // src/pages/MenuItems/MenuItemsPage.jsx
 //
 // Table-based Menu Items page, built from the reusable pieces in
-// src/components/tables/ (FiltersBar, DataTable, StatusBadge,
-// TableActionButton, Pagination) and src/components/common/ (ConfirmDialog,
-// LoadingSpinner, ErrorState) — the same components you can reuse on
+// src/Components/tables/ (FiltersBar, DataTable, StatusBadge,
+// TableActionButton, Pagination) and src/Components/common/ (ConfirmDialog,
+// LoadingSpinner, ErrorState) — the same Components you can reuse on
 // Tiffin Plans, Orders, Subscriptions, etc.
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaPlus, FaEdit, FaTrash, FaImage } from "react-icons/fa";
 import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
-import FiltersBar from "../../components/tables/FiltersBar";
-import DataTable from "../../components/tables/DataTable";
-import StatusBadge from "../../components/tables/StatusBadge";
-import TableActionButton from "../../components/tables/TableActionButton";
-import ConfirmDialog from "../../components/common/ConfirmDialog";
-import ErrorState from "../../components/common/ErrorState";
-import PageHeader from "../../components/common/PageHeader";
+import FiltersBar from "../../Components/tables/FiltersBar";
+import DataTable from "../../Components/tables/DataTable";
+import StatusBadge from "../../Components/tables/StatusBadge";
+import TableActionButton from "../../Components/tables/TableActionButton";
+import ConfirmDialog from "../../Components/common/ConfirmDialog";
+import ErrorState from "../../Components/common/ErrorState";
+import PageHeader from "../../Components/common/PageHeader";
 import { MENU_TYPE_OPTIONS } from "../../utils/config";
 import MenuItemFormModal from "./MenuItemFormModal";
 import "./MenuItems.css";

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { FaStore, FaMapMarkerAlt, FaCrosshairs, FaSearchLocation } from "react-icons/fa";
 import { addBussinessDetails } from "../../Services/authService";
 import { reverseGeocode } from "../../Services/locationService";
-import "../../components/common/Common.css";
+import "../../Components/common/Common.css";
 
 // 👇 FSSAI food license numbers are typically 14 digits — adjust if your
 // backend accepts a different format.

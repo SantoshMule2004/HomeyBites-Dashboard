@@ -23,8 +23,8 @@
 import { useEffect, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 import { MENU_TYPE_OPTIONS } from "../../utils/config";
-import "../../components/tables/Table.css";
-import "../../components/Modal.css";
+import "../../Components/tables/Table.css";
+import "../../Components/Modal.css";
 import "./MenuItems.css";
 
 const MAX_IMAGE_SIZE_MB = 5;

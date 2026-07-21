@@ -1,7 +1,7 @@
 // src/pages/Orders/OrdersPage.jsx
 //
 // Table-based Orders page, built from the same reusable pieces as Menu
-// Items / Tiffin Plans (src/components/tables/ + src/components/common/).
+// Items / Tiffin Plans (src/Components/tables/ + src/Components/common/).
 //
 // Providers can't create, edit, or delete orders — the only actions here
 // are updating an order's fulfillment status and viewing its items. Status
@@ -15,13 +15,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { FaEye, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
-import FiltersBar from "../../components/tables/FiltersBar";
-import DateFilter from "../../components/tables/DateFilter";
-import DataTable from "../../components/tables/DataTable";
-import StatusBadge from "../../components/tables/StatusBadge";
-import TableActionButton from "../../components/tables/TableActionButton";
-import ErrorState from "../../components/common/ErrorState";
-import PageHeader from "../../components/common/PageHeader";
+import FiltersBar from "../../Components/tables/FiltersBar";
+import DateFilter from "../../Components/tables/DateFilter";
+import DataTable from "../../Components/tables/DataTable";
+import StatusBadge from "../../Components/tables/StatusBadge";
+import TableActionButton from "../../Components/tables/TableActionButton";
+import ErrorState from "../../Components/common/ErrorState";
+import PageHeader from "../../Components/common/PageHeader";
 import OrderItemsModal from "./OrderItemsModal";
 import UpdateOrderStatusModal from "./UpdateOrderStatusModal";
 import {

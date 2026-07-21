@@ -14,7 +14,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Stepper from "../../components/common/Stepper";
+import Stepper from "../../Components/common/Stepper";
 import { useUserInfo } from "../../Context/UserContext";
 import PersonalDetailsForm from "./PersonalDetailsForm";
 import BusinessDetailsForm from "./BusinessDetailsForm";

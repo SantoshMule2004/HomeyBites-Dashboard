@@ -8,7 +8,7 @@
 
 import { useState } from "react";
 import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
-import "../../components/tables/Table.css";
+import "../../Components/tables/Table.css";
 
 // Defined OUTSIDE the component on purpose: declaring these inside
 // DeliverySettingsSection's function body would make React see a brand-new

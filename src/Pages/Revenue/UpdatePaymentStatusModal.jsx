@@ -6,8 +6,8 @@ import {
     UPDATE_PAYMENT_STATUS_META,
     getStatusMeta,
 } from "../../utils/config";
-import "../../components/tables/Table.css";
-import "../../components/Modal.css";
+import "../../Components/tables/Table.css";
+import "../../Components/Modal.css";
 
 const emptyForm = {
     status: "",

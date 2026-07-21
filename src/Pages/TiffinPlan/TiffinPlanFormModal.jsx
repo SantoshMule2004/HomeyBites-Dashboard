@@ -20,8 +20,8 @@
 // (only present when editing).
 
 import { useEffect, useState } from "react";
-import "../../components/tables/Table.css";
-import "../../components/Modal.css";
+import "../../Components/tables/Table.css";
+import "../../Components/Modal.css";
 
 const emptyForm = {
   planName: "",
