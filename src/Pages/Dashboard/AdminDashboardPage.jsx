@@ -24,7 +24,7 @@ import RevenueChart from "../../Components/dashboard/RevenueChart";
 import RevenueSummaryCard from "../../Components/dashboard/RevenueSummaryCard";
 import DataTable from "../../Components/tables/DataTable";
 import StatusBadge from "../../Components/tables/StatusBadge";
-import { getAdminDashboard, getAdminRevenueDashboard } from "../../Services/DashboardService";
+import { getAdminDashboard, getAdminRevenueDashboard } from "../../Services/dashboardService";
 import { ORDER_STATUS_META, PAYMENT_STATUS_META, getStatusMeta } from "../../utils/config";
 import "./Dashboard.css";
 

@@ -25,7 +25,7 @@ import RevenueSummaryCard from "../../Components/dashboard/RevenueSummaryCard";
 import DataTable from "../../Components/tables/DataTable";
 import StatusBadge from "../../Components/tables/StatusBadge";
 import { useUserInfo } from "../../Context/UserContext";
-import { getProviderDashboard, getProviderRevenueDashboard } from "../../Services/DashboardService";
+import { getProviderDashboard, getProviderRevenueDashboard } from "../../Services/dashboardService";
 import { ORDER_STATUS_META, getStatusMeta } from "../../utils/config";
 import { guessStatusVariant } from "../../utils/statusVariant";
 import "./Dashboard.css";
