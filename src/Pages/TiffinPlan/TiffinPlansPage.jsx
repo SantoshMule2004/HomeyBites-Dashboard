@@ -29,7 +29,7 @@ import ConfirmDialog from "../../Components/common/ConfirmDialog";
 import ErrorState from "../../Components/common/ErrorState";
 import PageHeader from "../../Components/common/PageHeader";
 import TiffinPlanFormModal from "./TiffinPlanFormModal";
-import "./TiffinPlans.css";
+import "./Tiffinplans.css";
 import { useUserInfo } from "../../Context/UserContext";
 import {
   getTiffinPlansOfProvider,
