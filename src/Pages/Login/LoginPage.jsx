@@ -174,7 +174,7 @@ export default function LoginPage() {
           </div>
 
           <div className="hb-login__forgot">
-            <Link to="/forgot-password">Forgot password?</Link>
+            <Link to="/auth/forgot-password">Forgot password?</Link>
           </div>
 
           <button type="submit" className="btn hb-btn-primary hb-login__submit" disabled={submitting}>
@@ -184,7 +184,7 @@ export default function LoginPage() {
 
         {role === "provider" && (
           <p className="hb-login__register-link">
-            New to Homey Bites? <Link to="/register-page">Register as a Tiffin Provider</Link>
+            New to Homey Bites? <Link to="/auth/register">Register as a Tiffin Provider</Link>
           </p>
         )}
 

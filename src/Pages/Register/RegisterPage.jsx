@@ -61,7 +61,7 @@ export default function RegisterPage() {
         )}
 
         <p className="hb-register__login-link">
-          Already have an account? <Link to="/login-page">Sign in</Link>
+          Already have an account? <Link to="/auth/login">Sign in</Link>
         </p>
       </div>
     </div>
