@@ -8,13 +8,13 @@ export const addCategory = async (data) => {
 
 // update category 
 export const updateCategory = async (categoryId, data) => {
-    const response = await PrivateApiClient.put(`/api/v1/category/${categoryIdcId}`, data)
+    const response = await PrivateApiClient.put(`/api/v1/category/${categoryId}`, data)
     return response.data
 }
 
 // delete category 
 export const deleteCategory = async (categoryId) => {
-    const response = await PrivateApiClient.delete(`/api/v1/category/${categoryIdcId}`)
+    const response = await PrivateApiClient.delete(`/api/v1/category/${categoryId}`)
     return response.data
 }
 

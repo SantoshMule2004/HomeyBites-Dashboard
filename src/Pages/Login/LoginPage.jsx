@@ -100,7 +100,7 @@ export default function LoginPage() {
           <span className="hb-login__brand-name">Homey Bites</span>
         </div>
 
-        {/* <div className="hb-login__tabs" role="tablist">
+        <div className="hb-login__tabs" role="tablist">
           <button
             type="button"
             role="tab"
@@ -119,7 +119,7 @@ export default function LoginPage() {
           >
             <FaUserShield /> Admin
           </button>
-        </div> */}
+        </div>
 
         <h1 className="hb-login__title">
           {role === "admin" ? "Admin Login" : "Provider Login"}

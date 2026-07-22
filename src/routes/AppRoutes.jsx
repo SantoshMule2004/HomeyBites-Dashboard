@@ -19,6 +19,7 @@ import ProtectedRoute from './ProtectedRoute'
 import DashboardLayout from '../Components/layout/DashboardLayout'
 import AdminDashboardPage from '../Pages/Dashboard/AdminDashboardPage'
 import ProviderDashboardPage from '../Pages/Dashboard/ProviderDashboardPage'
+import AdminOrdersPage from '../Pages/admin/Orders/AdminOrdersPage'
 
 import LoginPage from '../Pages/Login/LoginPage'
 import RegisterPage from '../Pages/Register/RegisterPage'
@@ -34,6 +35,10 @@ import ProviderMenusPage from '../Pages/provider/ProiderMenusPage'
 import PaymentPage from '../Pages/Revenue/PaymentPage'
 import SettingsPage from '../Pages/Settings/SettingsPage'
 import HomeRedirect from '../Pages/HomeRedirect'
+import CustomersPage from '../Pages/admin/users/CustomersPage'
+import CategoriesPage from '../Pages/admin/categories/CategoriesPage'
+import AdminPaymentsPage from '../Pages/admin/Payments/AdminPaymentsPage'
+import AdminSubscriptionsPage from '../Pages/admin/Subscriptions/AdminSubscriptionsPage'
 
 function AppRoutes() {
   return (
@@ -49,6 +54,11 @@ function AppRoutes() {
       <Route element={<ProtectedRoute allowedRoles={["ROLE_ADMIN"]} />}>
         <Route element={<DashboardLayout />}>
           <Route path='/admin/dashboard' element={<AdminDashboardPage />} />
+          <Route path='/admin/customers' element={<CustomersPage />} />
+          <Route path='/admin/categories' element={<CategoriesPage />} />
+          <Route path='/admin/orders' element={<AdminOrdersPage />} />
+          <Route path='/admin/payments' element={<AdminPaymentsPage />} />
+          <Route path='/admin/subscriptions' element={<AdminSubscriptionsPage />} />
 
           <Route path='/admin-revenue' element={<AdminRevenue />} />
           <Route path='/admin-payment-history' element={<AdminPaymentHistory />} />

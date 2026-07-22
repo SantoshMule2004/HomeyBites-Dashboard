@@ -95,7 +95,7 @@ export default function PaymentPage() {
             })
             .catch((err) => {
                 console.error(err);
-                setError("Couldn't load your payments. Please check your connection and try again.");
+                setError(err?.response?.data?.message ? err?.response?.data?.message : "Couldn't load your payments. Please check your connection and try again.");
             })
             .finally(() => {
                 setLoading(false);

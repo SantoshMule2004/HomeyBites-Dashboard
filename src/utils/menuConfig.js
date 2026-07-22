@@ -68,33 +68,33 @@ const adminMenu = [
     label: "Users",
     icon: MdPeople,
     children: [
+      { label: "Customers", path: "/admin/customers" },
       { label: "Tiffin Providers", path: "/admin/providers" },
-      { label: "Customers", path: "/admin/providers/pending" },
     ],
   },
   {
     label: "Categories",
-    path: "/admin/customers",
+    path: "/admin/categories",
     icon: MdOutlineRestaurantMenu,
   },
-  {
-    label: "Meal Types",
-    path: "/admin/orders",
-    icon: MdOutlineRestaurantMenu,
-  },
+  // {
+  //   label: "Meal Types",
+  //   path: "/admin/orders",
+  //   icon: MdOutlineRestaurantMenu,
+  // },
   {
     label: "Orders",
-    path: "/admin/deliveries",
+    path: "/admin/orders",
     icon: MdShoppingCart,
   },
   {
     label: "Subscriptions",
-    path: "/admin/reviews",
+    path: "/admin/subscriptions",
     icon: MdSubscriptions,
   },
   {
     label: "Payments",
-    path: "/admin/revenue",
+    path: "/admin/payments",
     icon: MdAttachMoney,
   },
   {

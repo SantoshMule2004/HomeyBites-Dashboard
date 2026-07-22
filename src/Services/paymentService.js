@@ -28,8 +28,10 @@ export const updatePaymentStatus = async (paymentId, data) => {
 
 
 // get all payments
-export const getPayments = async (filters = {}, page = 0, size = 8) => {
-    const params = { page, size };
+export const getAdminPayments = async (filters = {}) => {
+    const params = {};
+    if (filters.page) params.page = filters.page;
+    if (filters.size) params.size = filters.size;
     if (filters.search) params.search = filters.search;
     if (filters.paymentMethod) params.paymentMethod = filters.paymentMethod;
     if (filters.paymentStatus) params.paymentStatus = filters.paymentStatus;

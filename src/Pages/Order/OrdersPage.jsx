@@ -92,7 +92,7 @@ export default function OrdersPage() {
       })
       .catch((err) => {
         console.error(err);
-        setError("Couldn't load your orders. Please check your connection and try again.");
+        setError(err?.response?.data?.message ? err?.response?.data?.message : "Couldn't load your orders. Please check your connection and try again.");
       })
       .finally(() => {
         setLoading(false);

@@ -1,0 +1,29 @@
+/* src/pages/TiffinPlans/TiffinPlans.css
+   Only what's specific to THIS page — the small B/L/D "meals offered"
+   badges. The page header, search/filters, table, status badges, and
+   action buttons are all shared — see src/components/common/Common.css
+   (PageHeader), src/components/tables/Table.css, and src/components/Modal.css. */
+
+/* --- Meals offered (Breakfast / Lunch / Dinner) mini badges --- */
+.hb-meal-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.hb-meal-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background-color: #eeeeee;
+  color: #aaaaaa;
+}
+
+.hb-meal-badge--on {
+  background-color: #d1e7dd;
+  color: #146c43;
+}

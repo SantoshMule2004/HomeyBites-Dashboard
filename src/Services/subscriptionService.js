@@ -12,8 +12,10 @@ export const getUserSubscriptions = (providerId, filters = {}, page = 0, size = 
 };
 
 // get user subscriptions for Admin
-export const getUserSubscriptionsForAdmin = (filters = {}, page = 0, size = 5) => {
-    const params = { page, size };
+export const getAdminSubscriptions = (filters = {}) => {
+    const params = {};
+    if (filters.page) params.page = filters.page;
+    if (filters.size) params.size = filters.size;
     if (filters.status) params.status = filters.status;
     if (filters.search) params.search = filters.search;
 

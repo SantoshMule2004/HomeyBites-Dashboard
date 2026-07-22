@@ -27,11 +27,13 @@ export const updateOrderStatus = async (providerId, providerOrderId, status) => 
 
 
 // get all orders
-export const getOrders = async (filters = {}, page = 0, size = 8) => {
-    const params = { page, size };
+export const getOrders = async (filters = {}) => {
+    const params = {};
+    if (filters.page) params.page = filters.page;
+    if (filters.size) params.size = filters.size;
     if (filters.status) params.status = filters.status;
     if (filters.paymentStatus) params.paymentStatus = filters.paymentStatus;
-    if (filters.receiverName) params.receiverName = filters.receiverName;
+    if (filters.search) params.receiverName = filters.search;
     if (filters.startDate) params.startDate = filters.startDate;
     if (filters.endDate) params.endDate = filters.endDate;
 
