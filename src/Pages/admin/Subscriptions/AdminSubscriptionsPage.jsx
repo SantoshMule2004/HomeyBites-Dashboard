@@ -10,7 +10,7 @@
 // via guessStatusVariant() rather than a fixed lookup table.
 
 import { getAdminSubscriptions } from "../../../Services/subscriptionService";
-import StatusBadge from "../../../Components/tables/StatusBadge";
+import StatusBadge from '../../../Components/tables/StatusBadge';
 import AdminListPage from "../AdminListPage";
 import { guessStatusVariant } from "../../../utils/statusVariant";
 import { SUB_STATUS_OPTIONS } from "../../../utils/config";
