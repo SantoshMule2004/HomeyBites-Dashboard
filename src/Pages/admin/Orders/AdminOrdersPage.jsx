@@ -17,7 +17,7 @@
 // doesn't return it.
 
 import { getOrders } from "../../../Services/orderService";
-import StatusBadge from "../../../components/tables/StatusBadge";
+import StatusBadge from '../../../Components/tables/StatusBadge';
 import AdminListPage from "../AdminListPage";
 import { ORDER_STATUS_OPTIONS, ORDER_STATUS_META, PAYMENT_STATUS_OPTIONS, PAYMENT_STATUS_META, getStatusMeta } from "../../../utils/config";
 

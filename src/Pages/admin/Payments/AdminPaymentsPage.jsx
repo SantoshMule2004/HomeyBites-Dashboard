@@ -6,7 +6,7 @@
 // — no assumptions needed here since that projection was already confirmed.
 
 import { getAdminPayments } from "../../../Services/paymentService";
-import StatusBadge from "../../../components/tables/StatusBadge";
+import StatusBadge from "../../../Components/tables/StatusBadge";
 import AdminListPage from "../AdminListPage";
 import { PAYMENT_STATUS_OPTIONS, PAYMENT_STATUS_META, getStatusMeta, PAYMENT_METHOD_OPTIONS, PAYMENT_METHOD_META } from "../../../utils/config";
 

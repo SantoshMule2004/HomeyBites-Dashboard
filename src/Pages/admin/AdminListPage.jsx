@@ -24,11 +24,11 @@
 // with a PageResponse: { content, totalPages, totalElements }.
 
 import { useCallback, useEffect, useState } from "react";
-import PageHeader from "../../components/common/PageHeader";
-import ErrorState from "../../components/common/ErrorState";
-import FiltersBar from "../../components/tables/FiltersBar";
-import DateFilter from "../../components/tables/DateFilter";
-import DataTable from "../../components/tables/DataTable";
+import PageHeader from "../../Components/common/PageHeader";
+import ErrorState from "../../Components/common/ErrorState";
+import FiltersBar from "../../Components/tables/FiltersBar";
+import DateFilter from "../../Components/tables/DateFilter";
+import DataTable from "../../Components/tables/DataTable";
 
 const PAGE_SIZE_DEFAULT = 8;
 const SEARCH_DEBOUNCE_MS = 500;
