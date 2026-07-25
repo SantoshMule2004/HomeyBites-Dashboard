@@ -69,7 +69,7 @@ export default function AdminSubscriptionsPage() {
     <AdminListPage
       title="Subscriptions"
       columns={columns}
-      rowKey={(sub) => sub.subscriptionId}
+      rowKey={(sub) => sub.id}
       searchPlaceholder="Search by customer or provider name..."
       emptyMessage="No subscriptions match your search/filters."
       filterDefs={[

@@ -3,8 +3,8 @@
    src/pages/Login/Login.css and src/pages/Register/Register.css — only
    what's specific to Settings (subheadings) lives here. */
 
-@import "../Login/Login.css";
-@import "../Register/Register.css";
+@import "../auth/Login/Login.css";
+@import "../auth/Register/Register.css";
 
 .hb-settings-section__subheading {
   font-weight: 700;

@@ -3,6 +3,7 @@
 // Summarizes RevenueSummaryProjection: net revenue as the headline number,
 // gross/refunded underneath, and a breakdown of payment counts by status.
 
+import { formatPrice } from "../../utils/formatPrice";
 import "./Dashboard.css";
 
 export default function RevenueSummaryCard({ summary }) {
@@ -21,16 +22,16 @@ export default function RevenueSummaryCard({ summary }) {
   return (
     <div className="hb-card hb-revenue-summary">
       <div className="hb-revenue-summary__label">Net Revenue</div>
-      <div className="hb-revenue-summary__value">₹ {netRevenue}</div>
+      <div className="hb-revenue-summary__value">{formatPrice(netRevenue)}</div>
 
       <div className="hb-revenue-summary__breakdown">
         <div className="hb-revenue-summary__breakdown-row">
           <span>Gross Revenue</span>
-          <span>₹ {grossRevenue}</span>
+          <span>{formatPrice(grossRevenue)}</span>
         </div>
         <div className="hb-revenue-summary__breakdown-row">
           <span>Refunded</span>
-          <span>₹ {refundedAmount}</span>
+          <span>{formatPrice(refundedAmount)}</span>
         </div>
       </div>
 

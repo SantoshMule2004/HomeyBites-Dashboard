@@ -58,7 +58,7 @@ export default function AdminOrdersPage() {
     <AdminListPage
       title="Orders"
       columns={columns}
-      rowKey={(order) => order.providerOrderId}
+      rowKey={(order) => order.customerOrderId}
       searchPlaceholder="Search by customer or provider name..."
       emptyMessage="No orders match your search/filters."
       filterDefs={[

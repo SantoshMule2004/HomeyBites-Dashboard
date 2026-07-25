@@ -64,6 +64,7 @@ export const UserContext = ({ children }) => {
     }
 
     const setBusinessDetails = (data) => {
+        data.serviceRadius = Number(data.serviceRadius) / 1000;
         const businessData = JSON.stringify(data);
         localStorage.setItem("businessDetails", businessData);
     }

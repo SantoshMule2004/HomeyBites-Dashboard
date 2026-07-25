@@ -27,6 +27,7 @@ import StatusBadge from "../../Components/tables/StatusBadge";
 import { getAdminDashboard, getAdminRevenueDashboard } from "../../Services/dashboardService";
 import { ORDER_STATUS_META, PAYMENT_STATUS_META, getStatusMeta } from "../../utils/config";
 import "./Dashboard.css";
+import { formatPrice } from "../../utils/formatPrice";
 
 export default function AdminDashboardPage() {
   const [dashboard, setDashboard] = useState(null);
@@ -113,8 +114,8 @@ export default function AdminDashboardPage() {
     { label: "Today's Orders", value: dashboard.todayOrders ?? 0, icon: FaShoppingBag },
     { label: "Pending Orders", value: dashboard.pendingOrders ?? 0, icon: FaClock },
     { label: "Active Subscriptions", value: dashboard.activeSubscriptions ?? 0, icon: FaUserFriends },
-    { label: "Today's Revenue", value: `₹ ${dashboard.todayRevenue ?? 0}`, icon: FaRupeeSign },
-    { label: "Avg. Order Value", value: `₹ ${dashboard.averageOrderValue ?? 0}`, icon: FaChartLine },
+    { label: "Today's Revenue", value: `${formatPrice(dashboard.todayRevenue) ?? 0}`, icon: FaRupeeSign },
+    { label: "Avg. Order Value", value: `${formatPrice(dashboard.averageOrderValue) ?? 0}`, icon: FaChartLine },
   ];
 
   // RecentOrderProjection: providerOrderId, customerOrderId, customerName,
@@ -126,7 +127,7 @@ export default function AdminDashboardPage() {
       render: (order) => <span className="hb-table__name">#{order.providerOrderId}</span>,
     },
     { key: "customer", header: "Customer", render: (order) => order.customerName },
-    { key: "amount", header: "Amount", render: (order) => `₹ ${order.amount}` },
+    { key: "amount", header: "Amount", render: (order) => `${formatPrice(order.amount)}` },
     {
       key: "status",
       header: "Status",
@@ -142,7 +143,7 @@ export default function AdminDashboardPage() {
   const recentPaymentColumns = [
     { key: "customer", header: "Customer", render: (payment) => payment.customerName },
     { key: "provider", header: "Provider", render: (payment) => payment.providerName },
-    { key: "amount", header: "Amount", render: (payment) => `₹ ${payment.amount}` },
+    { key: "amount", header: "Amount", render: (payment) => `${formatPrice(payment.amount)}` },
     {
       key: "status",
       header: "Status",

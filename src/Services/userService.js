@@ -1,12 +1,20 @@
 import { PrivateApiClient, PublicApiClient } from "./apiHelper";
 
 // get all users - role, search
-export const getAllUsers = async (filters = {}, page = 0, size = 5) => {
-    const params = { page, size };
+export const getAllUsers = async (filters = {}) => {
+    const params = {};
+    if (filters.page) params.page = filters.page;
+    if (filters.size) params.size = filters.size;
     if (filters.userRole) params.userRole = filters.userRole;
     if (filters.search) params.search = filters.search;
 
     return await PrivateApiClient.get(`/api/v1/users/`, { params })
+        .then((response) => response.data)
+}
+
+// get user by id
+export const getUserById = async (userId) => {
+    return await PrivateApiClient.get(`/api/v1/users/${userId}`)
         .then((response) => response.data)
 }
 
@@ -17,8 +25,8 @@ export const updateUserDetails = async (userId, data) => {
 }
 
 // get business details
-export const getBusinessDetails = async (providerId) => {
-    return await PrivateApiClient.get(`/api/v1/users/business-details?providerId=${providerId}`)
+export const getUserDetails = async (providerId) => {
+    return await PrivateApiClient.get(`/api/v1/users/user-details?providerId=${providerId}`)
         .then((response) => response.data)
 }
 

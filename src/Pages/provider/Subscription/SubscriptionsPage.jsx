@@ -18,20 +18,15 @@
 // favor of just Enable/Disable).
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
-import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
 import FiltersBar from "../../../Components/tables/FiltersBar";
 import DataTable from "../../../Components/tables/DataTable";
 import StatusBadge from "../../../Components/tables/StatusBadge";
-import TableActionButton from "../../../Components/tables/TableActionButton";
-import ConfirmDialog from "../../../Components/common/ConfirmDialog";
 import ErrorState from "../../../Components/common/ErrorState";
 import { guessStatusVariant } from "../../../utils/statusVariant";
-import "./Customers.css";
+import "./Subscriptions.css";
 import { useUserInfo } from "../../../Context/UserContext";
 import {
-    getTiffinPlansOfProvider,
     addTiffinPlan,
     updateTiffinPlan,
     toggleTiffinPlan,
@@ -40,17 +35,17 @@ import {
 import { getUserSubscriptions } from "../../../Services/subscriptionService";
 import { SUB_STATUS_META, SUB_STATUS_OPTIONS } from "../../../utils/config";
 import { getStatusMeta } from "../../../utils/config";
-import { getAllUsers } from "../../../Services/userService";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const PAGE_SIZE = 5;
 const SEARCH_DEBOUNCE_MS = 500;
 
-export default function CustomersPage() {
+export default function SubscriptionsPage() {
     const { getUserInfo } = useUserInfo();
     const user = getUserInfo();
     const providerId = user?.userId;
 
-    const [customers, setCustomers] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -73,11 +68,11 @@ export default function CustomersPage() {
     const [deleteTarget, setDeleteTarget] = useState(null);
 
     // --- Fetch tiffin plans from the server, respecting current filters + page ---
-    const fetchCustomers = useCallback(() => {
+    const fetchSubscriptions = useCallback(() => {
         if (!providerId) return Promise.resolve();
 
         const filters = {
-            userRole: "ROLE_NORMAL_USER",
+            status: statusFilter === "ALL" ? null : statusFilter,
             search: search.trim() === "" ? null : search.trim(),
         };
 
@@ -86,15 +81,15 @@ export default function CustomersPage() {
 
         // 👇 Extend getTiffinPlansOfProvider in TiffinPlanService.js to accept
         // page/size and pass them through as query params.
-        return getAllUsers(filters, page, PAGE_SIZE)
+        return getUserSubscriptions(providerId, filters, page, PAGE_SIZE)
             .then((response) => {
-                setCustomers(response.content);
+                setSubscriptions(response.content);
                 setTotalPages(response.totalPages);
                 setTotalElements(response.totalElements);
             })
             .catch((err) => {
                 console.error(err);
-                setError(err?.response?.data?.message ? err?.response?.data?.message : "Couldn't load customers. Please check your connection and try again.");
+                setError("Couldn't load user subscriptions. Please check your connection and try again.");
             })
             .finally(() => {
                 setLoading(false);
@@ -109,11 +104,11 @@ export default function CustomersPage() {
     // Debounced — covers the first load too, no separate "on mount" fetch needed.
     useEffect(() => {
         const timer = setTimeout(() => {
-            fetchCustomers();
+            fetchSubscriptions();
         }, SEARCH_DEBOUNCE_MS);
 
         return () => clearTimeout(timer);
-    }, [fetchCustomers]);
+    }, [fetchSubscriptions]);
 
     const handleResetFilters = () => {
         setSearch("");
@@ -145,7 +140,7 @@ export default function CustomersPage() {
                 const response = await addTiffinPlan(providerId, formData);
                 toast.success(response?.message ?? "Tiffin plan created successfully..!");
             }
-            await fetchCustomers();
+            await fetchSubscriptions();
         } catch (err) {
             console.error(err);
             // Your backend returns 409 with a specific "already exists" message
@@ -161,7 +156,7 @@ export default function CustomersPage() {
         try {
             await toggleTiffinPlan(providerId, planId, !isActive);
             toast.success(isActive ? "Tiffin plan deactivated." : "Tiffin plan activated.");
-            await fetchCustomers();
+            await fetchSubscriptions();
         } catch (err) {
             console.error(err);
             toast.error("Couldn't update status. Please try again.");
@@ -177,7 +172,7 @@ export default function CustomersPage() {
         try {
             await deleteTiffinPlan(target.id, providerId);
             toast.success("Tiffin plan deleted successfully..!");
-            await fetchCustomers();
+            await fetchSubscriptions();
         } catch (err) {
             console.error(err);
             toast.error("Couldn't delete this plan. Please try again.");
@@ -189,46 +184,130 @@ export default function CustomersPage() {
     // --- Column config for the generic <DataTable /> ---
     const columns = [
         {
-            key: "name",
-            header: "Customer Name",
+            key: "subscriber",
+            header: "Subscriber",
             render: (sub) => (
                 <>
-                    <div className="hb-table__name">{sub.firstName} {sub.lastName}</div>
-                    {/* <div className="hb-table__desc">{sub.phoneNo} - {sub.emailId}</div> */}
+                    <div className="hb-table__name">{sub.customerName}</div>
+                    <div className="hb-table__desc">{sub.phoneNo} - {sub.emailId}</div>
                 </>)
         },
         {
-            key: "emailId",
-            header: "Email Id",
-            render: (sub) => sub.emailId,
+            key: "planName",
+            header: "Plan Name",
+            render: (sub) => <div className="hb-table__name">{sub.planName}</div>,
         },
         {
-            key: "phoneNo",
-            header: "Phone No.",
-            render: (sub) => <div className="hb-table__desc"> +91{sub.phoneNo}</div>,
+            key: "validity",
+            header: "Validity",
+            render: (sub) => `${sub.validityDays} days`,
         },
         {
-            key: "dob",
-            header: "Dob",
+            key: "meals",
+            header: "Meals Included",
             render: (sub) => (
-                sub.dob ? new Date(sub.dob).toLocaleDateString() : "—"
+                <div className="hb-meal-badges">
+                    <span className={`hb-meal-badge ${sub.includesBreakfast ? "hb-meal-badge--on" : ""}`}>
+                        B
+                    </span>
+                    <span className={`hb-meal-badge ${sub.includesLunch ? "hb-meal-badge--on" : ""}`}>
+                        L
+                    </span>
+                    <span className={`hb-meal-badge ${sub.includesDinner ? "hb-meal-badge--on" : ""}`}>
+                        D
+                    </span>
+                </div>
             ),
         },
         {
-            key: "gender",
-            header: "Gender",
+            key: "pricing",
+            header: "Pricing",
             render: (sub) => (
-                sub.gender ? sub.gender : "—"
+                <div className="hb-table__desc">
+                    {sub.includesBreakfast && <div>B: {formatPrice(sub.breakfastPrice)}</div>}
+                    {sub.includesLunch && <div>L: {formatPrice(sub.lunchPrice)}</div>}
+                    {sub.includesDinner && <div>D: {formatPrice(sub.dinnerPrice)}</div>}
+                </div>
+            ),
+        },
+        {
+            key: "startDate",
+            header: "Start Date",
+            render: (sub) => {
+                const startDate = sub.startDate ? new Date(sub.startDate) : null;
+                return (startDate) ? (
+                    <>
+                        <div>{startDate.toLocaleDateString()}</div>
+                        {/* <div className="hb-table__desc">{date.toLocaleTimeString()}</div> */}
+                    </>
+                ) : (
+                    "—"
+                );
+            },
+        },
+        {
+            key: "endDate",
+            header: "End Date",
+            render: (sub) => {
+                const endDate = sub.currentEndDate ? new Date(sub.currentEndDate) : null;
+                return (endDate) ? (
+                    <>
+                        <div>{endDate.toLocaleDateString()}</div>
+                        <div className="hb-table__desc">{endDate.toLocaleDateString()}</div>
+                    </>
+                ) : (
+                    "—"
+                );
+            },
+        },
+        {
+            key: "status",
+            header: "Status",
+            render: (sub) => (
+                <StatusBadge label={sub.status} variant={guessStatusVariant(sub.status)} />
             ),
         },
         // {
-        //     key: "status",
-        //     header: "Status",
-        //     render: (item) => (
-        //         <StatusBadge
-        //             label={item.active ? "Active" : "Inactive"}
-        //             variant={item.active ? "success" : "danger"}
-        //         />
+        //     key: "actions",
+        //     header: "Actions",
+        //     render: (plan) => (
+        //         <div className="hb-table__actions">
+        //             <TableActionButton
+        //                 variant="update"
+        //                 icon={FaEdit}
+        //                 iconOnly
+        //                 label="Update"
+        //                 onClick={() => openEditModal(plan)}
+        //                 disabled={processingId === plan.id}
+        //             />
+        //             {plan.active ? (
+        //                 <TableActionButton
+        //                     variant="disable"
+        //                     icon={MdBlock}
+        //                     iconOnly
+        //                     label="Disable"
+        //                     onClick={() => toggleStatus(plan.id, plan.active)}
+        //                     disabled={processingId === plan.id}
+        //                 />
+        //             ) : (
+        //                 <TableActionButton
+        //                     variant="enable"
+        //                     icon={MdCheckCircle}
+        //                     iconOnly
+        //                     label="Enable"
+        //                     onClick={() => toggleStatus(plan.id, plan.active)}
+        //                     disabled={processingId === plan.id}
+        //                 />
+        //             )}
+        //             <TableActionButton
+        //                 variant="delete"
+        //                 icon={FaTrash}
+        //                 iconOnly
+        //                 label="Delete"
+        //                 onClick={() => setDeleteTarget(plan)}
+        //                 disabled={processingId === plan.id}
+        //             />
+        //         </div>
         //     ),
         // },
     ];
@@ -236,29 +315,62 @@ export default function CustomersPage() {
     return (
         <div className="hb-tiffinplans hb-list-page">
             <div className="hb-tiffinplans__header">
-                <h1 className="hb-tiffinplans__title">Customers</h1>
+                <h1 className="hb-tiffinplans__title">User Subscriptions</h1>
+                {/* <button type="button" className="btn hb-btn-primary" onClick={openAddModal}>
+                    <FaPlus className="me-2" /> Add New Plan
+                </button> */}
             </div>
 
-            {error && <ErrorState message={error} onRetry={fetchCustomers} />}
+            {error && <ErrorState message={error} onRetry={fetchSubscriptions} />}
 
             <FiltersBar
-                search={{ value: search, onChange: setSearch, placeholder: "Search customers..." }}
+                search={{ value: search, onChange: setSearch, placeholder: "Search subscriptions..." }}
+                filters={[
+                    {
+                        key: "status",
+                        value: statusFilter,
+                        onChange: setStatusFilter,
+                        allLabel: "All Status",
+                        options: SUB_STATUS_OPTIONS.map((status) => ({
+                            label: getStatusMeta(SUB_STATUS_META, status).label,
+                            value: status,
+                        })),
+                    },
+                ]}
                 onReset={handleResetFilters}
             />
 
             <DataTable
                 columns={columns}
-                data={customers}
-                rowKey={(user) => user.userId}
-                emptyMessage="No customers match your search/filters."
+                data={subscriptions}
+                rowKey={(sub) => sub.id}
+                emptyMessage="No subscriptions match your search/filters."
                 isLoading={loading}
-                loadingMessage="Loading customers..."
+                loadingMessage="Loading user subscriptions..."
                 page={page}
                 totalPages={totalPages}
                 totalElements={totalElements}
                 pageSize={PAGE_SIZE}
                 onPageChange={setPage}
             />
+
+            {/* <TiffinPlanFormModal
+                isOpen={modalOpen}
+                mode={modalMode}
+                initialData={editingPlan}
+                onSave={handleSave}
+                onClose={() => setModalOpen(false)}
+            />
+
+            <ConfirmDialog
+                isOpen={!!deleteTarget}
+                title="Delete tiffin plan"
+                message={`Are you sure you want to delete "${deleteTarget?.planName}"? This can't be undone.`}
+                confirmLabel="Delete"
+                variant="danger"
+                onConfirm={confirmDelete}
+                onCancel={() => setDeleteTarget(null)}
+            /> */}
         </div>
     );
 }

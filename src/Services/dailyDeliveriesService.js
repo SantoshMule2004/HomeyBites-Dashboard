@@ -5,6 +5,7 @@ export const getTodaysDeliveries = async (filters = {}, page = 0, size = 5) => {
 
     if (filters.mealType) params.mealType = filters.mealType;
     if (filters.search) params.search = filters.search;
+    if (filters.status) params.status = filters.status;
 
     const response = await PrivateApiClient.get(`/api/v1/daily-delivery`, { params });
     return response.data;

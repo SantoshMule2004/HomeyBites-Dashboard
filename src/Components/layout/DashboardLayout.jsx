@@ -8,7 +8,7 @@ import logo from '../../assets/images/logo.png';
 import { useUserInfo } from "../../Context/UserContext";
 import { getAllCategories } from "../../Services/menuService";
 import { useMenuItems } from "../../Context/MenuItemContext";
-import { getBusinessDetails } from '../../Services/userService';
+import { getUserDetails } from '../../Services/userService';
 
 
 export default function DashboardLayout() {
@@ -27,16 +27,17 @@ export default function DashboardLayout() {
   }, [])
 
   const preFetch = () => {
-    if (user?.userRole === "ROLE_TIFFIN_PROVIDER") {
-      getAllCategories().then((response) => {
-        setCategories(response)
-        // console.log("Categories: ", response)
-      }).catch((error) => {
-        console.log(error)
-      })
+    getAllCategories().then((response) => {
+      setCategories(response)
+      // console.log("Categories: ", response)
+    }).catch((error) => {
+      console.log(error)
+    })
 
-      getBusinessDetails(user?.userId).then((response) => {
-        setBusinessDetails(response)
+    if (user?.userRole === "ROLE_TIFFIN_PROVIDER") {
+      getUserDetails(user?.userId).then((response) => {
+        const data = response
+        setBusinessDetails(data)
         console.log("fetched business details", response)
       }).catch((error) => {
         console.log(error)

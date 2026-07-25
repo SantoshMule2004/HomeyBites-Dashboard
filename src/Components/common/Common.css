@@ -263,3 +263,101 @@
   color: #146c43;
   margin-top: 6px;
 }
+
+/* --- Detail summary: label/value rows, used inside <DetailModal /> for
+   "view details" style content (e.g. a provider's business info) --- */
+.hb-detail-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.hb-detail-summary__row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-detail-summary__label {
+  flex-shrink: 0;
+  width: 150px;
+  color: #888888;
+  font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+  .hb-detail-summary__row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hb-detail-summary__label {
+    width: auto;
+  }
+}
+
+/* --- Kebab (three-dot) row action menu --- */
+.hb-kebab {
+  position: relative;
+  display: inline-block;
+}
+
+.hb-kebab__trigger {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #777777;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.hb-kebab__trigger:hover {
+  background-color: #f2f2f2;
+}
+
+.hb-kebab__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  min-width: 190px;
+  padding: 6px;
+  z-index: 30;
+}
+
+.hb-kebab__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--hb-text-dark, #222222);
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hb-kebab__item:hover {
+  background-color: #f5f5f5;
+}
+
+.hb-kebab__item-icon {
+  color: var(--hb-accent, #ff7a1a);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}

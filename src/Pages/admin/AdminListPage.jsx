@@ -30,7 +30,7 @@ import FiltersBar from "../../Components/tables/FiltersBar";
 import DateFilter from "../../Components/tables/DateFilter";
 import DataTable from "../../Components/tables/DataTable";
 
-const PAGE_SIZE_DEFAULT = 8;
+const PAGE_SIZE_DEFAULT = 10;
 const SEARCH_DEBOUNCE_MS = 500;
 
 export default function AdminListPage({
@@ -42,7 +42,8 @@ export default function AdminListPage({
   useDateFilter = true,
   pageSize = PAGE_SIZE_DEFAULT,
   emptyMessage = "No records match your search/filters.",
-  fetchFn,
+  fetchFn, 
+  userRole = "ROLE_ADMIN"
 }) {
 
   const today = new Date().toLocaleDateString('en-CA');
@@ -71,8 +72,8 @@ export default function AdminListPage({
     setLoading(true);
     setError(null);
 
-    const params = { page, size: pageSize };
-    if (search.trim()) params.search = search.trim();
+    const params = { page, size: pageSize, userRole };
+    params.search = search.trim() === "" ? null : search.trim();
     filterDefs.forEach((f) => {
       if (filterValues[f.key] && filterValues[f.key] !== "ALL") {
         params[f.key] = filterValues[f.key];

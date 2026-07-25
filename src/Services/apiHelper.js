@@ -57,6 +57,6 @@ PrivateApiClient.interceptors.response.use((response) => {
   return Promise.reject(error)
 })
 
-// const API_BASE_URL = "https://homeybites.onrender.com ";
+// const API_BASE_URL = "https://homeybites.onrender.com";
 // const API_BASE_URL_RAILWAY = "https://homeybites-production.up.railway.app ";
 // Local URL = http://localhost:8080

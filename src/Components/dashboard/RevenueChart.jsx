@@ -6,6 +6,7 @@
 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import "./Dashboard.css";
+import { formatPrice } from "../../utils/formatPrice";
 
 function RevenueTooltip({ active, payload, label, yKey }) {
   if (!active || !payload?.length) return null;
@@ -14,7 +15,7 @@ function RevenueTooltip({ active, payload, label, yKey }) {
   return (
     <div className="hb-revenue-chart__tooltip">
       <div className="hb-revenue-chart__tooltip-label">{label}</div>
-      <div>Revenue: ₹ {point[yKey]}</div>
+      <div>Revenue: {formatPrice(point[yKey])}</div>
       {point.paymentCount !== undefined && <div>Payments: {point.paymentCount}</div>}
       {point.refundCount !== undefined && <div>Refunds: {point.refundCount}</div>}
     </div>

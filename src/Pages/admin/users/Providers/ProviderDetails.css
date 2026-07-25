@@ -1,0 +1,64 @@
+/* src/pages/Orders/Orders.css
+   Only what's specific to THIS page and its modals — the order summary
+   block + order items table inside OrderItemsModal. The page header,
+   search/filters, table, status badges, and action buttons are all shared
+   — see src/components/common/Common.css (PageHeader),
+   src/components/tables/Table.css, and src/components/Modal.css. */
+
+/* --- Order summary block, inside OrderItemsModal --- */
+.hb-order-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.hb-order-summary__row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--hb-text-dark, #222222);
+}
+
+.hb-order-summary__label {
+  flex-shrink: 0;
+  width: 130px;
+  color: #888888;
+  font-weight: 600;
+}
+
+/* --- Order items table, inside OrderItemsModal --- */
+.hb-order-items-table {
+  width: 100%;
+}
+
+.hb-order-items-table thead th {
+  position: static; /* no sticky header needed inside a small modal table */
+  background-color: #f7f7f7;
+  color: var(--hb-text-dark, #222222);
+  font-size: 0.85rem;
+  padding: 10px 12px;
+}
+
+.hb-order-items-table tbody td,
+.hb-order-items-table tfoot td {
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+.hb-order-items-table tfoot td {
+  border-top: 2px solid #eeeeee;
+}
+
+@media (max-width: 575.98px) {
+  .hb-order-summary__row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hb-order-summary__label {
+    width: auto;
+  }
+}

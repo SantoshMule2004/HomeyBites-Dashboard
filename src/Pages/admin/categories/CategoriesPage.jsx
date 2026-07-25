@@ -285,7 +285,7 @@ export default function CategoriesPage() {
             <DataTable
                 columns={columns}
                 data={categories}
-                rowKey={(plan) => plan.id}
+                rowKey={(plan) => plan.categoryId}
                 emptyMessage="No categories match your search/filters."
                 isLoading={loading}
                 loadingMessage="Loading categories..."

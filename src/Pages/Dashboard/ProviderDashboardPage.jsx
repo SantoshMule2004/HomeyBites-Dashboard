@@ -29,6 +29,7 @@ import { getProviderDashboard, getProviderRevenueDashboard } from "../../Service
 import { ORDER_STATUS_META, getStatusMeta } from "../../utils/config";
 import { guessStatusVariant } from "../../utils/statusVariant";
 import "./Dashboard.css";
+import { formatPrice } from "../../utils/formatPrice";
 
 export default function ProviderDashboardPage() {
   const { getUserInfo } = useUserInfo();
@@ -117,14 +118,14 @@ export default function ProviderDashboardPage() {
   if (!dashboard) return null;
 
   const cards = [
-    { label: "Today's Revenue", value: `₹ ${dashboard.todayRevenue ?? 0}`, icon: FaRupeeSign },
+    { label: "Today's Revenue", value: `${ formatPrice(dashboard.todayRevenue) ?? 0}`, icon: FaRupeeSign },
     { label: "Today's Orders", value: dashboard.todayOrders ?? 0, icon: FaShoppingBag },
     { label: "Pending Orders", value: dashboard.pendingOrders ?? 0, icon: FaClock },
     { label: "Active Subscriptions", value: dashboard.activeSubscriptions ?? 0, icon: FaUsers },
     { label: "Today's Subscriptions", value: dashboard.todaySubscriptions ?? 0, icon: FaCalendarDay },
     { label: "Total Menu Items", value: dashboard.totalMenuItems ?? 0, icon: FaUtensils },
     { label: "Active Plans", value: dashboard.activePlans ?? 0, icon: FaClipboardList },
-    { label: "Avg. Order Value", value: `₹ ${dashboard.averageOrderValue ?? 0}`, icon: FaChartLine },
+    { label: "Avg. Order Value", value: `${ formatPrice(dashboard.averageOrderValue) ?? 0}`, icon: FaChartLine },
   ];
 
   // RecentOrderProjection: providerOrderId, customerOrderId, customerName,
@@ -136,7 +137,7 @@ export default function ProviderDashboardPage() {
       render: (order) => <span className="hb-table__name">#{order.providerOrderId}</span>,
     },
     { key: "customer", header: "Customer", render: (order) => order.customerName },
-    { key: "amount", header: "Amount", render: (order) => `₹ ${order.amount}` },
+    { key: "amount", header: "Amount", render: (order) => `${ formatPrice(order.amount)}` },
     {
       key: "status",
       header: "Status",

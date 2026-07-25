@@ -335,7 +335,7 @@ export default function BusinessInfoSection({ data, providerId, onSave }) {
         <Field
           label="Service Radius (km)"
           field="serviceRadius"
-          value={`${Number(data.serviceRadius) / 1000} km`}
+          value={`${data.serviceRadius} km`}
           type="number"
           isEditing={isEditing}
           form={form}

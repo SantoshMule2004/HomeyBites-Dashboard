@@ -25,8 +25,18 @@ export const getUpcomingHolidays = async () => {
 }
 
 // get all holidays
-export const getAllHolidays = async () => {
-    const response = await PrivateApiClient.get(`/api/v1/provider/holidays/all`)
+export const getAllHolidays = async (filters = {}) => {
+    const params = {};
+    if (filters.page) params.page = filters.page;
+    if (filters.size) params.size = filters.size;
+
+    const response = await PrivateApiClient.get(`/api/v1/provider/holidays/all`, { params })
+    return response.data
+}
+
+// get all holidays for admin
+export const getAllHolidaysForAdmin = async (providerId, params) => {
+    const response = await PrivateApiClient.get(`/api/v1/provider/holidays/all/${providerId}`)
     return response.data
 }
 
