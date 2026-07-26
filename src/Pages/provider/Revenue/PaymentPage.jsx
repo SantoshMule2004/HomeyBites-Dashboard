@@ -13,7 +13,7 @@
 // the UI instead of it being an invisible backend default.
 
 import { useCallback, useEffect, useState } from "react";
-import { FaEye, FaEdit } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import FiltersBar from "../../../Components/tables/FiltersBar";
 import DateFilter from "../../../Components/tables/DateFilter";
@@ -22,10 +22,7 @@ import StatusBadge from "../../../Components/tables/StatusBadge";
 import TableActionButton from "../../../Components/tables/TableActionButton";
 import ErrorState from "../../../Components/common/ErrorState";
 import PageHeader from "../../../Components/common/PageHeader";
-import PaymentItemsModal from "./PaymentItemsModal";
 import {
-    ORDER_STATUS_OPTIONS,
-    ORDER_STATUS_META,
     PAYMENT_STATUS_OPTIONS,
     PAYMENT_STATUS_META,
     getStatusMeta,
@@ -34,13 +31,10 @@ import {
 } from "../../../utils/config";
 import "./Payments.css";
 import { useUserInfo } from "../../../Context/UserContext";
-import { getProviderOrders, updateOrderStatus } from "../../../Services/orderService";
 import { getProviderPayments, updatePaymentStatus } from "../../../Services/paymentService";
 import UpdatePaymentStatusModal from "./UpdatePaymentStatusModal";
 import { formatPrice } from "../../../utils/formatPrice";
-
-const PAGE_SIZE = 8;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function PaymentPage() {
     const today = new Date().toLocaleDateString('en-CA');

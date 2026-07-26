@@ -7,10 +7,9 @@
 // Tiffin Plans, Orders, Subscriptions, etc.
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaPlus, FaEdit, FaTrash, FaImage } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
-import FiltersBar from "../../../Components/tables/FiltersBar";
 import DataTable from "../../../Components/tables/DataTable";
 import StatusBadge from "../../../Components/tables/StatusBadge";
 import TableActionButton from "../../../Components/tables/TableActionButton";
@@ -19,20 +18,10 @@ import ErrorState from "../../../Components/common/ErrorState";
 import ProviderHolidayModal from "./ProviderHolidayModal";
 import "./providers.css";
 import { useUserInfo } from "../../../Context/UserContext";
-import {
-  addMenuItemWithImage,
-  deleteMenuItem,
-  getMenuItemsOfProvider,
-  toggleMenuItem,
-  updateMenuItem,
-  uploadMenuItemImage,
-} from "../../../Services/menuService";
 import { useMenuItems } from "../../../Context/MenuItemContext";
 import { addProviderHoliday, deleteProviderHoliday, getAllHolidays, toggleProviderHolidayStatus, updateProviderHoliday } from "../../../Services/providerHolidayService";
 import PageHeader from "../../../Components/common/PageHeader";
-
-const PAGE_SIZE = 10
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function ProviderHolidaysPage() {
   const [providerHolidays, setProviderHolidays] = useState([]);

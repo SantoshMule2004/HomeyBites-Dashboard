@@ -17,12 +17,11 @@
 // delete later and I'll adjust the UI (e.g. drop the Delete button in
 // favor of just Enable/Disable).
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
 
-import FiltersBar from '../../../Components/tables/FiltersBar';
 import DataTable from "../../../Components/tables/DataTable";
 import StatusBadge from "../../../Components/tables/StatusBadge";
 import TableActionButton from "../../../Components/tables/TableActionButton";
@@ -32,17 +31,8 @@ import PageHeader from "../../../Components/common/PageHeader";
 import CategoryFormModal from "./CategoryFormModal";
 import "./Categories.css";
 import { useUserInfo } from "../../../Context/UserContext";
-import {
-    getTiffinPlansOfProvider,
-    addTiffinPlan,
-    updateTiffinPlan,
-    toggleTiffinPlan,
-    deleteTiffinPlan,
-} from "../../../Services/tiffinPlanService";
 import { addCategory, deleteCategory, getAllCategories, updateCategory } from "../../../Services/menuService";
-
-const PAGE_SIZE = 5;
-const SEARCH_DEBOUNCE_MS = 500;
+import { SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function CategoriesPage() {
     const { getUserInfo } = useUserInfo();

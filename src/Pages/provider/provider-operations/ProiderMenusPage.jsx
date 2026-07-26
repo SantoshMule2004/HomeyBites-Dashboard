@@ -6,11 +6,10 @@
 // LoadingSpinner, ErrorState) — the same Components you can reuse on
 // Tiffin Plans, Orders, Subscriptions, etc.
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaPlus, FaEdit, FaTrash, FaImage } from "react-icons/fa";
+import { useCallback, useEffect, useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
-import FiltersBar from "../../../Components/tables/FiltersBar";
 import DataTable from "../../../Components/tables/DataTable";
 import StatusBadge from "../../../Components/tables/StatusBadge";
 import TableActionButton from "../../../Components/tables/TableActionButton";
@@ -18,12 +17,9 @@ import ConfirmDialog from "../../../Components/common/ConfirmDialog";
 import ErrorState from "../../../Components/common/ErrorState";
 import "./providers.css";
 import ProviderMenuModal from './ProviderMenuModal';
-import { useUserInfo } from "../../../Context/UserContext";
 import PageHeader from "../../../Components/common/PageHeader";
 import { deleteProviderMenu, getAllMenus, toggleProviderMenuStatus, updateProviderMenuitems } from "../../../Services/providerMenuService";
-
-const PAGE_SIZE = 5
-const SEARCH_DEBOUNCE_MS = 500;
+import { SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function ProviderMenusPage() {
   const [providerMenus, setProviderMenus] = useState([]);

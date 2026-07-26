@@ -17,33 +17,22 @@
 // delete later and I'll adjust the UI (e.g. drop the Delete button in
 // favor of just Enable/Disable).
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
-import { MdBlock, MdCheckCircle } from "react-icons/md";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import FiltersBar from "../../../Components/tables/FiltersBar";
 import DataTable from "../../../Components/tables/DataTable";
-import StatusBadge from "../../../Components/tables/StatusBadge";
-import TableActionButton from "../../../Components/tables/TableActionButton";
-import ConfirmDialog from "../../../Components/common/ConfirmDialog";
 import ErrorState from "../../../Components/common/ErrorState";
-import { guessStatusVariant } from "../../../utils/statusVariant";
 import "./Customers.css";
 import { useUserInfo } from "../../../Context/UserContext";
 import {
-    getTiffinPlansOfProvider,
     addTiffinPlan,
     updateTiffinPlan,
     toggleTiffinPlan,
     deleteTiffinPlan,
 } from "../../../Services/tiffinPlanService";
-import { getUserSubscriptions } from "../../../Services/subscriptionService";
-import { SUB_STATUS_META, SUB_STATUS_OPTIONS } from "../../../utils/config";
-import { getStatusMeta } from "../../../utils/config";
 import { getAllUsers } from "../../../Services/userService";
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
-const PAGE_SIZE = 5;
-const SEARCH_DEBOUNCE_MS = 500;
 
 export default function CustomersPage() {
     const { getUserInfo } = useUserInfo();

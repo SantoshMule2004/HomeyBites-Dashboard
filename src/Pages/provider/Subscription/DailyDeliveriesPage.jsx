@@ -13,10 +13,9 @@
 // the UI instead of it being an invisible backend default.
 
 import { useCallback, useEffect, useState } from "react";
-import { FaEye, FaEdit } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import FiltersBar from "../../../Components/tables/FiltersBar";
-import DateFilter from "../../../Components/tables/DateFilter";
 import DataTable from "../../../Components/tables/DataTable";
 import StatusBadge from "../../../Components/tables/StatusBadge";
 import TableActionButton from "../../../Components/tables/TableActionButton";
@@ -24,13 +23,10 @@ import ErrorState from "../../../Components/common/ErrorState";
 import PageHeader from "../../../Components/common/PageHeader";
 import "./Deliveries.css";
 import { useUserInfo } from "../../../Context/UserContext";
-import { getProviderOrders, updateOrderStatus } from "../../../Services/orderService";
 import { getTodaysDeliveries, updateDeliveryStatus } from "../../../Services/dailyDeliveriesService";
 import UpdateDeliveryStatusModal from "./UpdateDeliveryStatusModal";
 import { MENU_TYPE_OPTIONS, DELIVERY_STATUS_META, DELIVERY_STATUS_OPTIONS, getStatusMeta } from "../../../utils/config";
-
-const PAGE_SIZE = 8;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 const todayIso = () => new Date().toISOString().slice(0, 10);
 

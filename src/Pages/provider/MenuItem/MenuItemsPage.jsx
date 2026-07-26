@@ -31,9 +31,7 @@ import {
 } from "../../../Services/menuService";
 import { useMenuItems } from "../../../Context/MenuItemContext";
 import { formatPrice } from "../../../utils/formatPrice";
-
-const PAGE_SIZE = 5;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function MenuItemsPage({ providerId: providerIdProp, readOnly = false, pageTitle }) {
   const [menuItems, setMenuItems] = useState([]);

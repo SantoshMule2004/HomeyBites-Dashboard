@@ -9,7 +9,7 @@
 
 import { useParams, useLocation } from "react-router-dom";
 import AdminListPage from "../../AdminListPage";
-import { getAllHolidays, getAllHolidaysForAdmin } from "../../../../Services/providerHolidayService";
+import { getAllHolidaysForAdmin } from "../../../../Services/providerHolidayService";
 import StatusBadge from "../../../../Components/tables/StatusBadge";
 
 export default function AdminProviderHolidaysPage() {

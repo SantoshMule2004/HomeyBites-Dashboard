@@ -9,13 +9,14 @@ import { getAdminPayments } from "../../../Services/paymentService";
 import StatusBadge from "../../../Components/tables/StatusBadge";
 import AdminListPage from "../AdminListPage";
 import { PAYMENT_STATUS_OPTIONS, PAYMENT_STATUS_META, getStatusMeta, PAYMENT_METHOD_OPTIONS, PAYMENT_METHOD_META } from "../../../utils/config";
+import { formatPrice } from "../../../utils/formatPrice";
 
 const columns = [
   { key: "customer", header: "Customer", render: (payment) => payment.customerName },
   { key: "provider", header: "Provider", render: (payment) => payment.providerName },
-  { key: "amount", header: "Amount", render: (payment) => `₹ ${payment.amount}` },
+  { key: "amount", header: "Amount", render: (payment) => `${formatPrice(payment.amount)}` },
   { key: "type", header: "Type", render: (payment) => `${payment.paymentType}` },
-  { key: "method", header: "Method", render: (payment) => payment.paymentMethod },
+  { key: "method", header: "Method", render: (payment) => payment.paymentMethod ? payment.paymentMethod : "—" },
   {
     key: "status",
     header: "Status",

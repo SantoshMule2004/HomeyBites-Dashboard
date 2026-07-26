@@ -17,7 +17,7 @@
 // delete later and I'll adjust the UI (e.g. drop the Delete button in
 // favor of just Enable/Disable).
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { MdBlock, MdCheckCircle } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -39,9 +39,7 @@ import {
   deleteTiffinPlan,
 } from "../../../Services/tiffinPlanService";
 import { formatPrice } from "../../../utils/formatPrice";
-
-const PAGE_SIZE = 5;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function TiffinPlansPage({ providerId: providerIdProp, readOnly = false, pageTitle }) {
   const { getUserInfo } = useUserInfo();

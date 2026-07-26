@@ -29,9 +29,7 @@ import ErrorState from "../../Components/common/ErrorState";
 import FiltersBar from "../../Components/tables/FiltersBar";
 import DateFilter from "../../Components/tables/DateFilter";
 import DataTable from "../../Components/tables/DataTable";
-
-const PAGE_SIZE_DEFAULT = 10;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../utils/constants";
 
 export default function AdminListPage({
   title,
@@ -40,7 +38,7 @@ export default function AdminListPage({
   searchPlaceholder = "Search...",
   filterDefs = [], // [{ key, allLabel, options }]
   useDateFilter = true,
-  pageSize = PAGE_SIZE_DEFAULT,
+  pageSize = PAGE_SIZE,
   emptyMessage = "No records match your search/filters.",
   fetchFn, 
   userRole = "ROLE_ADMIN"

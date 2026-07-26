@@ -21,12 +21,9 @@
 // image" call and the separate "update image" call used when editing.
 
 import { useEffect, useState } from "react";
-import { FaCamera } from "react-icons/fa";
 import "../../../Components/tables/Table.css";
 import "../../../Components/Modal.css";
 import "./providers.css";
-
-const MAX_IMAGE_SIZE_MB = 5;
 
 const emptyForm = {
   closedDate: "",

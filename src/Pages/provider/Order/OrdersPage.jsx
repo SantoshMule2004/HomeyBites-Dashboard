@@ -35,9 +35,7 @@ import "./Orders.css";
 import { useUserInfo } from "../../../Context/UserContext";
 import { getProviderOrders, updateOrderStatus } from "../../../Services/orderService";
 import { formatPrice } from "../../../utils/formatPrice";
-
-const PAGE_SIZE = 8;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function OrdersPage() {
   const today = new Date().toLocaleDateString('en-CA');

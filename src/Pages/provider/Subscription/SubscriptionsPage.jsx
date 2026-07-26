@@ -26,19 +26,11 @@ import ErrorState from "../../../Components/common/ErrorState";
 import { guessStatusVariant } from "../../../utils/statusVariant";
 import "./Subscriptions.css";
 import { useUserInfo } from "../../../Context/UserContext";
-import {
-    addTiffinPlan,
-    updateTiffinPlan,
-    toggleTiffinPlan,
-    deleteTiffinPlan,
-} from "../../../Services/tiffinPlanService";
 import { getUserSubscriptions } from "../../../Services/subscriptionService";
 import { SUB_STATUS_META, SUB_STATUS_OPTIONS } from "../../../utils/config";
 import { getStatusMeta } from "../../../utils/config";
 import { formatPrice } from "../../../utils/formatPrice";
-
-const PAGE_SIZE = 5;
-const SEARCH_DEBOUNCE_MS = 500;
+import { PAGE_SIZE, SEARCH_DEBOUNCE_MS } from "../../../utils/constants";
 
 export default function SubscriptionsPage() {
     const { getUserInfo } = useUserInfo();
@@ -253,7 +245,7 @@ export default function SubscriptionsPage() {
                 return (endDate) ? (
                     <>
                         <div>{endDate.toLocaleDateString()}</div>
-                        <div className="hb-table__desc">{endDate.toLocaleDateString()}</div>
+                        {/* <div className="hb-table__desc">{endDate.toLocaleDateString()}</div> */}
                     </>
                 ) : (
                     "—"
